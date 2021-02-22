@@ -99,7 +99,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/cases/CaseVisual.gd"
 }, {
-"base": "Reference",
+"base": "KinematicBody2D",
 "class": "classCharacter",
 "language": "GDScript",
 "path": "res://src/game/characters/Character.gd"
@@ -268,7 +268,7 @@ _global_script_class_icons={
 "classCase": "",
 "classCaseManager": "",
 "classCaseVisual": "",
-"classCharacter": "",
+"classCharacter": "res://assets/textures/class_icons/classCharacter.png",
 "classCharacterAnimations": "",
 "classContainer": "",
 "classDoor": "",

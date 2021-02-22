@@ -36,10 +36,10 @@ func setup(target_id : String):
 		_place_description_label.text = town_state.get_place_description()
 		_description_label.text = town_state.get_description()
 
-		var win_conditions := town_state.get_human_readable_conditions()
+#		var win_conditions := town_state.get_human_readable_conditions()
 		_conditions_label.text = ""
-		for condition in win_conditions:
-			_conditions_label.text += (condition + "")
+#		for condition in win_conditions:
+#			_conditions_label.text += (condition + "")
 
 	pass
 

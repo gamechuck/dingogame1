@@ -9,7 +9,7 @@ onready var _quit_button := $PanelContainer/VBoxContainer/VBoxContainer/QuitButt
 
 func _ready():
 	var _error : int = _start_button.connect("pressed", self, "_on_start_button_pressed")
-	_error = _how_to_play_button.connect("pressed", self, "_on_how_to_play_button_pressed")
+#	_error = _how_to_play_button.connect("pressed", self, "_on_how_to_play_button_pressed")
 	_error = _settings_button.connect("pressed", self, "_on_settings_button_pressed")
 
 	# Hide quick start button in case this is game build.
@@ -34,14 +34,15 @@ func update_tab():
 	$PanelContainer/VBoxContainer/VBoxContainer/ControlSchemeHBox.update_setting()
 
 func _on_quick_start_button_pressed():
-	State.set_quick_start_level()
 	Flow.change_scene_to("game")
+#	State.set_quick_start_level()
 
 func _on_start_button_pressed():
-	emit_signal("button_pressed", TABS.WORLD_MAP)
+	Flow.change_scene_to("game")
+#	emit_signal("button_pressed", TABS.WORLD_MAP)
 
-func _on_how_to_play_button_pressed():
-	emit_signal("button_pressed", TABS.HOW_TO_PLAY)
+#func _on_how_to_play_button_pressed():
+#	emit_signal("button_pressed", TABS.HOW_TO_PLAY)
 
-func _on_settings_button_pressed():
-	emit_signal("button_pressed", TABS.SETTINGS)
+#func _on_settings_button_pressed():
+#	emit_signal("button_pressed", TABS.SETTINGS)

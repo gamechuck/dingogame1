@@ -4,13 +4,13 @@ extends Node2D
 ################################################################################
 ## CONSTANTS
 
-const SCENE_CASE_VISUAL := preload("res://src/cases/CaseVisual.tscn")
-const SCENE_AUDIO_SOURCE_VISUAL := preload("res://src/misc/AudioSourceVisual.tscn")
+#const SCENE_CASE_VISUAL := preload("res://src/cases/CaseVisual.tscn")
+#const SCENE_AUDIO_SOURCE_VISUAL := preload("res://src/misc/AudioSourceVisual.tscn")
 const SCENE_PLAYER := preload("res://src/game/characters/Player.tscn")
-const CHARACTER_SCENES := {
-	"villager": preload("res://src/game/characters/npcs/Villager.tscn"),
-	"mayor": preload("res://src/game/characters/npcs/Mayor.tscn")
-}
+#const CHARACTER_SCENES := {
+#	"villager": preload("res://src/game/characters/npcs/Villager.tscn"),
+#	"mayor": preload("res://src/game/characters/npcs/Mayor.tscn")
+#}
 
 ################################################################################
 ## PUBLIC VARIABLES
@@ -93,16 +93,16 @@ var _interactable_data := {
 # stores navpath requests that NPCs requested;
 # these are processed once every frame so there's no lag
 # in meantime, NPCs just wait for their request to get processed
-var _navpath_request_queue := []
-
-var _current_day_phase : int = State.DAY_STATE.DAY
-var _dawn_color := Color(0.8, 0.8, 0.8, 1.0)
-var _day_color := Color(0.8, 0.8, 0.8, 1)
-var _dusk_color := Color(0.8, 0.8, 0.8, 1)
-var _night_color := Color(0.8, 0.8, 0.8, 1)
-var _current_color := Color(0.8, 0.8, 0.8, 1)
-var _can_fade_day_phase := false
-var _fade_speed_ratio := 0.05
+#var _navpath_request_queue := []
+#
+#var _current_day_phase : int = State.DAY_STATE.DAY
+#var _dawn_color := Color(0.8, 0.8, 0.8, 1.0)
+#var _day_color := Color(0.8, 0.8, 0.8, 1)
+#var _dusk_color := Color(0.8, 0.8, 0.8, 1)
+#var _night_color := Color(0.8, 0.8, 0.8, 1)
+#var _current_color := Color(0.8, 0.8, 0.8, 1)
+#var _can_fade_day_phase := false
+#var _fade_speed_ratio := 0.05
 
 ################################################################################
 ## SIGNALS
@@ -124,7 +124,7 @@ func _ready():
 	_spawn_player()
 	_spawn_interactables()
 	_connect_signals()
-	_apply_debug_settings()
+#	_apply_debug_settings()
 
 #	_navigation.remove_child(_nav_map)
 #	_nav_map.queue_free()

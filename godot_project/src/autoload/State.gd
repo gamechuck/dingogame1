@@ -16,10 +16,14 @@ enum DAY_STATE { DAWN, DAY, DUSK, NIGHT }
 ## SIGNALS
 
 signal game_state_changed # new_state
+# warning-ignore:unused_signal
 signal npc_count_alive_changed
 signal player_overlay_update_requested
+# warning-ignore:unused_signal
 signal day_phase_updated
+# warning-ignore:unused_signal
 signal day_phase_time_updated
+# warning-ignore:unused_signal
 signal day_time_updated
 
 
@@ -205,9 +209,9 @@ func save_state_to_context() -> Dictionary:
 
 #func reset_town_state():
 #	case_manager.cases.clear()
-
-func set_quick_start_level() -> void:
-	town_id = "town_01"
+#
+#func set_quick_start_level() -> void:
+#	town_id = "town_01"
 
 ################################################################################
 ## SIGNAL CALLBACKS
@@ -223,6 +227,6 @@ func _on_game_lost() -> void:
 # This would also get rid of having to push ALL the arguments...
 func _on_player_overlay_update_requested(value : int, is_attacking := false, is_running := false) -> void:
 	emit_signal("player_overlay_update_requested", value, is_attacking, is_running)
-
-func _on_npc_count_alive_changed() -> void:
-	emit_signal("npc_count_alive_changed")
+#
+#func _on_npc_count_alive_changed() -> void:
+#	emit_signal("npc_count_alive_changed")

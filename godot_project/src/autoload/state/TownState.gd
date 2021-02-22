@@ -21,7 +21,7 @@ func set_context(value : Dictionary) -> void:
 	id = value.id
 	completed = value.get("completed", false)
 
-	npc_groups = value.get("npc_groups", {}).duplicate(true)
+#	npc_groups = value.get("npc_groups", {}).duplicate(true)
 	player_state = value.get("player", {}).duplicate(true)
 	pass
 
