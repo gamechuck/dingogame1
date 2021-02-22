@@ -2,44 +2,44 @@ class_name classTownState
 extends Reference
 
 const DEFAULT_THUMBNAIL_TEXTURE := "res://ndh-assets/UI/thumbnails/thumbnail.png"
-
-var id := ""
-var completed := false
-var in_progress := false
-var npc_groups := {}
-var player_state := {}
-
-#var day_phase_state := {} setget set_day_state
-#func set_day_state(value : Dictionary) -> void:
-#	day_phase_state = value
-
-var context : Dictionary setget set_context, get_context
-func set_context(value : Dictionary) -> void:
-	if not value.has("id"):
-		push_error("Mission context requires id!")
-
-	id = value.id
-	completed = value.get("completed", false)
-
-#	npc_groups = value.get("npc_groups", {}).duplicate(true)
-	player_state = value.get("player", {}).duplicate(true)
-	pass
-
-func get_context() -> Dictionary:
+#
+#var id := ""
+#var completed := false
+#var in_progress := false
+#var npc_groups := {}
+#var player_state := {}
+#
+##var day_phase_state := {} setget set_day_state
+##func set_day_state(value : Dictionary) -> void:
+##	day_phase_state = value
+#
+#var context : Dictionary setget set_context, get_context
+#func set_context(value : Dictionary) -> void:
+#	if not value.has("id"):
+#		push_error("Mission context requires id!")
+#
+#	id = value.id
+#	completed = value.get("completed", false)
+#
+##	npc_groups = value.get("npc_groups", {}).duplicate(true)
+#	player_state = value.get("player", {}).duplicate(true)
+#	pass
+#
+#func get_context() -> Dictionary:
 	# Don't save the town if it is NOT in_progress nor completed!
-	if not completed and not in_progress:
-		return {}
-
-	var _context := {}
-	_context.id = id
-	if completed:
-		_context.completed = true
-	if in_progress:
-		_context.in_progress = true
-
-	_context.npc_groups = npc_groups
-
-	return _context
+#	if not completed and not in_progress:
+#		return {}
+#
+#	var _context := {}
+#	_context.id = id
+#	if completed:
+#		_context.completed = true
+#	if in_progress:
+#		_context.in_progress = true
+#
+#	_context.npc_groups = npc_groups
+#
+#	return _context
 
 #var locked : bool setget , get_locked
 #func get_locked():
@@ -75,14 +75,14 @@ func get_context() -> Dictionary:
 #func get_win_conditions():
 #	# The default is to kill all the npcs!
 #	return Flow.get_town_data(id, "win_conditions", ["kill_all"])
-
-var packed_scene : String setget , get_packed_scene
-func get_packed_scene():
-	return Flow.get_town_data(id, "packed_scene", "res://src/game/towns/Town_01.tscn")
-
-var debug_level := false setget , get_is_debug_level
-func get_is_debug_level():
-	return Flow.get_town_data(id, "debug", false)
+#
+#var packed_scene : String setget , get_packed_scene
+#func get_packed_scene():
+#	return Flow.get_town_data(id, "packed_scene", "res://src/game/towns/Town_01.tscn")
+#
+#var debug_level := false setget , get_is_debug_level
+#func get_is_debug_level():
+#	return Flow.get_town_data(id, "debug", false)
 
 #func get_human_readable_conditions() -> Array:
 #	var conditions := self.win_conditions

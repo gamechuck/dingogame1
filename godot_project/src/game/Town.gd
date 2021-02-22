@@ -16,7 +16,7 @@ const SCENE_PLAYER := preload("res://src/game/characters/Player.tscn")
 ## PUBLIC VARIABLES
 
 # keeps reference to its own town state
-var town_state : classTownState
+#var town_state : classTownState
 
 #var npc_groups_alive : Dictionary setget set_npc_groups_alive
 #func set_npc_groups_alive(v : Dictionary) -> void:
@@ -74,21 +74,19 @@ var town_state : classTownState
 
 onready var _players := $Sorted/Characters/Players
 onready var _npcs := $Sorted/Characters/NPCs
-onready var _interactables_tilemap := $Sorted/InteractablesTileMap
 onready var _interactables_root := $Sorted/Objects
-onready var _navigation := $Misc/Navigation
-onready var _nav_map := $Misc/Navigation/NavMap
-onready var _case_visuals := $Misc/CaseVisuals
-onready var _audio_source_visuals := $Misc/AudioSourceVisuals
-onready var _waypoint_manager := $Misc/WaypointManager
+#onready var _interactables_tilemap := $Sorted/InteractablesTileMap
+#onready var _navigation := $Misc/Navigation
+#onready var _nav_map := $Misc/Navigation/NavMap
+#onready var _case_visuals := $Misc/CaseVisuals
+#onready var _audio_source_visuals := $Misc/AudioSourceVisuals
+#onready var _waypoint_manager := $Misc/WaypointManager
 onready var _player_spawn_point := $Misc/PlayerSpawnPoint
-onready var _sight_occlusion_tilemap := $Misc/SightOcclusionTilemap
+#onready var _sight_occlusion_tilemap := $Misc/SightOcclusionTilemap
 
 # ray casted when getting navpath
-onready var _waypoint_ray := $Misc/WaypointRay
+#onready var _waypoint_ray := $Misc/WaypointRay
 var _interactables := []
-var _interactable_data := {
-}
 
 # stores navpath requests that NPCs requested;
 # these are processed once every frame so there's no lag
@@ -115,8 +113,8 @@ signal game_lost
 ## GODOT CALLBACKS
 
 func _ready():
-	town_state = State.get_town_state_by_id(State.town_id)
-	_interactable_data = Flow.interactable_data
+#	town_state = State.get_town_state_by_id(State.town_id)
+#	_interactable_data =
 #	set_npc_groups_alive(town_state.npc_groups)
 #	_setup_day_phase()
 	_spawn_level()
@@ -223,22 +221,22 @@ func get_player() -> classPlayer:
 #################################################################################
 ### PRIVATE FUNCTIONS
 #
-func _apply_debug_settings() -> void:
-	var show_navmap : bool = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_NAVMAP
-	# sometimes people disable both nodes so this makes sure both are updated
-	_navigation.visible = show_navmap
-	_nav_map.visible = false
-
-	_case_visuals.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_CASE_VISUALS
-
-	var show_waypoints : bool = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_WAYPOINTS
-	_waypoint_manager.visible = show_waypoints
-	_player_spawn_point.visible = show_waypoints
-
-	_interactables_tilemap.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_SPAWN_TILEMAP
-	_interactables_tilemap.modulate = Color(1.0, 0.1, 0.1, 0.5)
-
-	_sight_occlusion_tilemap.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_SIGHT_OCCLUSION
+#func _apply_debug_settings() -> void:
+#	var show_navmap : bool = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_NAVMAP
+#	# sometimes people disable both nodes so this makes sure both are updated
+#	_navigation.visible = show_navmap
+#	_nav_map.visible = false
+#
+#	_case_visuals.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_CASE_VISUALS
+#
+#	var show_waypoints : bool = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_WAYPOINTS
+#	_waypoint_manager.visible = show_waypoints
+#	_player_spawn_point.visible = show_waypoints
+#
+#	_interactables_tilemap.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_SPAWN_TILEMAP
+#	_interactables_tilemap.modulate = Color(1.0, 0.1, 0.1, 0.5)
+#
+#	_sight_occlusion_tilemap.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_SIGHT_OCCLUSION
 
 func _connect_signals() -> void:
 	var bells := get_tree().get_nodes_in_group("bells")
@@ -370,8 +368,8 @@ func _spawn_npcs() -> void:
 	pass
 
 func _spawn_interactables() -> void:
-#	for interactable_name in _interactable_data:
-#		var interactable_entry : Dictionary = _interactable_data[interactable_name]
+#	for interactable_name in  Flow.interactable_data:
+#		var interactable_entry : Dictionary =  Flow.interactable_data[interactable_name]
 #		var tile_id = interactable_entry.get("tile_id")
 #		var packed_scene : PackedScene =  load(interactable_entry["packed_scene"])
 #		var parent : Node2D =  _interactables_root.get_node(interactable_entry["parent"])

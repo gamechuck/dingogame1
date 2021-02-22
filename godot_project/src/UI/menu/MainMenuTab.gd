@@ -1,23 +1,23 @@
 extends classMenuTab
 
-onready var _quick_start_button := $PanelContainer/VBoxContainer/VBoxContainer/QuickstartButton
+#onready var _quick_start_button := $PanelContainer/VBoxContainer/VBoxContainer/QuickstartButton
 
 onready var _start_button := $PanelContainer/VBoxContainer/VBoxContainer/StartButton
-onready var _how_to_play_button := $PanelContainer/VBoxContainer/VBoxContainer/HowToPlayButton
-onready var _settings_button := $PanelContainer/VBoxContainer/VBoxContainer/SettingsButton
+#onready var _how_to_play_button := $PanelContainer/VBoxContainer/VBoxContainer/HowToPlayButton
+#onready var _settings_button := $PanelContainer/VBoxContainer/VBoxContainer/SettingsButton
 onready var _quit_button := $PanelContainer/VBoxContainer/VBoxContainer/QuitButton
 
 func _ready():
 	var _error : int = _start_button.connect("pressed", self, "_on_start_button_pressed")
 #	_error = _how_to_play_button.connect("pressed", self, "_on_how_to_play_button_pressed")
-	_error = _settings_button.connect("pressed", self, "_on_settings_button_pressed")
+#	_error = _settings_button.connect("pressed", self, "_on_settings_button_pressed")
 
 	# Hide quick start button in case this is game build.
-	if OS.has_feature("standalone"):
-		_quick_start_button.hide()
-	else:
-		_quick_start_button.connect("pressed", self, "_on_quick_start_button_pressed")
-		_quick_start_button.show()
+#	if OS.has_feature("standalone"):
+#		_quick_start_button.hide()
+#	else:
+#		_quick_start_button.connect("pressed", self, "_on_quick_start_button_pressed")
+#		_quick_start_button.show()
 
 	# Hide the quit button if the OS is HTML!
 	# Since this button won't work anyway...

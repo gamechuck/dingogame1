@@ -8,10 +8,10 @@ func load_dataJSON() -> int:
 			"path": Flow.PATH_DATA_TOWNS,
 			"setter": funcref(self, "_set_towns_data")
 		},
-		"cases": {
-			"path": Flow.PATH_DATA_CASES,
-			"setter": funcref(self, "_set_cases_data")
-		},
+#		"cases": {
+#			"path": Flow.PATH_DATA_CASES,
+#			"setter": funcref(self, "_set_cases_data")
+#		},
 		"interactables" : {
 			"path": Flow.PATH_DATA_INTERACTABLES,
 			"setter": funcref(self, "_set_interactable_data")
@@ -46,10 +46,10 @@ func load_dataJSON() -> int:
 	return error
 
 func _set_towns_data(data : Dictionary) -> void:
-	Flow.towns_data = data.get("towns", [])
-
-func _set_cases_data(data : Dictionary) -> void:
-	Flow.cases_data = data
+	Flow.town_data = data.get("towns", [])
+#
+#func _set_cases_data(data : Dictionary) -> void:
+#	Flow.cases_data = data
 
 func _set_interactable_data(data : Dictionary) -> void:
 	Flow.interactable_data = data

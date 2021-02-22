@@ -8,18 +8,18 @@ onready var _state_label := $VB/PC/HB/StateLabel
 var game_state := 0 setget set_game_state
 func set_game_state(v : int) -> void:
 	game_state = v
-
-	if _state_label:
-		match game_state:
-			State.GAME_STATE.WIN:
-				if State.has_next_level():
-					_play_next_lvl_button.show()
-				else:
-					_play_next_lvl_button.hide()
-				_state_label.text = "You win!"
-			State.GAME_STATE.LOSE:
-				_play_next_lvl_button.hide()
-				_state_label.text = "You lose!"
+#
+#	if _state_label:
+#		match game_state:
+#			State.GAME_STATE.WIN:
+#				if State.has_next_level():
+#					_play_next_lvl_button.show()
+#				else:
+#					_play_next_lvl_button.hide()
+#				_state_label.text = "You win!"
+#			State.GAME_STATE.LOSE:
+#				_play_next_lvl_button.hide()
+#				_state_label.text = "You lose!"
 
 func _ready() -> void:
 	set_game_state(game_state)

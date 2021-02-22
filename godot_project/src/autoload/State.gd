@@ -57,10 +57,10 @@ func set_loaded_town(v : classTown) -> void:
 #	emit_signal("day_phase_updated", current_day_phase)
 
 # current town ID
-var town_id := "town_01"
+#var town_id := "town_01"
 
 # all classTownStates created from Towns JSON from Flow
-var town_states := {}
+#var town_states := {}
 #
 #var current_day_phase : int = DAY_STATE.DAY setget , get_current_day_phase
 #func get_current_day_phase() -> int:
@@ -126,9 +126,9 @@ func load_state_from_context(context : Dictionary):
 #	if case_manager:
 #		case_manager.cases.clear()
 
-	town_states.clear()
+#	town_states.clear()
 
-	town_id = context.get("town_id", town_id)
+#	town_id = context.get("town_id", town_id)
 
 #	init_towns()
 #	for town_context in context.get("towns", []):
@@ -137,18 +137,18 @@ func load_state_from_context(context : Dictionary):
 func save_state_to_context() -> Dictionary:
 	var context := {}
 
-	var context_dict := {
-		"towns": town_states.values()
-	}
+#	var context_dict := {
+#		"towns": town_states.values()
+#	}
 
-	context.town_id = town_id
-
-	for key in context_dict.keys():
-		context[key] = []
-		for context_owner in context_dict[key]:
-			var subcontext : Dictionary = context_owner.context
-			if not subcontext.empty():
-				context[key].append(subcontext)
+#	context.town_id = town_id
+#
+#	for key in context_dict.keys():
+#		context[key] = []
+#		for context_owner in context_dict[key]:
+#			var subcontext : Dictionary = context_owner.context
+#			if not subcontext.empty():
+#				context[key].append(subcontext)
 
 	return context
 
@@ -156,7 +156,7 @@ func save_state_to_context() -> Dictionary:
 
 # This function is responsible for reading towns data (setup from json file) in Flow.gd and create dict of TownsState objects.
 #func init_towns() -> void:
-#	for data in Flow.towns_data:
+#	for data in Flow.town_data:
 #		var ts := SCENE_TOWN_STATE.new()
 #		ts.id = data.get("id", "MISSING ID")
 #		ts.set_day_state(data.get("day_phases", ""))
@@ -225,8 +225,8 @@ func _on_game_lost() -> void:
 # TODO: Actually the player's HP, etc should be saved here in a sort of PlayerState.gd
 # In a similar way to the TownState.gd (maybe even INSIDE the townstate?)
 # This would also get rid of having to push ALL the arguments...
-func _on_player_overlay_update_requested(value : int, is_attacking := false, is_running := false) -> void:
-	emit_signal("player_overlay_update_requested", value, is_attacking, is_running)
+#func _on_player_overlay_update_requested(value : int, is_attacking := false, is_running := false) -> void:
+#	emit_signal("player_overlay_update_requested", value, is_attacking, is_running)
 #
 #func _on_npc_count_alive_changed() -> void:
 #	emit_signal("npc_count_alive_changed")

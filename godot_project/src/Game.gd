@@ -48,31 +48,28 @@ func _ready():
 #		update_current_camera()
 #		get_tree().set_input_as_handled()
 
-func _process(_delta):
-	var player : classPlayer = get_tree().get_nodes_in_group("players")[0]
-	if player and _update_cursor:
-		var player_to_mouse_angle := (get_global_mouse_position() - player.global_position).angle()
-		var player_to_mouse_direction : int = Flow.angle_to_direction(fposmod(player_to_mouse_angle, TAU))
-		Input.set_custom_mouse_cursor(DIRECTION_TO_CURSOR_TEXTURE[player_to_mouse_direction], Input.CURSOR_ARROW)
+#func _process(_delta):
+#	if State.loaded_town:
+#		var player : classPlayer = State.loaded_town.get_player()
+#		if player and _update_cursor:
+#			var player_to_mouse_angle := (get_global_mouse_position() - player.global_position).angle()
+#			var player_to_mouse_direction : int = Flow.angle_to_direction(fposmod(player_to_mouse_angle, TAU))
+#			Input.set_custom_mouse_cursor(DIRECTION_TO_CURSOR_TEXTURE[player_to_mouse_direction], Input.CURSOR_ARROW)
 
 func spawn_town() -> void:
 	# Clean up the cases in the State!
 	# Why here? Because this needs to be called BEFORE the DebugOverlay starts!
-	State.reset_town_state()
+#	State.reset_town_state()
 
 	for child in $ViewportContainer.get_children():
 		if child is classTown:
 			$ViewportContainer.remove_child(child)
 			child.queue_free()
 
-	var packed_scene : String = Flow.get_town_data(State.town_id, "packed_scene", "")
-	if packed_scene.empty():
-		push_error("Requested town with id '{0}' does not exist in data!".format([State.town_id]))
-	else:
-		var town_scene = load(packed_scene).instance()
-		$ViewportContainer.add_child(town_scene)
-		#TODO: Not sure if best way, but it works so: meh
-		_game_camera = (town_scene as classTown).get_player().get_camera()
+	var town_scene = load("Town").instance()
+	$ViewportContainer.add_child(town_scene)
+	#TODO: Not sure if best way, but it works so: meh
+	_game_camera = town_scene.get_player().get_camera()
 
 #func update_current_camera() -> void:
 #	if Flow.is_in_editor_mode:

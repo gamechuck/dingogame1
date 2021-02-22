@@ -34,8 +34,8 @@ const CURSOR_PRESSED_TEXTURE := preload("res://ndh-assets/UI/elements/cursor_pre
 var is_in_editor_mode := false
 
 # WHY is this an array? Towns need their order to be preserved!!!
-var towns_data := []
-var cases_data := {}
+var town_data := []
+#var cases_data := {}
 var interactable_data := {}
 var player_data := {}
 var npcs_data := {}
@@ -45,7 +45,7 @@ var npcs_data := {}
 
 onready var _controls_loader := $ControlsLoader
 onready var _data_loader := $DataLoader
-onready var _brain_maker := $BrainMaker
+#onready var _brain_maker := $BrainMaker
 
 var _game_flow := {
 	"menu": {
@@ -108,13 +108,13 @@ func load_settings() -> int:
 	var _error : int = ConfigData.load_optionsCFG()
 	_error += _controls_loader.load_controlsJSON()
 	_error += _data_loader.load_dataJSON()
-	_error += _brain_maker.load_brainsJSON()
-	_brain_maker.clear_brains()
-	_brain_maker.make_brains()
+#	_error += _brain_maker.load_brainsJSON()
+#	_brain_maker.clear_brains()
+#	_brain_maker.make_brains()
 
 	# Also load the default context..
 	# might autoload the user_context in the future here?
-	_error += State.load_stateJSON()
+#	_error += State.load_stateJSON()
 	if _error == OK:
 		if ConfigData.verbose_mode:
 			print("----> Succesfully loaded settings!")
@@ -198,7 +198,7 @@ func change_scene_to(key : String) -> void:
 ## TOWN
 
 func get_town_data(id : String, key : String, default):
-	for data in towns_data:
+	for data in town_data:
 		if data.get("id", "MISSING ID") == id:
 			return data.get(key, default)
 
