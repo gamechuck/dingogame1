@@ -2,29 +2,14 @@ class_name classPlayer
 extends classCharacter
 
 ################################################################################
-## CONSTANTS
-var FREEROAM_CAMERA_SPEED := 150.0
-#var INTERACT_PROMPT_OFFSET := Vector2(0, -40.0)
-#enum BODY_STATE { HUMAN, WOLF }
-
-################################################################################
-## PUBLIC VARIABLES
-
+## PRIVATE VARIABLES
 onready var _camera := $GameCamera
-# Mouse input stuff
-var _mouse_too_close := false
-# Movement noise
-var _movement_noise := 0.0
-onready var _movement_noises := {
-}
-onready var _sfx_footsteps := {
-}
+onready var _movement_noises := {}
+onready var _sfx_footsteps := {}
 onready var _sfx_attack_samples := []
 
-
-
-const _walk_speed = 50.0
-const _run_speed = 100.0
+var _walk_speed = 50.0
+var _run_speed = 100.0
 var _jump_speed : float = 60.0
 
 var _jumped : bool = false
@@ -54,14 +39,36 @@ func _ready() -> void:
 func _physics_process(delta : float) -> void:
 	if _can_update_animations:
 		_update_animation_state()
+	if alive:
+		if controllable:
+			_get_input()
+			_move(delta)
+			if not _is_interacting and  not _is_attacking:
+				if Input.is_action_just_pressed("interact"):
+					_interact()
+				if Input.is_action_just_pressed("attack_default"): # E KEY
+					pass
 
-	get_input()
+################################################################################
+## PUBLIC FUNCTIONS
+func get_camera() -> Camera2D:
+	return _camera as Camera2D
+
+################################################################################
+## PRIVATE FUNCTIONS
+func _setup_data() -> void:
+	pass
+
+func _connect_player_signals() -> void:
+	connect("died", self, "_on_died")
+
+func _move(delta : float) -> void:
+	move_and_slide(_velocity, Vector2.UP)
 	_velocity += (_gravity * delta)
 	if _jumped and _velocity.y > 0 and is_on_floor():
 		_jumped = false
-	move_and_slide(_velocity, Vector2.UP)
 
-func get_input():
+func _get_input():
 	if Input.is_action_just_pressed("move_up") and not _jumped:
 		_velocity.y = -_jump_speed
 		_jumped = true
@@ -79,68 +86,6 @@ func get_input():
 
 	_velocity = _velocity.normalized() * _movement_speed
 	_velocity.y = velocity_y
-
-#	if alive:#
-#		if not _is_interacting and controllable and not _is_attacking:
-#			is_moving = _velocity != Vector2.ZERO
-#			if _get_any_directional_key_pressed():
-#				is_running = is_moving and Input.is_action_pressed("sprint")
-#
-#			_update_speed()
-#			_move_with_keyboard()
-#
-#			if Input.is_action_just_pressed("interact"): # and _prompt.visible: # F KEY
-#				_interact()
-#			if Input.is_action_just_pressed("attack_default"): # E KEY
-#				pass
-#			if Input.is_action_just_pressed("attack_with_mouse"):
-#				pass
-#
-################################################################################
-## PUBLIC FUNCTIONS
-
-func get_camera() -> Camera2D:
-	return _camera as Camera2D
-
-func take_damage(amount : float, damager : Node2D) -> void:
-	if _debug_godmode: return
-
-	.take_damage(amount, damager)
-
-	_camera.shake(_camera.SHAKE_DURATION_TAKE_DAMAGE, _camera.SHAKE_STRENGTH_TAKE_DAMAGE)
-
-#	_drop_carried_character()
-
-	_is_attacking = false
-
-################################################################################
-## PRIVATE FUNCTIONS
-
-func _setup_data() -> void:
-	pass
-
-func _connect_player_signals() -> void:
-	connect("died", self, "_on_died")
-
-func _move_with_keyboard() -> void:
-	_move_direction = _get_move_direction_from_input()
-	_turn_towards_direction(_move_direction)
-	_move_in_direction(_move_direction)
-
-func _get_move_direction_from_input() -> Vector2:
-	var dir := Vector2()
-	if Input.is_action_pressed("move_left"):
-		dir.x -= 1
-	if Input.is_action_pressed("move_right"):
-		dir.x += 1
-
-	return dir.normalized()
-
-func _get_any_directional_key_pressed() -> bool:
-	if Input.is_action_pressed("move_down") or Input.is_action_pressed("move_up") or  Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
-		return true
-	else:
-		return false
 
 func _attack() -> void:
 	if _is_attacking: # or body_state == BODY_STATE.HUMAN or carried_character:
@@ -180,7 +125,6 @@ func _attack() -> void:
 	if npc_hit:
 		_camera.shake(_camera.SHAKE_DURATION_DEAL_DAMAGE, _camera.SHAKE_STRENGTH_DEAL_DAMAGE)
 
-# player's interact action; interacts with closest interactable
 func _interact() -> void:
 	# ignore if already interacting
 	if _is_interacting:
@@ -208,46 +152,6 @@ func _interact_with(interactable : Node2D) -> void:
 	_play_animation(classCharacterAnimations.ANIMATION_TYPE.INTERACT)
 	interactable.interact(self)
 
-func _set_camera_as_parent_child(value : bool) -> void:
-	if value:
-		var camera_position = _camera.global_position
-		remove_child(_camera)
-		get_parent().add_child(_camera)
-		_camera.global_position = camera_position
-	else:
-		get_parent().remove_child(_camera)
-		add_child(_camera)
-		_camera.position = Vector2.ZERO
-
-func set_hp(v : int, quiet := false) -> void: # override
-	.set_hp(v, quiet)
-
-func _update_speed() -> void:
-	# use godspeed if enabled
-	if ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_PLAYER_GODSPEED:
-		set_movement_speed(ConfigData.PLAYER_GODMODE_SPEED)
-		return
-
-	if is_running:
-		set_movement_speed(ConfigData.PLAYER_HUMAN_RUN_SPEED)
-	else:
-		set_movement_speed(ConfigData.PLAYER_HUMAN_WALK_SPEED)
-
-func _update_move_sfx_dict() -> void:
-	if is_moving:
-		var walk_state_key = Global.WALK_MODE.WALKING if not is_running else Global.WALK_MODE.RUNNING
-		var sound_region_key = Global.SOUND_REGION.DEFAULT
-#
-#		if is_in_wheat:
-#			sound_region_key = Global.SOUND_REGION.WHEAT
-#		elif is_on_floor:
-#			sound_region_key = Global.SOUND_REGION.FLOOR
-#		elif is_on_floor:
-#			sound_region_key = Global.SOUND_REGION.FLOOR
-
-		_movement_noise = _movement_noises.get(walk_state_key, _movement_noise).get(sound_region_key, _movement_noise)
-		_sfx_movement_samples =  _sfx_footsteps.get(walk_state_key).get(sound_region_key)
-
 func _update_animation_state() -> void:
 	if alive and not _is_attacking and not _is_interacting:
 		if _velocity == Vector2.ZERO:
@@ -257,7 +161,6 @@ func _update_animation_state() -> void:
 				_play_animation(classCharacterAnimations.ANIMATION_TYPE.WALK)
 			elif _movement_speed == _run_speed:
 				_play_animation(classCharacterAnimations.ANIMATION_TYPE.RUN)
-
 
 ################################################################################
 ## SIGNAL CALLBACKS

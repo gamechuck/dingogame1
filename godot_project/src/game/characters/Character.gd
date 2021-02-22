@@ -208,8 +208,7 @@ func activate_object(o : Node2D) -> void:
 func _connect_signals() -> void:
 	pass
 
-# warning-ignore:unused_argument
-func _play_animation(animation_type) -> void:
+func _play_animation(_animation_type) -> void:
 	pass
 
 func _play_move_sound() -> bool:
@@ -238,9 +237,6 @@ func _turn_towards_direction(dir : Vector2) -> void:
 	var target_angle := dir.angle()
 	var turn_distance : float = deg2rad(MOVEMENT_TURN_SPEED) * get_physics_process_delta_time()
 	_movement_angle = _move_angle_towards_angle(_movement_angle, target_angle, turn_distance)
-
-func _move_in_direction(direction : Vector2) -> void:
-	_velocity = move_and_slide(direction * _movement_speed)
 
 func _look_towards_angle(angle : float) -> void:
 	set_look_angle(_move_angle_towards_angle(_look_angle, angle, deg2rad(LOOK_SPEED) * get_physics_process_delta_time()))
