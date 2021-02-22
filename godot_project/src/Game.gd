@@ -1,4 +1,4 @@
-extends Control
+extends Node2D
 
 const DIRECTION_TO_CURSOR_TEXTURE := {
 	Global.DIRECTION.E: preload("res://ndh-assets/UI/elements/cursor_e.png"),
@@ -12,7 +12,7 @@ const DIRECTION_TO_CURSOR_TEXTURE := {
 }
 
 #onready var _editor_camera := $EditorCamera
-onready var _debug_overlay := $UI/DebugOverlay
+#onready var _debug_overlay := $UI/DebugOverlay
 
 var _game_camera : Camera2D
 #var _spectator_camera : Camera2D
@@ -22,25 +22,25 @@ var _update_cursor := false
 func _ready():
 	randomize()
 
-	if ConfigData.is_using_keyboard_input():
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-		_update_cursor = false
-	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		_update_cursor = true
+#	if ConfigData.is_using_keyboard_input():
+#		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+#		_update_cursor = false
+#	else:
+#		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+#		_update_cursor = true
 
 	spawn_town()
 
-	AudioEngine.play_music("town_idle")
-	AudioEngine.play_ambient("night_ambient")
+	#AudioEngine.play_music("town_idle")
+	#AudioEngine.play_ambient("night_ambient")
 
 #	_editor_camera.current = Flow.is_in_editor_mode
 #	_game_camera.current = not Flow.is_in_editor_mode
 
-	State.connect("game_state_changed", self, "_on_game_state_changed")
+#	State.connect("game_state_changed", self, "_on_game_state_changed")
 
 	# apply debug settings
-	_debug_overlay.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_DEBUG_OVERLAY
+#	_debug_overlay.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_DEBUG_OVERLAY
 
 #func _input(event: InputEvent) -> void:
 #	if event.is_action_pressed("toggle_editor_mode"):
@@ -57,6 +57,7 @@ func _ready():
 #			Input.set_custom_mouse_cursor(DIRECTION_TO_CURSOR_TEXTURE[player_to_mouse_direction], Input.CURSOR_ARROW)
 
 func spawn_town() -> void:
+	pass
 	# Clean up the cases in the State!
 	# Why here? Because this needs to be called BEFORE the DebugOverlay starts!
 #	State.reset_town_state()
@@ -65,10 +66,9 @@ func spawn_town() -> void:
 		if child is classTown:
 			$ViewportContainer.remove_child(child)
 			child.queue_free()
-
-	var town_scene = load("Town").instance()
+#
+	var town_scene = load("res://src/game/Town.tscn").instance()
 	$ViewportContainer.add_child(town_scene)
-	#TODO: Not sure if best way, but it works so: meh
 	_game_camera = town_scene.get_player().get_camera()
 
 #func update_current_camera() -> void:

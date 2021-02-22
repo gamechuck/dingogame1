@@ -31,7 +31,7 @@ func update_tab():
 	_start_button.grab_focus()
 
 	# Update the control scheme button here!
-	$PanelContainer/VBoxContainer/VBoxContainer/ControlSchemeHBox.update_setting()
+#	$PanelContainer/VBoxContainer/VBoxContainer/ControlSchemeHBox.update_setting()
 
 func _on_quick_start_button_pressed():
 	Flow.change_scene_to("game")

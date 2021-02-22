@@ -4,9 +4,9 @@ extends Node2D
 ################################################################################
 ## CONSTANTS
 
+const SCENE_PLAYER := preload("res://src/game/characters/Player.tscn")
 #const SCENE_CASE_VISUAL := preload("res://src/cases/CaseVisual.tscn")
 #const SCENE_AUDIO_SOURCE_VISUAL := preload("res://src/misc/AudioSourceVisual.tscn")
-const SCENE_PLAYER := preload("res://src/game/characters/Player.tscn")
 #const CHARACTER_SCENES := {
 #	"villager": preload("res://src/game/characters/npcs/Villager.tscn"),
 #	"mayor": preload("res://src/game/characters/npcs/Mayor.tscn")
@@ -105,9 +105,10 @@ var _interactables := []
 ################################################################################
 ## SIGNALS
 
-signal npc_count_alive_changed
-signal game_won
-signal game_lost
+# warning-ignore:unused_signal
+#signal npc_count_alive_changed
+#signal game_won
+#signal game_lost
 
 ################################################################################
 ## GODOT CALLBACKS
@@ -129,7 +130,8 @@ func _ready():
 
 	State.set_loaded_town(self)
 
-#func _process(_delta : float) -> void:
+func _process(_delta : float) -> void:
+	pass
 #	_update_case_visuals()
 	# process single navpath request
 #	if _navpath_request_queue.size() > 0:
@@ -139,150 +141,37 @@ func _ready():
 ################################################################################
 ## PUBLIC FUNCTIONS
 
-## FETCHING
-
 func get_player() -> classPlayer:
 	return _players.get_child(0) as classPlayer
 
-#func get_player_by_index(index : int) -> classPlayer:
-#	return _players.get_child(index) as classPlayer
-#
-#func get_random_waypoint_from_group(waypoint_group : String) -> classWaypoint:
-#	var waypoints = get_tree().get_nodes_in_group("waypoint_" + waypoint_group)
-#	return waypoints[randi() % waypoints.size()]
-
-## NPCS
-#
-#func get_npc_count(groups : Dictionary, group_id : String, npc_type : String) -> int:
-#	var group : Dictionary = groups.get(group_id, {})
-#	for npc in group.get("npcs", []):
-#		if npc.type == npc_type:
-#			return npc.get("count", -1)
-#	return -1
-
-#func get_npc_count_alive_by_type(npc_type : String) -> int:
-#	var count := 0
-#	for group in npc_groups_alive.values():
-#		for npc in group.get("npcs", []):
-#			if npc.type == npc_type:
-#				count += npc.count
-#	return count
-#
-#func get_npc_count_alive_by_group(group_id : String) -> int:
-#	var count := 0
-#	var group : Dictionary = npc_groups_alive.get(group_id, {})
-#	for npc in group.get("npcs", []):
-#		count += npc.count
-#	return count
-#
-#func get_npc_count_alive() -> int:
-#	var count := 0
-#	for group in npc_groups_alive.values():
-#		for npc in group.get("npcs", []):
-#			count += npc.count
-#	return count
-#
-#func get_npc_count_alive_for_mission() -> int:
-#	var count := 0
-#
-#	var win_conditions : Array = town_state.get_win_conditions()
-#	for win_condition in win_conditions:
-#		match win_condition:
-#			"kill_all":
-#				count = get_npc_count_alive()
-#			"kill_mayor":
-#				count = get_npc_count_alive_by_type("mayor")
-#
-#	return count
-#
-#func reduce_npc_count_alive(group_id : String, npc_type : String) -> void:
-##	print("Reducing '{0}' of group with id '{1}'".format([npc_type, group_id]))
-#	var group : Dictionary = npc_groups_alive.get(group_id, {})
-#	for npc in group.get("npcs", []):
-#		if npc.type == npc_type:
-#			npc.count -= 1
-#			break
-
-	# check if game won
-#	var won := true
-#	for win_condition in town_state.get_win_conditions():
-#			match win_condition:
-#				"kill_mayor":
-#					if get_npc_count_alive_by_type("mayor") > 0:
-#						won = false
-#						break
-#				"kill_all":
-#					if get_npc_count_alive() > 0:
-#						won = false
-#						break
-#	if won:
-##		emit_signal("game_won")
-#
-#################################################################################
-### PRIVATE FUNCTIONS
-#
-#func _apply_debug_settings() -> void:
-#	var show_navmap : bool = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_NAVMAP
-#	# sometimes people disable both nodes so this makes sure both are updated
-#	_navigation.visible = show_navmap
-#	_nav_map.visible = false
-#
-#	_case_visuals.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_CASE_VISUALS
-#
-#	var show_waypoints : bool = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_WAYPOINTS
-#	_waypoint_manager.visible = show_waypoints
-#	_player_spawn_point.visible = show_waypoints
-#
-#	_interactables_tilemap.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_SPAWN_TILEMAP
-#	_interactables_tilemap.modulate = Color(1.0, 0.1, 0.1, 0.5)
-#
-#	_sight_occlusion_tilemap.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_SIGHT_OCCLUSION
-
+################################################################################
+## PRIVATE FUNCTIONS
 func _connect_signals() -> void:
-	var bells := get_tree().get_nodes_in_group("bells")
 	var players := get_tree().get_nodes_in_group("players")
-	var characters := get_tree().get_nodes_in_group("characters")
+#	var characters := get_tree().get_nodes_in_group("characters")
 	var npcs := get_tree().get_nodes_in_group("npcs")
-
-	# bells
-	for bell in bells:
-		bell.connect("activated", self, "_on_bell_activated")
-		bell.connect("deactivated", self, "_on_bell_deactivated")
 
 	# players
 	for player in players:
 		player.connect("died", self, "_on_player_died")
-		player.connect("overlay_update_requested", State, "_on_player_overlay_update_requested")
+#		player.connect("overlay_update_requested", State, "_on_player_overlay_update_requested")
 
 	# characters
-	for character in characters:
-		character.connect("closest_object_requested", self, "_on_closest_object_requested", [character])
-		character.connect("nav_path_to_target_requested", self, "_on_nav_path_to_target_requested", [character])
-		character.connect("nav_path_to_position_requested", self, "_on_nav_path_to_position_requested", [character])
-		character.connect("random_waypoint_requested", self, "_on_character_random_waypoint_requested", [character])
-		character.connect("audio_source_spawn_requested", self, "_on_audio_source_spawn_requested")
-
-	# mouse detectors -> players
-	for mouse_detector in get_tree().get_nodes_in_group("mouse_detectors"):
-		for player in players:
-			mouse_detector.connect("mouse_entered", player, "_on_mouse_detector_mouse_entered", [mouse_detector])
-			mouse_detector.connect("mouse_exited", player, "_on_mouse_detector_mouse_exited")
+#	for character in characters:
+#		character.connect("closest_object_requested", self, "_on_closest_object_requested", [character])
 
 	# npcs
 	for npc in npcs:
 		npc.connect("died", self, "_on_npc_died", [npc])
-
-#	connect("npc_count_alive_changed", State, "_on_npc_count_alive_changed")
-#	connect("game_won", State, "_on_game_won")
-#	connect("game_lost", State, "_on_game_lost")
 
 ## SPAWNING
 func _spawn_level() -> void:
 	pass
 
 func _spawn_player() -> void:
-#	var player := SCENE_PLAYER.instance()
-#	_players.add_child(player)
+	var player := SCENE_PLAYER.instance()
+	_players.add_child(player)
+	_players.global_position = _player_spawn_point.global_position
 #
 #	var player_state : Dictionary = town_state.player_state
 #
@@ -401,6 +290,116 @@ func _spawn_interactables() -> void:
 #			interactable.connect("audio_source_spawn_requested", self, "_on_audio_source_spawn_requested")
 #			_interactables.append(interactable)
 	pass
+
+func _on_player_died() -> void:
+	for npc in _npcs.get_children():
+		npc._on_interrupt_player_died()
+	emit_signal("game_lost")
+
+#func get_player_by_index(index : int) -> classPlayer:
+#	return _players.get_child(index) as classPlayer
+#
+#func get_random_waypoint_from_group(waypoint_group : String) -> classWaypoint:
+#	var waypoints = get_tree().get_nodes_in_group("waypoint_" + waypoint_group)
+#	return waypoints[randi() % waypoints.size()]
+
+## NPCS
+#
+#func get_npc_count(groups : Dictionary, group_id : String, npc_type : String) -> int:
+#	var group : Dictionary = groups.get(group_id, {})
+#	for npc in group.get("npcs", []):
+#		if npc.type == npc_type:
+#			return npc.get("count", -1)
+#	return -1
+
+#func get_npc_count_alive_by_type(npc_type : String) -> int:
+#	var count := 0
+#	for group in npc_groups_alive.values():
+#		for npc in group.get("npcs", []):
+#			if npc.type == npc_type:
+#				count += npc.count
+#	return count
+#
+#func get_npc_count_alive_by_group(group_id : String) -> int:
+#	var count := 0
+#	var group : Dictionary = npc_groups_alive.get(group_id, {})
+#	for npc in group.get("npcs", []):
+#		count += npc.count
+#	return count
+#
+#func get_npc_count_alive() -> int:
+#	var count := 0
+#	for group in npc_groups_alive.values():
+#		for npc in group.get("npcs", []):
+#			count += npc.count
+#	return count
+#
+#func get_npc_count_alive_for_mission() -> int:
+#	var count := 0
+#
+#	var win_conditions : Array = town_state.get_win_conditions()
+#	for win_condition in win_conditions:
+#		match win_condition:
+#			"kill_all":
+#				count = get_npc_count_alive()
+#			"kill_mayor":
+#				count = get_npc_count_alive_by_type("mayor")
+#
+#	return count
+#
+#func reduce_npc_count_alive(group_id : String, npc_type : String) -> void:
+##	print("Reducing '{0}' of group with id '{1}'".format([npc_type, group_id]))
+#	var group : Dictionary = npc_groups_alive.get(group_id, {})
+#	for npc in group.get("npcs", []):
+#		if npc.type == npc_type:
+#			npc.count -= 1
+#			break
+
+	# check if game won
+#	var won := true
+#	for win_condition in town_state.get_win_conditions():
+#			match win_condition:
+#				"kill_mayor":
+#					if get_npc_count_alive_by_type("mayor") > 0:
+#						won = false
+#						break
+#				"kill_all":
+#					if get_npc_count_alive() > 0:
+#						won = false
+#						break
+#	if won:
+##		emit_signal("game_won")
+#
+#################################################################################
+### PRIVATE FUNCTIONS
+#
+#func _apply_debug_settings() -> void:
+#	var show_navmap : bool = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_NAVMAP
+#	# sometimes people disable both nodes so this makes sure both are updated
+#	_navigation.visible = show_navmap
+#	_nav_map.visible = false
+#
+#	_case_visuals.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_CASE_VISUALS
+#
+#	var show_waypoints : bool = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_WAYPOINTS
+#	_waypoint_manager.visible = show_waypoints
+#	_player_spawn_point.visible = show_waypoints
+#
+#	_interactables_tilemap.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_SPAWN_TILEMAP
+#	_interactables_tilemap.modulate = Color(1.0, 0.1, 0.1, 0.5)
+#
+#	_sight_occlusion_tilemap.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_SIGHT_OCCLUSION
+
+#	# mouse detectors -> players
+#	for mouse_detector in get_tree().get_nodes_in_group("mouse_detectors"):
+#		for player in players:
+#			mouse_detector.connect("mouse_entered", player, "_on_mouse_detector_mouse_entered", [mouse_detector])
+#			mouse_detector.connect("mouse_exited", player, "_on_mouse_detector_mouse_exited")
+
+
+#	connect("npc_count_alive_changed", State, "_on_npc_count_alive_changed")
+#	connect("game_won", State, "_on_game_won")
+#	connect("game_lost", State, "_on_game_lost")
 
 ## NAVIGATION
 # returns array of positions that leads from pos_start to pos_end
@@ -570,15 +569,10 @@ func _spawn_interactables() -> void:
 #	pass
 #	AudioEngine.play_music("town_idle")
 
-func _on_player_died() -> void:
-	for npc in _npcs.get_children():
-		npc._on_interrupt_player_died()
-	emit_signal("game_lost")
-
-func _on_npc_died(npc : classNPC) -> void:
-#	reduce_npc_count_alive(npc.npc_group_id, npc.type)
-	emit_signal("npc_count_alive_changed")
-#
+#func _on_npc_died(_npc : classNPC) -> void:
+##	reduce_npc_count_alive(npc.npc_group_id, npc.type)
+#	emit_signal("npc_count_alive_changed")
+##
 #func _on_audio_source_spawn_requested(source_owner : Node2D, spawn_position : Vector2, source_data : Dictionary) -> void:
 #	if not source_data or source_data.size() < 1:
 #		print("Town: audio source spawn requested, but no sourc data provided!")

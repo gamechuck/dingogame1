@@ -1,5 +1,6 @@
 extends Node
 
+
 ################################################################################
 ## CONSTANTS
 
@@ -49,11 +50,11 @@ onready var _data_loader := $DataLoader
 
 var _game_flow := {
 	"menu": {
-		"packed_scene": preload("res://src/Menu.tscn"),
+		"packed_scene": load("res://src/Menu.tscn"),
 		"state": STATE.MENU
 		},
 	"game": {
-		"packed_scene": preload("res://src/Game.tscn"),
+		"packed_scene": load("res://src/Game.tscn"),
 		"state": STATE.GAME
 		}
 	}

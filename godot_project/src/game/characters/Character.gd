@@ -4,20 +4,20 @@ extends KinematicBody2D
 ################################################################################
 ## CONSTANTS
 
-const COLOR_NAVPATH := Color(1, 0, 0)
-var NAVPATH_UPDATE_INTERVAL := 0.2 # [s]
+#const COLOR_NAVPATH := Color(1, 0, 0)
+#var NAVPATH_UPDATE_INTERVAL := 0.2 # [s]
 var MOVEMENT_TURN_SPEED := 540.0 # [degrees/s]
 var LOOK_SPEED := 540.0 # [degrees/s]
-var HUNT_TARGET_NOT_FOCUSED_DEBOUNCE := 1.5 # [s]
+#var HUNT_TARGET_NOT_FOCUSED_DEBOUNCE := 1.5 # [s]
 
 ################################################################################
 ## PUBLIC VARIABLES
 
 var controllable := false
-var is_in_wheat := false
-var is_in_container := false
-var is_on_carpet := false
-var is_on_floor := false
+#var is_in_wheat := false
+#var is_in_container := false
+#var is_on_carpet := false
+#var is_on_floor := false
 
 # only used by player for now
 var is_moving := false
@@ -26,33 +26,33 @@ var is_running := false
 var alive := true
 
 # allows the base class to know if it's hunting target atm or not
-var hunting_target := false
-
-# if true, character sprite will slightly shake
-# (implemented for NPC only)
-var panicking := false setget set_panicking
-func set_panicking(v : bool) -> void:
-	panicking = v
-
-var nav_path : PoolVector2Array = []
-
-var npc_group_id := ""
-var waypoint_group_ids := []
-
-var last_target_waypoint : classWaypoint
-
+##var hunting_target := false
+##
+### if true, character sprite will slightly shake
+### (implemented for NPC only)
+##var panicking := false setget set_panicking
+##func set_panicking(v : bool) -> void:
+##	panicking = v
+##
+##var nav_path : PoolVector2Array = []
+##
+##var npc_group_id := ""
+##var waypoint_group_ids := []
+##
+##var last_target_waypoint : classWaypoint
+#
 # health points
 var hp := 1 setget set_hp
-func set_hp(v : int, quiet := false) -> void:
+func set_hp(v : int, _quiet := false) -> void:
 	# make sure hp stays within boundaries
 	# warning-ignore:narrowing_conversion
 	v = clamp(v, 0, hp_max)
 
 	# play "taking damage" sfx if not quiet and new hp is smaller than or equal to current
-	if not quiet and v <= hp:
-		if _sfx_damaged_samples.size() > 0:
-			_sfx_take_damage.stream = _sfx_damaged_samples[randi() % _sfx_damaged_samples.size()]
-			_sfx_take_damage.play()
+#	if not quiet and v <= hp:
+#		if _sfx_damaged_samples.size() > 0:
+#			_sfx_take_damage.stream = _sfx_damaged_samples[randi() % _sfx_damaged_samples.size()]
+#			_sfx_take_damage.play()
 
 	# die if new hp is smaller than current and equal to 0
 	if v == 0 and v < hp:
@@ -60,14 +60,14 @@ func set_hp(v : int, quiet := false) -> void:
 
 	hp = v
 
-	_hp_bar.value = hp
+#	_hp_bar.value = hp
 
 # max health points; hp will not go above this value
 var hp_max := 3 setget set_hp_max
 func set_hp_max(v : int) -> void:
 	hp_max = v
 
-	_hp_bar.max_value = hp_max
+#	_hp_bar.max_value = hp_max
 
 # how much damage you deal when attacking
 var attack_power := 1
@@ -99,22 +99,21 @@ export var _on_damaged_noise := 50.0
 onready var _animated_sprite := $AnimatedSprite
 onready var _use_range := $UseRange
 onready var _attack_range := $AttackRange
-onready var _weapon_range : Area2D = null
-onready var _see_range := $SeeRange
-onready var _hear_range := $HearRange
-onready var _foot_range := $FootRange
 onready var _line_of_sight_ray := $LineOfSightRay
-onready var _gui := $GUI
-onready var _hp_bar := $GUI/AboveHead/HPBar
-onready var _name_label := $GUI/AboveHead/NameLabel
-onready var _navpath_update_delay := $NavpathUpdateDelay
 onready var _sfx_attack := $SFX/Attack
 onready var _sfx_death := $SFX/Death
 onready var _sfx_take_damage := $SFX/TakeDamage
 onready var _sfx_movement := $SFX/Movement
 onready var _damage_take_tween := $DamageTakeTween
-onready var _collision := $Collision
-onready var _shadow := $Shadow
+onready var _collision := $CollisionShape2D
+#onready var _shadow := $Shadow
+#onready var _see_range := $SeeRange
+#onready var _hear_range := $HearRange
+#onready var _foot_range := $FootRange
+#onready var _gui := $GUI
+#onready var _hp_bar := $GUI/AboveHead/HPBar
+#onready var _name_label := $GUI/AboveHead/NameLabel
+#onready var _navpath_update_delay := $NavpathUpdateDelay
 
 
 var _is_attacking := false
@@ -126,141 +125,75 @@ func set_movement_speed(v : float) -> void:
 var _run_movement_speed := 0.0
 var _movement_angle := 0.0
 var _velocity := Vector2.ZERO
-
-var _target_focused := false
-var _target_not_focused_duration := 0.0
-
+var _target : Node2D = null
 var _look_angle := 0.0 setget set_look_angle
 func set_look_angle(v : float) -> void:
 	_look_angle = v
-	_see_range.rotation = _look_angle
+#	_see_range.rotation = _look_angle
 
-var _target : Node2D = null
-
-# debug
-var _debug_godmode := false
-var _debug_draw_nav_path := false
-
-var _item : classItem = null
-var _chasing_target := false
-var _look_at_target := false
-var _looking_around := false
-var _looking_around_phase_offset : float
 var _last_attacker : Node2D
 var _current_direction : int = Global.DIRECTION.E
 var _move_direction : Vector2 = Vector2.ZERO
 
-# Knockback stuff
-var _is_knocked_back := false
-var _knockback_start_speed := 0.0
-var _current_knockback_speed := 0.0
-var _last_animation_type : int = classCharacterAnimations.ANIMATION_TYPE.NONE
-var _last_animation_dict : Dictionary = {}
+var _debug_godmode := false
 var _can_update_animations := true
-var _default_animations := {}
-var _in_wheat_animations := {}
-
 var _sfx_move_start_time = 0.0
 var _sfx_movement_samples := []
-var _using_navpath := false
-
 var _sfx_damaged_samples := []
+
+#var _target_focused := false
+#var _target_not_focused_duration := 0.0
+# debug
+#var _debug_draw_nav_path := false
+#
+#var _item : classItem = null
+#var _chasing_target := false
+#var _look_at_target := false
+#var _looking_around := false
+#var _looking_around_phase_offset : float
+#
+## Knockback stuff
+#var _is_knocked_back := false
+#var _knockback_start_speed := 0.0
+#var _current_knockback_speed := 0.0
+#var _last_animation_type : int = classCharacterAnimations.ANIMATION_TYPE.NONE
+#var _last_animation_dict : Dictionary = {}
+#var _default_animations := {}
+#var _in_wheat_animations := {}
+#
+#var _using_navpath := false
+#
 
 ################################################################################
 ## SIGNALS
 
 signal died
-signal closest_object_requested
-signal nav_path_to_target_requested
-signal nav_path_to_position_requested
-signal object_seen # object
-signal target_not_seen
-signal random_waypoint_requested
-signal audio_source_spawn_requested #Node2D owner, Vector2 spawn_position, float radius
+#signal closest_object_requested
+#signal nav_path_to_target_requested
+#signal nav_path_to_position_requested
+#signal object_seen # object
+#signal target_not_seen
+#signal random_waypoint_requested
+#signal audio_source_spawn_requested #Node2D owner, Vector2 spawn_position, float radius
 
 ################################################################################
 ## GODOT CALLBACKS
-
 func _ready() -> void:
 	add_to_group("characters")
 
-	_navpath_update_delay.one_shot = true
+#	_navpath_update_delay.one_shot = true
 	_animated_sprite.play("default")
 	set_hp_max(hp_max)
 	set_hp(hp_max, true)
-	_name_label.text = name
-	_looking_around_phase_offset = rand_range(0.0, TAU)
+#	_name_label.text = name
+#	_looking_around_phase_offset = rand_range(0.0, TAU)
 
 	_connect_signals()
 
-func _physics_process(delta : float) -> void:
-	_using_navpath = false
-	if not is_in_group("players"):
-		_velocity = Vector2.ZERO
+func _physics_process(_delta : float) -> void:
 	if alive:
-		_update_animation_dict()
-#		_update_shadow()
-#
-#		# moving
-#		if not _is_knocked_back:
-#			if _chasing_target:
-#				if _navpath_update_delay.time_left == 0.0:
-#					if _target:
-#						_update_path_to(_target, true)
-#					_navpath_update_delay.start(NAVPATH_UPDATE_INTERVAL)
-#				_move_on_nav_path(delta)
-#			elif follow_navpath:
-#				_move_on_nav_path(delta)
-
-		# looking
-#		if _looking_around:
-#			self._look_angle += 0.01 * sin(OS.get_ticks_msec() * 0.001 * TAU * 0.25 + _looking_around_phase_offset)
-#		else:
-#			if _chasing_target and _target and object_in_sight(_target):
-#				var angle := (_target.global_position - global_position).angle()
-#				_look_towards_angle(angle)
-#			else:
-#				_look_towards_angle(_movement_angle)
-#
-#		# checking if objects are seen + target
-#		var target_seen := false
-#		for o in get_objects_in_see_range():
-#			if o.name == name:
-#				continue
-#			if not object_in_sight(o):
-#				continue
-#			if o.is_in_group("players") and not o.seeable:
-#				continue
-#
-#			emit_signal("object_seen", o)
-#
-#			if _target and o.name == _target.name:
-#				target_seen = true
-#		if target_seen:
-#			_target_focused = true
-#			_target_not_focused_duration = 0.0
-#		else:
-#			_target_not_focused_duration += delta
-#
-#		# update target focused
-#		if _target_focused:
-#			# update hunted target state changes (ex. target entering a container)
-#			if _target and hunting_target:
-#				if _target.is_in_group("characters") and _target.is_in_container:
-#					set_target(_target.container)
-#				if _target.is_in_group("containers") and not _target.contained_character:
-#					set_target(_target.last_removed_character)
-#
-#			if _target_not_focused_duration >= HUNT_TARGET_NOT_FOCUSED_DEBOUNCE:
-#				_target_focused = false
-#				emit_signal("target_not_seen")
-#		else:
-#			pass
-
-		# update move direction state
-#		_current_direction = Flow.angle_to_direction(_movement_angle)
-
 		_play_move_sound()
+#
 
 ################################################################################
 ## PUBLIC FUNCTIONS
@@ -268,8 +201,8 @@ func _physics_process(delta : float) -> void:
 func set_target(new_target : Node2D) -> void:
 	# cleanup previous target first, ex. waypoints reserved bool
 	if _target:
-		if _target is classWaypoint:
-			_target.reserved = false
+#		if _target is classWaypoint:
+#			_target.reserved = false
 
 		_target = null
 
@@ -279,16 +212,16 @@ func get_target() -> Node2D:
 	return _target
 
 func die() -> void:
-	_gui.visible = false
+#	_gui.visible = false
 	alive = false
 	emit_signal("died")
 
 func get_objects_in_see_range() -> Array:
 	var objects := []
-	for o in _see_range.get_overlapping_bodies():
-		objects.append(o)
-	for o in _see_range.get_overlapping_areas():
-		objects.append(o)
+#	for o in _see_range.get_overlapping_bodies():
+#		objects.append(o)
+#	for o in _see_range.get_overlapping_areas():
+#		objects.append(o)
 	return objects
 
 func get_current_look_direction() -> int:
@@ -297,16 +230,39 @@ func get_current_look_direction() -> int:
 func get_current_look_vector() -> Vector2:
 	return Vector2(cos(_movement_angle), sin(_movement_angle))
 
-func turn_to_waypoint_direction(waypoint : classWaypoint) -> void:
-	_movement_angle = deg2rad(waypoint.direction)
-	set_look_angle(deg2rad(waypoint.direction))
+func object_in_sight(object : Node2D) -> bool:
+	if not object.visible:
+		return false
 
+	var ray : RayCast2D = _line_of_sight_ray
+
+	ray.cast_to = object.global_position - global_position
+
+	ray.clear_exceptions()
+	ray.add_exception(self)
+#	if is_in_container:
+#		ray.add_exception(container)
+	while true:
+		ray.force_raycast_update()
+		if not ray.is_colliding():
+			return false
+
+		var collider : Node2D = ray.get_collider()
+		# found it!
+		if collider.name == object.name:
+			return true
+		# ignore characters
+		elif collider.is_in_group("characters"):
+			ray.add_exception(collider)
+			continue
+		return false
+	return false
+#
 func turn_to_target() -> void:
 	var angle := global_position.angle_to(_target.global_position)
 	_movement_angle = angle
 	set_look_angle(angle)
 
-# AI / ACTIONS
 func look_at_object(object : Node2D) -> void:
 	look_at_position(object.global_position)
 
@@ -315,7 +271,44 @@ func look_at_position(target_position : Vector2) -> void:
 	_attack_range.rotation = angle
 	_movement_angle = angle
 	set_look_angle(angle)
+
+func attack(object : Node2D) -> void:
+	if _is_attacking:
+		return
+	_is_attacking = true
+	if object.is_in_group("characters"):
+		object.take_damage(attack_power, self as Node2D)
+#	_sfx_attack.play()
+	_can_update_animations = false
+	_play_animation(classCharacterAnimations.ANIMATION_TYPE.ATTACK)
+
+func take_damage(amount : float, _damager : Node2D) -> void:
+	if _debug_godmode: return
+	set_hp(hp - int(amount))
+
+	_damage_take_tween.interpolate_property(self, "modulate", Color.white * 10.0, Color.white, 0.15, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	_damage_take_tween.start()
+	_move_direction =  (global_position - _damager.global_position).normalized()
+#	_is_knocked_back = true
+#	_current_knockback_speed = _knockback_start_speed
+	_last_attacker = _damager
+
+	if alive:
+		emit_signal("audio_source_spawn_requested", self, global_position,  { "noise": _on_damaged_noise, "type" : Global.SOUND_SOURCE_TYPE.ATTACKED })
+
+func activate_object(o : Node2D) -> void:
+	o.set_active(true)
 #
+#func start_looking_around() -> void:
+#	_looking_around = true
+#
+#func stop_looking_around() -> void:
+#	_looking_around = false
+###
+#func turn_to_waypoint_direction(waypoint : classWaypoint) -> void:
+#	_movement_angle = deg2rad(waypoint.direction)
+#	set_look_angle(deg2rad(waypoint.direction))
+
 #func set_random_waypoint_as_target() -> void:
 #	emit_signal("random_waypoint_requested")
 #	if _target:
@@ -378,53 +371,9 @@ func look_at_position(target_position : Vector2) -> void:
 #	c.push_item(_item)
 #	_set_item(null)
 
-func attack(object : Node2D) -> void:
-	if _is_attacking:
-		return
-	_is_attacking = true
-	if object.is_in_group("characters"):
-		object.take_damage(attack_power, self as Node2D)
-	elif object.is_in_group("containers"):
-		if object.contained_character:
-			set_target(object.contained_character)
-			object.eject_character()
-			_target.take_damage(attack_power, self as Node2D)
-	_sfx_attack.play()
-	_can_update_animations = false
-	_play_animation(classCharacterAnimations.ANIMATION_TYPE.ATTACK)
-
-func take_damage(amount : float, _damager : Node2D) -> void:
-	if _debug_godmode: return
-	set_hp(hp - int(amount))
-
-	_damage_take_tween.interpolate_property(self, "modulate", Color.white * 10.0, Color.white, 0.15, Tween.TRANS_LINEAR, Tween.EASE_OUT)
-	_damage_take_tween.start()
-	_move_direction =  (global_position - _damager.global_position).normalized()
-	_is_knocked_back = true
-	_current_knockback_speed = _knockback_start_speed
-	_last_attacker = _damager
-
-	if alive:
-		emit_signal("audio_source_spawn_requested", self, global_position,  { "noise": _on_damaged_noise, "type" : Global.SOUND_SOURCE_TYPE.ATTACKED })
-#
-#func stop_chasing_target() -> void:
-#	_chasing_target = false
-
-func activate_object(o : Node2D) -> void:
-	o.set_active(true)
-#
-#func debug_print(s : String) -> void:
-#	print("[", name, "] ", s)
-
-func start_looking_around() -> void:
-	_looking_around = true
-
-func stop_looking_around() -> void:
-	_looking_around = false
-
-func turn_to_target_waypoint_direction() -> void:
-	if _target is classWaypoint and _target.directional:
-		turn_to_waypoint_direction(_target)
+#func turn_to_target_waypoint_direction() -> void:
+#	if _target is classWaypoint and _target.directional:
+#		turn_to_waypoint_direction(_target)
 
 # AI / CHECKS
 #
@@ -445,34 +394,6 @@ func turn_to_target_waypoint_direction() -> void:
 #
 #func object_visible(object : Node2D) -> bool:
 #	return object_in_sight(object) and object_in_see_range(object) and object.visible
-#
-func object_in_sight(object : Node2D) -> bool:
-	if not object.visible:
-		return false
-
-	var ray : RayCast2D = _line_of_sight_ray
-
-	ray.cast_to = object.global_position - global_position
-
-	ray.clear_exceptions()
-	ray.add_exception(self)
-#	if is_in_container:
-#		ray.add_exception(container)
-	while true:
-		ray.force_raycast_update()
-		if not ray.is_colliding():
-			return false
-
-		var collider : Node2D = ray.get_collider()
-		# found it!
-		if collider.name == object.name:
-			return true
-		# ignore characters
-		elif collider.is_in_group("characters"):
-			ray.add_exception(collider)
-			continue
-		return false
-	return false
 #
 #func object_in_range(object : Node2D, r : float) -> bool:
 #	return global_position.distance_to(object.global_position) <= r
@@ -555,34 +476,36 @@ func object_in_sight(object : Node2D) -> bool:
 ## PRIVATE FUNCTIONS
 
 func _connect_signals() -> void:
+	pass
 	#_use_range.connect("body_exited", self, "_on_use_range_body_exited")
-	_foot_range.connect("area_entered", self, "_on_foot_range_entered")
-	_foot_range.connect("area_exited", self, "_on_foot_range_exited")
-	_animated_sprite.connect("animation_finished", self, "_on_animation_finished")
-	$AudioDetector.connect("audio_source_detected", self, "_on_audio_source_detected")
-	$WheatRange.connect("body_entered", self, "_on_foot_body_entered")
-	$WheatRange.connect("body_exited", self, "_on_foot_body_exited")
+#	_foot_range.connect("area_entered", self, "_on_foot_range_entered")
+#	_foot_range.connect("area_exited", self, "_on_foot_range_exited")
+#	_animated_sprite.connect("animation_finished", self, "_on_animation_finished")
+#	$WheatRange.connect("body_entered", self, "_on_foot_body_entered")
+#	$WheatRange.connect("body_exited", self, "_on_foot_body_exited")
 
+# warning-ignore:unused_argument
 func _play_animation(animation_type) -> void:
-	if _last_animation_dict == null or _last_animation_dict.size() < 1:
-		return
-	var state_settings : Dictionary = {}
-	state_settings = _last_animation_dict.get(_current_direction, {})
-	state_settings = state_settings.get(animation_type, {})
-	if state_settings == null or state_settings.size() < 1:
-		return
-	var animation_name = state_settings.get("animation_name", "default")
-	if animation_name != _animated_sprite.animation:
-		_animated_sprite.frame = 0
+	pass
+#	if _last_animation_dict == null or _last_animation_dict.size() < 1:
+#		return
+#	var state_settings : Dictionary = {}
+#	state_settings = _last_animation_dict.get(_current_direction, {})
+#	state_settings = state_settings.get(animation_type, {})
+#	if state_settings == null or state_settings.size() < 1:
+#		return
+#	var animation_name = state_settings.get("animation_name", "default")
+#	if animation_name != _animated_sprite.animation:
+#		_animated_sprite.frame = 0
+#
+#	_animated_sprite.play(animation_name)
+#	_animated_sprite.flip_h = state_settings.get("flip_h", false)
 
-	_animated_sprite.play(animation_name)
-	_animated_sprite.flip_h = state_settings.get("flip_h", false)
-
-func _update_animation_dict() -> void:
-	if not is_in_wheat and not is_in_container and _last_animation_dict != _default_animations:
-		_last_animation_dict = _default_animations
-	elif (is_in_container or is_in_wheat) and _last_animation_dict != _in_wheat_animations:
-		_last_animation_dict = _in_wheat_animations
+#func _update_animation_dict() -> void:
+#	if not is_in_wheat and not is_in_container and _last_animation_dict != _default_animations:
+#		_last_animation_dict = _default_animations
+#	elif (is_in_container or is_in_wheat) and _last_animation_dict != _in_wheat_animations:
+#		_last_animation_dict = _in_wheat_animations
 
 func _play_move_sound() -> bool:
 	var _sfx_move_delay = ConfigData.FOOTSTEPS_SOUND_UPDATE_RATIO * (1.0 / _movement_speed)
@@ -612,10 +535,10 @@ func _turn_towards_direction(dir : Vector2) -> void:
 	_movement_angle = _move_angle_towards_angle(_movement_angle, target_angle, turn_distance)
 
 func _move_in_direction(direction : Vector2) -> void:
-	if not _is_knocked_back:
-		_velocity = move_and_slide(direction * _movement_speed)
-	else:
-		_velocity = move_and_slide(direction * _current_knockback_speed)
+	_velocity = move_and_slide(direction * _movement_speed)
+#	if not _is_knocked_back:
+#	else:
+#	_velocity = move_and_slide(direction * _current_knockback_speed)
 
 func _look_towards_angle(angle : float) -> void:
 	set_look_angle(_move_angle_towards_angle(_look_angle, angle, deg2rad(LOOK_SPEED) * get_physics_process_delta_time()))
@@ -720,38 +643,37 @@ func _get_closest_object_in_use_range() -> Node2D:
 #	_item = v
 #
 ################################################################################
-## SIGNAL CALLBACKS
-func _on_foot_body_entered(body : Node) -> void:
-	if not is_in_wheat and body is classWheatField:
-		is_in_wheat = true
-		$WheatParticles.emitting = true
-
-func _on_foot_body_exited(body : Node) -> void:
-	if is_in_wheat and body is classWheatField:
-		is_in_wheat = false
-		$WheatParticles.emitting = true
-
-func _on_foot_range_entered(area : Area2D) -> void:
-	if area is classFloor:
-		is_on_floor = true
-		is_on_carpet = false
-	elif area is classCarpet:
-		is_on_floor = false
-		is_on_carpet = true
-
-func _on_foot_range_exited(area : Area2D) -> void:
-	if area is classFloor:
-		is_on_floor = false
-	elif area is classCarpet:
-		is_on_carpet = false
+### SIGNAL CALLBACKS
+#func _on_foot_body_entered(body : Node) -> void:
+#	if not is_in_wheat and body is classWheatField:
+#		is_in_wheat = true
+#		$WheatParticles.emitting = true
+#
+#func _on_foot_body_exited(body : Node) -> void:
+#	if is_in_wheat and body is classWheatField:
+#		is_in_wheat = false
+#		$WheatParticles.emitting = true
+#
+#func _on_foot_range_entered(area : Area2D) -> void:
+#	if area is classFloor:
+#		is_on_floor = true
+#		is_on_carpet = false
+#	elif area is classCarpet:
+#		is_on_floor = false
+#		is_on_carpet = true
+#
+#func _on_foot_range_exited(area : Area2D) -> void:
+#	if area is classFloor:
+#		is_on_floor = false
+#	elif area is classCarpet:
+#		is_on_carpet = false
 
 func _on_animation_finished() -> void:
 	if _is_attacking:
 		_is_attacking = false
 	if _is_interacting:
 		_is_interacting = false
-	if not _is_knocked_back:
-		_can_update_animations = true
+	_can_update_animations = true
 
-func _on_audio_source_detected(_source_owner : Node2D, _spawn_position : Vector2, _source_data : Dictionary) -> void:
-	pass
+#func _on_audio_source_detected(_source_owner : Node2D, _spawn_position : Vector2, _source_data : Dictionary) -> void:
+#	pass

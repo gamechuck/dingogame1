@@ -18,7 +18,7 @@ enum DAY_STATE { DAWN, DAY, DUSK, NIGHT }
 signal game_state_changed # new_state
 # warning-ignore:unused_signal
 signal npc_count_alive_changed
-signal player_overlay_update_requested
+#signal player_overlay_update_requested
 # warning-ignore:unused_signal
 signal day_phase_updated
 # warning-ignore:unused_signal
@@ -118,7 +118,7 @@ func save_stateJSON(path : String = Flow.USER_SAVE_PATH) -> int:
 ## STATE
 
 # Called from load_stateJSON() function when scene is loading
-func load_state_from_context(context : Dictionary):
+func load_state_from_context(_context : Dictionary):
 	if ConfigData.verbose_mode:
 		print("Loading state from the context...")
 

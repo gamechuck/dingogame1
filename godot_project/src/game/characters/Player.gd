@@ -4,74 +4,15 @@ extends classCharacter
 ################################################################################
 ## CONSTANTS
 var FREEROAM_CAMERA_SPEED := 150.0
-var INTERACT_PROMPT_OFFSET := Vector2(0, -40.0)
-enum BODY_STATE { HUMAN, WOLF }
+#var INTERACT_PROMPT_OFFSET := Vector2(0, -40.0)
+#enum BODY_STATE { HUMAN, WOLF }
 
 ################################################################################
 ## PUBLIC VARIABLES
 
-# override
-func set_movement_speed(v : float) -> void:
-	_movement_speed = v
-	emit_signal("overlay_update_requested", hp, _is_attacking, is_running)
-
-# defines how fast player can be detected by others, from 0.0 to 1.0
-# gets changed depending if player is moving, running, in wheat, etc.
-#var visibility_factor := 0.0 setget set_visibility_factor
-#func set_visibility_factor(v : float) -> void:
-#	visibility_factor = clamp(v, 0.0, 1.0)
-#	if _visibility_factor_label:
-#		_visibility_factor_label.text = str(v)
-
-# if true, NPCs can see the player
-# (funny name but makes it more consistent with hearable, smellable, etc.)
-var seeable := true
-
-var is_sabotaging := false
-
-var body_state : int = BODY_STATE.HUMAN
-
-################################################################################
-## PRIVATE VARIABLES
-export var _human_frames : SpriteFrames
-export var _werewolf_frames : SpriteFrames
-# Nodes
-onready var _smoke_sprite := $SmokeSprite
-onready var _visibility_factor_label := $GUI/AboveHead/VisibilityFactorLabel
 onready var _camera := $GameCamera
-#onready var _prompt : classInteractPrompt = $InteractablePrompt
-onready var _exit_container_ray := $ExitContainerRay
-#onready var _tracks_parent := get_parent().get_parent().get_parent().get_node("Objects/BloodTracks")
-#onready var _sabotage_progress_bar = $SabotageGUI/ProgressBar
-
-var _closest_interactable : Node2D = null
-
-# keep track of last interactable that's under the mouse
-var _mouse_entered_interactable : Node2D = null
-
-var _is_hidden := false
-# Attack stuff
-var _last_attack_time := 0.0
-#var _is_dashing := false
-#var _dash_start_position := Vector2.ZERO
-#
-## Window jumping stuff
-#var _window_jumping := false
-#var _window_jump_up := false
-#var _window_position := Vector2.ZERO
-#var _last_position := Vector2.ZERO
 # Mouse input stuff
 var _mouse_too_close := false
-## Blood tracks stuff
-#var _can_update_tracks := false
-#var _track_spawn_delay_counter = 0.0
-#var _track_counter = 0
-## Player transformation stuff
-#var _should_transform := false
-#var _is_transforming := false
-#var _current_day_phase := 0
-## Sabotage stuff
-#var _sabotage_start_time := 0.0
 # Movement noise
 var _movement_noise := 0.0
 onready var _movement_noises := {
@@ -92,14 +33,14 @@ func _ready() -> void:
 	add_to_group("players")
 	controllable = true
 	_current_direction = Global.DIRECTION.E
-	_last_animation_type = classCharacterAnimations.ANIMATION_TYPE.IDLE
-	_default_animations = classCharacterAnimations.PLAYER_DEFAULT
+#	_last_animation_type = classCharacterAnimations.ANIMATION_TYPE.IDLE
+#	_default_animations = classCharacterAnimations.PLAYER_DEFAULT
 	_animated_sprite.play("default")
 	set_hp_max(ConfigData.PLAYER_HP_MAX)
 	set_hp(hp_max)
 
 	attack_power = ConfigData.PLAYER_ATTACK_POWER
-	_knockback_start_speed = ConfigData.PLAYER_START_KNOCKBACK_SPEED
+#	_knockback_start_speed = ConfigData.PLAYER_START_KNOCKBACK_SPEED
 
 	_connect_player_signals()
 
@@ -107,105 +48,35 @@ func _ready() -> void:
 #	_prompt.set_as_toplevel(true)
 #	_prompt.visible = false
 
-	_exit_container_ray.set_as_toplevel(true)
+#	_exit_container_ray.set_as_toplevel(true)
 
 	# debug
 	_debug_godmode = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_PLAYER_GODMODE
 	if ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_PLAYER_NOCLIP:
 		set_collision_mask_bit(ConfigData.PHYSICS_LAYER.SOLID, false)
-#	seeable = not (ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_PLAYER_NOT_SEEABLE)
-	# debug / shapes
-	_collision.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_VISIBLE_COLLISION_SHAPES and ConfigData.DEBUG_VISIBLE_PLAYER_COL_SHAPE
-	_attack_range.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_VISIBLE_COLLISION_SHAPES and ConfigData.DEBUG_VISIBLE_PLAYER_ATTACK_RANGE
-	_see_range.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_VISIBLE_COLLISION_SHAPES and ConfigData.DEBUG_VISIBLE_PLAYER_SEE_RANGE
-	_hear_range.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_VISIBLE_COLLISION_SHAPES and ConfigData.DEBUG_VISIBLE_PLAYER_HEAR_RANGE
-	_use_range.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_VISIBLE_COLLISION_SHAPES and ConfigData.DEBUG_VISIBLE_PLAYER_USE_RANGE
 
-func _physics_process(delta : float) -> void:
-	# update moving and running
-	is_moving = _velocity != Vector2.ZERO
-	if not ConfigData.is_using_mouse_input() and _get_any_directional_key_pressed():
-		is_running = is_moving and Input.is_action_pressed("sprint")
-
-#	_set_closest_interactable(_get_closest_object_in_use_range())
-#	_update_prompt_state()
-	_update_speed()
-#	_update_visibility_factor()
+# warning-ignore:unused_argument
+func _physics_process(_delta : float) -> void:
 
 	if _can_update_animations: # and not _is_knocked_back:
 		_update_animation_state()
-#		if body_state == BODY_STATE.WOLF:
-#			_run_movement_speed = ConfigData.PLAYER_RUN_SPEED
-#		else:
-#			_run_movement_speed = ConfigData.PLAYER_HUMAN_RUN_SPEED
 
-	if not Flow.is_in_editor_mode:
-		if alive:
-			_update_move_sfx_dict()
-#			if _can_update_tracks:
-#				_update_tracks_state()
-#			if _is_knocked_back:
-#				_knock_back()
-##			else:
-#				if _is_transforming:
-#					_update_transformation()
-#				elif is_in_container:
-#					if ConfigData.is_using_mouse_input() or ConfigData.is_using_hybrid_input():
-#						look_at_position(get_global_mouse_position())
-#					if ConfigData.is_using_keyboard_input() or ConfigData.is_using_hybrid_input():
-#						_move_direction = _get_move_direction_from_input()
-#						_turn_towards_direction(_move_direction)
-#					if not _is_attacking:
-#						if (not ConfigData.is_using_mouse_input() and Input.is_action_just_pressed("attack_default")) or (ConfigData.is_using_mouse_input() and Input.is_action_just_pressed("attack_with_mouse")):
-#							_attack_from_container()
-#						elif Input.is_action_just_pressed("interact"):
-#							# exit container (interact with it)
-##							container.interact(self)
+	if alive:#
+		if not _is_interacting and controllable and not _is_attacking:
+			is_moving = _velocity != Vector2.ZERO
+			if _get_any_directional_key_pressed():
+				is_running = is_moving and Input.is_action_pressed("sprint")
+
+			_update_speed()
+			_move_with_keyboard()
+
+			if Input.is_action_just_pressed("interact"): # and _prompt.visible: # F KEY
+				_interact()
+			if Input.is_action_just_pressed("attack_default"): # E KEY
+				pass
+			if Input.is_action_just_pressed("attack_with_mouse"):
+				pass
 #
-##						else:
-							# exiting container
-#							if ConfigData.is_using_mouse_input() or ConfigData.is_using_hybrid_input():
-#								if Input.is_action_just_pressed("move_with_mouse"):
-##									_exit_container_in_direction(Vector2.RIGHT.rotated(_movement_angle))
-#							if ConfigData.is_using_keyboard_input() or ConfigData.is_using_hybrid_input():
-#								_exit_container_in_direction(_get_move_direction_from_input(true))
-#				else:
-#					if not _is_attacking and not _is_transforming:
-#						if _window_jumping:
-#							_window_jump()
-#						elif _is_dashing:
-#							_dash(delta)
-#						elif is_sabotaging:
-#							_sabotage_update(delta)
-			if not _is_interacting and controllable and not _is_attacking: #not _window_jumping and not _is_dashing
-				if Input.is_action_just_pressed("interact"): # and _prompt.visible: # F KEY
-					_interact()
-				if Input.is_action_just_pressed("attack_default"): # E KEY
-#							if body_state == BODY_STATE.WOLF and not ConfigData.is_using_mouse_input():
-#								_begin_dash()
-#							elif _prompt.visible:
-#								_start_sabotage()
-					pass
-				if Input.is_action_just_pressed("attack_with_mouse"):
-#							if body_state == BODY_STATE.WOLF and not ConfigData.is_using_keyboard_input():
-#								_begin_dash()
-					pass
-				if ConfigData.is_using_keyboard_input():# keyboard controls
-					_move_with_keyboard()
-				elif ConfigData.is_using_mouse_input(): # mouse controls
-					_move_with_mouse()
-				else: # hybrid input
-					_move_with_hybrid_input()
-		else:
-			# dead; control separate camera as spectator camera
-			# (it gets detached with set_as_toplevel())
-			_move_direction = _get_move_direction_from_input()
-			_camera.global_position += _move_direction * _movement_speed * 2.0 * get_physics_process_delta_time()
-
-func _input(event : InputEvent) -> void:
-	if event is InputEventJoypadButton:
-		print(event.button_index)
-
 ################################################################################
 ## PUBLIC FUNCTIONS
 
@@ -229,40 +100,41 @@ func take_damage(amount : float, damager : Node2D) -> void:
 ## PRIVATE FUNCTIONS
 
 func _setup_data() -> void:
-	var _sfx_movement_data = Flow.player_data.get("assets").get("movement_sfx", {})
-
-	for walk_mode_key in _sfx_movement_data:
-		var sound_region_dict = _sfx_movement_data.get(walk_mode_key)
-		var walk_mode_enum_value = Global.WALK_MODE.values()[Global.WALK_MODE.keys().find(walk_mode_key)]
-		_sfx_footsteps[walk_mode_enum_value] = {}
-
-		for sound_region_key in sound_region_dict:
-			var sound_region_enum_value = Global.SOUND_REGION.values()[Global.SOUND_REGION.keys().find(sound_region_key)]
-			var asset_path_array = sound_region_dict.get(sound_region_key)
-
-			_sfx_footsteps[walk_mode_enum_value][sound_region_enum_value] = []
-
-			for i in asset_path_array.size():
-				_sfx_footsteps.get(walk_mode_enum_value).get(sound_region_enum_value).append(load(asset_path_array[i]))
-
-	var _sfx_attack_data = Flow.npcs_data.get("assets").get("attack_sfx", [])
-	for i in _sfx_attack_data.size():
-		_sfx_attack_samples.append(load(_sfx_attack_data[i]))
-
-	var _sfx_movement_noise_data = Flow.player_data.get("values").get("movement_noise", {})
-
-	for walk_mode_key in _sfx_movement_noise_data:
-		var walk_mode_dict = _sfx_movement_noise_data.get(walk_mode_key)
-		var walk_mode_enum_value = Global.WALK_MODE.values()[Global.WALK_MODE.keys().find(walk_mode_key)]
-		_movement_noises[walk_mode_enum_value] = {}
-
-		for sound_region_key in walk_mode_dict:
-			var sound_region_enum_value = Global.SOUND_REGION.values()[Global.SOUND_REGION.keys().find(sound_region_key)]
-			_movement_noises[walk_mode_enum_value][sound_region_enum_value] = walk_mode_dict.get(sound_region_key)
+	pass
+#	var _sfx_movement_data = Flow.player_data.get("assets").get("movement_sfx", {})
+#
+#	for walk_mode_key in _sfx_movement_data:
+#		var sound_region_dict = _sfx_movement_data.get(walk_mode_key)
+#		var walk_mode_enum_value = Global.WALK_MODE.values()[Global.WALK_MODE.keys().find(walk_mode_key)]
+#		_sfx_footsteps[walk_mode_enum_value] = {}
+#
+#		for sound_region_key in sound_region_dict:
+#			var sound_region_enum_value = Global.SOUND_REGION.values()[Global.SOUND_REGION.keys().find(sound_region_key)]
+#			var asset_path_array = sound_region_dict.get(sound_region_key)
+#
+#			_sfx_footsteps[walk_mode_enum_value][sound_region_enum_value] = []
+#
+#			for i in asset_path_array.size():
+#				_sfx_footsteps.get(walk_mode_enum_value).get(sound_region_enum_value).append(load(asset_path_array[i]))
+#
+#	var _sfx_attack_data = Flow.npcs_data.get("assets").get("attack_sfx", [])
+#	for i in _sfx_attack_data.size():
+#		_sfx_attack_samples.append(load(_sfx_attack_data[i]))
+#
+#	var _sfx_movement_noise_data = Flow.player_data.get("values").get("movement_noise", {})
+#
+#	for walk_mode_key in _sfx_movement_noise_data:
+#		var walk_mode_dict = _sfx_movement_noise_data.get(walk_mode_key)
+#		var walk_mode_enum_value = Global.WALK_MODE.values()[Global.WALK_MODE.keys().find(walk_mode_key)]
+#		_movement_noises[walk_mode_enum_value] = {}
+#
+#		for sound_region_key in walk_mode_dict:
+#			var sound_region_enum_value = Global.SOUND_REGION.values()[Global.SOUND_REGION.keys().find(sound_region_key)]
+#			_movement_noises[walk_mode_enum_value][sound_region_enum_value] = walk_mode_dict.get(sound_region_key)
 
 func _connect_player_signals() -> void:
 	connect("died", self, "_on_died")
-	connect("blood_track_spawn_requested", self, "_on_blood_track_spawn_requested")
+#	connect("blood_track_spawn_requested", self, "_on_blood_track_spawn_requested")
 
 func _move_with_mouse() -> void:
 	look_at_position(get_global_mouse_position())
@@ -402,31 +274,25 @@ func _get_any_directional_key_pressed() -> bool:
 	else:
 		return false
 
-func _move_in_direction(direction : Vector2) -> void:
-	if not _is_knocked_back:
-		_velocity = move_and_slide(direction * _movement_speed)
-	else:
-		_velocity = move_and_slide(direction * _current_knockback_speed)
-#
 func _attack() -> void:
 	if _is_attacking: # or body_state == BODY_STATE.HUMAN or carried_character:
 		return
 
 	_play_animation(classCharacterAnimations.ANIMATION_TYPE.ATTACK)
 
-	_sfx_attack.stream = _sfx_attack_samples[randi() % _sfx_attack_samples.size()]
-	_sfx_attack.play()
+#	_sfx_attack.stream = _sfx_attack_samples[randi() % _sfx_attack_samples.size()]
+#	_sfx_attack.play()
 	_is_attacking = true
 
-	emit_signal("overlay_update_requested", hp, _is_attacking, is_running)
+#	emit_signal("overlay_update_requested", hp, _is_attacking, is_running)
 
 	# deal damage to characters or break objects
 	var npc_hit := false
 	for target in _attack_range.get_overlapping_bodies():
-		if target is classBreakable and target.breakable and not target.is_broken:
-			target.shatter()
+#		if target is classBreakable and target.breakable and not target.is_broken:
+#			target.shatter()
 		# If we have this object_in_sight() check, it can't hit villager from container
-		if target is classNPC and target.alive and object_in_sight(target):
+		if target.alive and object_in_sight(target):
 #			if container:
 #				# if we're in container, hide the body (drag it in)
 #				target.take_damage(999999, self)
@@ -442,8 +308,6 @@ func _attack() -> void:
 
 			npc_hit = true
 
-			if not target.alive:
-				emit_signal("blood_track_spawn_requested")
 
 	if npc_hit:
 		_camera.shake(_camera.SHAKE_DURATION_DEAL_DAMAGE, _camera.SHAKE_STRENGTH_DEAL_DAMAGE)
@@ -474,13 +338,15 @@ func _interact() -> void:
 
 func _interact_with(interactable : Node2D) -> void:
 	_play_animation(classCharacterAnimations.ANIMATION_TYPE.INTERACT)
+	interactable.interact(self)
 	# bell or door
-	if interactable is classBell or interactable is classDoor:
-		interactable.interact(self)
-		return
+#	if interactable is classBell or interactable is classDoor:
+#		interactable.interact(self)
+#		return
 
 	# window
 #	if interactable is classWindow:
+
 #		if interactable.traversable and (interactable.is_broken or interactable.is_open):
 #			_can_update_animations = false
 #			_window_jumping = true
@@ -493,8 +359,8 @@ func _interact_with(interactable : Node2D) -> void:
 #				_animated_sprite.play("window_jump_s")
 #				_window_jump_up = false
 #		else:
-		interactable.interact(self)
-		return
+# warning-ignore:unreachable_code
+# warning-ignore:unreachable_code
 
 	# storm shelter # haystack
 #	if interactable is classStormShelter or interactable is classHaystack:
@@ -504,28 +370,28 @@ func _interact_with(interactable : Node2D) -> void:
 #		return
 
 	# weapon barrel
-	if interactable is classWeaponBarrel:
-		if not _is_hidden:
-			if not interactable.has_item():
-				_is_hidden = not _is_hidden
-				_velocity = Vector2.ZERO # we need to reset velocity, to stop movement sounds
-				interactable.interact(self)
-		elif _is_hidden:
-			_is_hidden = not _is_hidden
-			interactable.interact(self)
-		return
+#	if interactable is classWeaponBarrel:
+#		if not _is_hidden:
+#			if not interactable.has_item():
+#				_is_hidden = not _is_hidden
+#				_velocity = Vector2.ZERO # we need to reset velocity, to stop movement sounds
+#				interactable.interact(self)
+#		elif _is_hidden:
+#			_is_hidden = not _is_hidden
+#			interactable.interact(self)
+#		return
 
-	# corpse
-	if interactable is classCharacter:
-		if interactable.alive or not interactable.visible or interactable.investigated:
-			return
-		if body_state == BODY_STATE.HUMAN:
-			return
-
-		interactable.visible = false
-		interactable.global_position = Vector2(999999, 999999.0)
-#		carried_character = interactable
-		return
+#	# corpse
+#	if interactable is classCharacter:
+##		if interactable.alive or not interactable.visible or interactable.investigated:
+##			return
+##		if body_state == BODY_STATE.HUMAN:
+##			return
+#
+##		interactable.visible = false
+##		interactable.global_position = Vector2(999999, 999999.0)
+##		carried_character = interactable
+#		return
 
 func _set_camera_as_parent_child(value : bool) -> void:
 	if value:
@@ -540,17 +406,17 @@ func _set_camera_as_parent_child(value : bool) -> void:
 
 func set_hp(v : int, quiet := false) -> void: # override
 	.set_hp(v, quiet)
-	emit_signal("overlay_update_requested", v, _is_attacking, is_running)
+#	emit_signal("overlay_update_requested", v, _is_attacking, is_running)
 
-func _set_closest_interactable(interactable : Node2D) -> void:
-	_closest_interactable = interactable
-
-func _is_closest_interactable_attackable() -> bool:
-	if _closest_interactable == null:
-		return false
-	if _closest_interactable is classWindow and not _closest_interactable.is_broken:
-		return true
-	return false
+#func _set_closest_interactable(interactable : Node2D) -> void:
+#	_closest_interactable = interactable
+#
+#func _is_closest_interactable_attackable() -> bool:
+#	if _closest_interactable == null:
+#		return false
+#	if _closest_interactable is classWindow and not _closest_interactable.is_broken:
+#		return true
+#	return false
 
 func _update_speed() -> void:
 	# use godspeed if enabled
@@ -563,29 +429,29 @@ func _update_speed() -> void:
 	else:
 		set_movement_speed(ConfigData.PLAYER_HUMAN_WALK_SPEED)
 
-func _update_visibility_factor() -> void:
-	if is_in_container:
-		self.visibility_factor = 0.0
-	else:
-		self.visibility_factor = ConfigData.PLAYER_VISIBILITY_FACTOR_INITIAL
-		if is_moving:
-			self.visibility_factor += ConfigData.PLAYER_VISIBILITY_FACTOR_MOD_MOVING
-			if is_running:
-				self.visibility_factor += ConfigData.PLAYER_VISIBILITY_FACTOR_MOD_RUNNING
-		if is_in_wheat:
-			self.visibility_factor += ConfigData.PLAYER_VISIBILITY_FACTOR_MOD_IN_WHEAT
+#func _update_visibility_factor() -> void:
+#	if is_in_container:
+#		self.visibility_factor = 0.0
+#	else:
+#		self.visibility_factor = ConfigData.PLAYER_VISIBILITY_FACTOR_INITIAL
+#		if is_moving:
+#			self.visibility_factor += ConfigData.PLAYER_VISIBILITY_FACTOR_MOD_MOVING
+#			if is_running:
+#				self.visibility_factor += ConfigData.PLAYER_VISIBILITY_FACTOR_MOD_RUNNING
+#		if is_in_wheat:
+#			self.visibility_factor += ConfigData.PLAYER_VISIBILITY_FACTOR_MOD_IN_WHEAT
 #
 func _update_move_sfx_dict() -> void:
 	if is_moving:
 		var walk_state_key = Global.WALK_MODE.WALKING if not is_running else Global.WALK_MODE.RUNNING
 		var sound_region_key = Global.SOUND_REGION.DEFAULT
-
-		if is_in_wheat:
-			sound_region_key = Global.SOUND_REGION.WHEAT
-		elif is_on_floor:
-			sound_region_key = Global.SOUND_REGION.FLOOR
-		elif is_on_floor:
-			sound_region_key = Global.SOUND_REGION.FLOOR
+#
+#		if is_in_wheat:
+#			sound_region_key = Global.SOUND_REGION.WHEAT
+#		elif is_on_floor:
+#			sound_region_key = Global.SOUND_REGION.FLOOR
+#		elif is_on_floor:
+#			sound_region_key = Global.SOUND_REGION.FLOOR
 
 		_movement_noise = _movement_noises.get(walk_state_key, _movement_noise).get(sound_region_key, _movement_noise)
 		_sfx_movement_samples =  _sfx_footsteps.get(walk_state_key).get(sound_region_key)

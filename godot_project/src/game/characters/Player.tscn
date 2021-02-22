@@ -1,157 +1,20 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/game/characters/Character.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/fonts/dynamic/character_gui.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/sprite_frames/player.tres" type="SpriteFrames" id=3]
 [ext_resource path="res://src/game/characters/Player.gd" type="Script" id=4]
-[ext_resource path="res://src/UI/InteractablePrompt.tscn" type="PackedScene" id=5]
-[ext_resource path="res://src/game/GameCamera.gd" type="Script" id=6]
-[ext_resource path="res://assets/sprite_frames/villager.tres" type="SpriteFrames" id=7]
-[ext_resource path="res://src/UI/SabotageBar.tscn" type="PackedScene" id=8]
-[ext_resource path="res://ndh-assets/characters/werewolf/transformation_smoke.png" type="Texture" id=9]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 9 )
-region = Rect2( 0, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 9 )
-region = Rect2( 64, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 9 )
-region = Rect2( 128, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 9 )
-region = Rect2( 192, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 9 )
-region = Rect2( 256, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 9 )
-region = Rect2( 320, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 9 )
-region = Rect2( 384, 0, 64, 64 )
-
-[sub_resource type="SpriteFrames" id=8]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), null ],
-"loop": false,
-"name": "transform_smoke",
-"speed": 11.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 15.9824, 16.0244 )
 
 [node name="Player" instance=ExtResource( 1 )]
-collision_layer = 6
 script = ExtResource( 4 )
-_human_frames = ExtResource( 7 )
-_werewolf_frames = ExtResource( 3 )
 
-[node name="_expander" parent="GUI/AboveHead" index="0"]
-margin_bottom = 28.0
-
-[node name="HPBar" parent="GUI/AboveHead" index="1"]
-visible = false
-margin_top = 22.0
-margin_bottom = 28.0
-
-[node name="NameLabel" parent="GUI/AboveHead" index="2"]
-visible = false
-
-[node name="VisibilityFactorLabel" type="Label" parent="GUI/AboveHead" index="3"]
-visible = false
-margin_top = 19.0
-margin_right = 29.0
-margin_bottom = 28.0
-custom_fonts/font = ExtResource( 2 )
-text = "x"
-align = 1
-valign = 1
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2( 0, -20 )
 
 [node name="AnimatedSprite" parent="." index="1"]
+position = Vector2( 0, -20 )
 scale = Vector2( 1, 1 )
-frames = ExtResource( 3 )
-animation = "drop_body_se"
-playing = true
-offset = Vector2( 0, -16 )
+offset = Vector2( 0, 0 )
 
-[node name="SmokeSprite" type="AnimatedSprite" parent="." index="2"]
-position = Vector2( -0.668549, -18.0509 )
-frames = SubResource( 8 )
-animation = "transform_smoke"
-frame = 7
-playing = true
-
-[node name="GameCamera" type="Camera2D" parent="." index="3"]
+[node name="GameCamera" type="Camera2D" parent="." index="7"]
+position = Vector2( 0.374573, -29.6254 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
-process_mode = 0
-smoothing_enabled = true
-smoothing_speed = 8.0
-editor_draw_screen = false
-script = ExtResource( 6 )
-
-[node name="Collision" parent="." index="4"]
-position = Vector2( 0, 0.420528 )
-scale = Vector2( 1, 1 )
-
-[node name="UseRange" parent="." index="5"]
-position = Vector2( 0, 3.93725 )
-collision_mask = 592
-
-[node name="CollisionShape2D" parent="UseRange" index="0"]
-position = Vector2( 3.66569e-06, -7.60656 )
-rotation = 0.0
-shape = SubResource( 9 )
-
-[node name="AttackRange" parent="." index="6"]
-position = Vector2( 0, -7.34993 )
-monitorable = true
-collision_mask = 96
-
-[node name="CollisionShape2D" parent="AttackRange" index="0"]
-polygon = PoolVector2Array( -11.5569, -22.8156, 7.18445, -25.8079, 32.5404, -24.233, 49.5493, -14.3111, 55.0614, 0.0204554, 48.9193, 14.3521, 29.7055, 27.2662, 6.86947, 28.3687, -12.3443, 24.7464, -19.8757, 7.98243, -19.6109, -8.70411 )
-
-[node name="VisionCone" parent="SeeRange" index="1"]
-visible = false
-
-[node name="FootRange" parent="." index="9"]
-position = Vector2( 0, 0.417137 )
-collision_mask = 2147484736
-
-[node name="WheatRange" parent="." index="10"]
-visible = true
-
-[node name="CollisionShape2D" parent="WheatRange" index="0"]
-position = Vector2( -0.125, -1.125 )
-
-[node name="LineOfSightRay" parent="." index="11"]
-collision_mask = 140
-
-[node name="InteractablePrompt" parent="." index="13" instance=ExtResource( 5 )]
-visible = false
-
-[node name="SabotageGUI" parent="." index="14" instance=ExtResource( 8 )]
-position = Vector2( -0.375, 0 )
-
-[node name="ProgressBar" parent="SabotageGUI" index="0"]
-visible = false
-
-[node name="ExitContainerRay" type="RayCast2D" parent="." index="18"]
-visible = false
-exclude_parent = false
-collision_mask = 2147483648
-
-[node name="Sprite" type="Sprite" parent="." index="21"]
-
-[editable path="InteractablePrompt"]
-
-[editable path="SabotageGUI"]
