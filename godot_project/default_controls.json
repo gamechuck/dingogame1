@@ -1,0 +1,196 @@
+{
+    "version": 0,
+    "common": [
+        {
+            "action": "toggle_paused",
+            "events": [
+                {
+                    "scancode": "Escape"
+                }
+            ]
+        },
+        {
+            "action": "reload_scene",
+            "events": [
+                {
+                    "scancode": "R"
+                }
+            ]
+        },
+        {
+            "action": "reload_all",
+            "events": [
+                {
+                    "scancode": "R",
+                    "control": true,
+                    "alt": true
+                }
+            ]
+        },
+        {
+            "action": "toggle_editor_mode",
+            "events": [
+                {
+                    "scancode": "E",
+                    "control": true,
+                    "alt": true
+                }
+            ]
+        },
+        {
+            "action": "toggle_full_screen",
+            "events": [
+                {
+                    "scancode": "F",
+                    "alt": true
+                }
+            ]
+        },
+        {
+            "action": "move_left",
+            "events": [
+                {
+                    "scancode": "A"
+                },
+                {
+                    "scancode": "Left"
+                },
+                {
+                    "axis": "Left Stick X",
+                    "axis_value": -1
+                }
+            ]
+        },
+        {
+            "action": "move_right",
+            "events": [
+                {
+                    "scancode": "D"
+                },
+                {
+                    "scancode": "Right"
+                },
+                {
+                    "axis": "Left Stick X",
+                    "axis_value": 1
+                }
+            ]
+        },
+        {
+            "action": "move_up",
+            "events": [
+                {
+                    "scancode": "W"
+                },
+                {
+                    "scancode": "Up"
+                },
+                {
+                    "axis": "Left Stick Y",
+                    "axis_value": -1
+                }
+            ]
+        },
+        {
+            "action": "move_down",
+            "events": [
+                {
+                    "scancode": "S"
+                },
+                {
+                    "scancode": "Down"
+                },
+                {
+                    "axis": "Left Stick Y",
+                    "axis_value": 1
+                }
+            ]
+        }
+    ],
+    "editor": [
+        {
+            "action": "zoom_camera_in",
+            "events": [
+                {
+                    "scancode": "O"
+                }
+            ]
+        },
+        {
+            "action": "zoom_camera_out",
+            "events": [
+                {
+                    "scancode": "P"
+                }
+            ]
+        }
+    ],
+    "game": [
+    /*    {
+            "action": "attack_default",
+            "events": [
+                {
+                    "scancode": "E"
+                },                
+                {                    
+                    "button_index": 1,
+                    "is_joypad" : true
+                }
+            ]
+        },*/
+        {
+            "action": "attack_with_mouse",
+            "events": [
+                {
+                    "button_index": 1
+                }
+            ]
+        },
+        {
+            "action": "move_with_mouse",
+            "events": [
+                {
+                    "button_index": 2
+                }
+            ]
+        }/*,
+        {
+            "action": "sprint",
+            "events": [
+                {
+                    "scancode": "Shift"
+                },
+                {                    
+                    "button_index": 9,
+                    "is_joypad" : true
+                }
+            ]
+        }*/
+    ]
+}
+
+// x  - 0
+// circle - 1
+// square - 2
+// triangle - 3
+
+// dpad up    - 12
+// dpad down  - 13
+// dpad left  - 14
+// dpad right - 15
+// r1         - 5
+// r2         - 7
+// r2         - 9
+// l1         - 4
+// l2         - 6
+// l3         - 8
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//

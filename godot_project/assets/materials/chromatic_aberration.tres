@@ -1,0 +1,41 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float strength = 0.0;
+
+float rand(vec2 co){
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
+void fragment() {
+	
+	float adjusted_amount = strength / 100.0;
+	float offset = rand(vec2(TIME, TIME));
+	COLOR.r = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x + adjusted_amount*offset, SCREEN_UV.y+(adjusted_amount*offset))).r;
+	COLOR.g = texture(SCREEN_TEXTURE, SCREEN_UV).g;
+	COLOR.b = texture(SCREEN_TEXTURE, vec2(SCREEN_UV.x - adjusted_amount*offset, SCREEN_UV.y+(adjusted_amount*offset))).b;
+	
+	COLOR.a = 1f;
+}
+
+/*
+export var ca_amplitude = 1
+#onready var ca_amplitude = material.get_shader_param(\"Stength\")
+export var ca_duration = 0.5
+var ca_countdown = 0
+
+if Input.is_action_pressed(\"get_hit\"):
+	if ca_countdown <= 0:
+		ca_countdown = ca_duration
+		
+if ca_countdown>0:
+	$ColorRect.material.set_shader_param(\"strength\", ca_amplitude * ca_countdown)
+	ca_countdown -= _delta
+*/
+"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/strength = 0.0

@@ -1,0 +1,35 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform bool enabled : bool = false;
+uniform float decolorization : hint_range(0, 1) = 0.0;
+uniform float red_scale : hint_range(0, 1) = 1.0;
+uniform float green_scale : hint_range(0, 1) = 1.0;
+uniform float blue_scale : hint_range(0, 1) = 1.0;
+
+void fragment(){
+	COLOR = texture(TEXTURE, UV);
+
+	if (enabled) {
+		if (!AT_LIGHT_PASS){
+			vec3 modified_color = vec3(red_scale*COLOR.r, green_scale*COLOR.g, blue_scale*COLOR.b);
+			float greyscale = (0.3*modified_color.r + 0.59*modified_color.g + 0.11*modified_color.b);
+
+			COLOR.rgb = (decolorization)*vec3(greyscale) + (1.0-decolorization)*modified_color;
+		}
+	}
+}
+
+void light(){
+	LIGHT.rgb *= COLOR.rgb;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/enabled = true
+shader_param/decolorization = 0.5
+shader_param/red_scale = 0.1
+shader_param/green_scale = 0.3
+shader_param/blue_scale = 0.6

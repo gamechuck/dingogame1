@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/UI/menu/WorldMapTab.gd" type="Script" id=3]
+[ext_resource path="res://src/UI/base/MenuButton.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ndh-assets/UI/map/map.png" type="Texture" id=6]
+[ext_resource path="res://src/UI/menu/map/MissionPlacePanel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/UI/menu/map/MissionScrollPanel.tscn" type="PackedScene" id=8]
+
+[node name="WorldMap" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+tab_type = 2
+
+[node name="MapBackground" type="TextureRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+texture = ExtResource( 6 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MissionPlaces" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MissionPlaceButton" parent="MissionPlaces" instance=ExtResource( 7 )]
+margin_left = 437.0
+margin_top = 68.0
+margin_right = -743.0
+margin_bottom = -537.0
+
+[node name="MissionPlaceButton2" parent="MissionPlaces" instance=ExtResource( 7 )]
+margin_left = 175.699
+margin_top = 397.291
+margin_right = -1004.3
+margin_bottom = -207.709
+
+[node name="MissionPlaceButton3" parent="MissionPlaces" instance=ExtResource( 7 )]
+margin_left = 273.573
+margin_top = 203.067
+margin_right = -906.425
+margin_bottom = -401.933
+
+[node name="MissionScrollPanel" parent="." instance=ExtResource( 8 )]
+visible = false
+margin_left = 600.0
+margin_top = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+size_flags_horizontal = 0
+
+[node name="BackButton" parent="." instance=ExtResource( 5 )]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 0.0
+margin_top = -60.0
+margin_right = 180.0
+margin_bottom = 0.0
+text = "Back"

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/waypoints/WaypointManager.gd" type="Script" id=1]
+
+[node name="WaypointManager" type="Node2D" groups=[
+"waypoint_container",
+]]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}

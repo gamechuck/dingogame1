@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/dynamic/november_size32.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/UI/EndOverlay.gd" type="Script" id=2]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=3]
+[ext_resource path="res://assets/styleboxes/panel_container.tres" type="StyleBox" id=4]
+
+[node name="EndOverlay" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 3 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="VB" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 147.0
+margin_top = 10.0
+margin_right = -24.0
+margin_bottom = -24.0
+mouse_filter = 2
+alignment = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="PC" type="PanelContainer" parent="VB"]
+margin_top = 478.0
+margin_right = 853.0
+margin_bottom = 566.0
+mouse_filter = 2
+custom_styles/panel = ExtResource( 4 )
+
+[node name="HB" type="HBoxContainer" parent="VB/PC"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 845.0
+margin_bottom = 72.0
+mouse_filter = 2
+alignment = 2
+
+[node name="StateLabel" type="Label" parent="VB/PC/HB"]
+margin_top = 12.0
+margin_right = 357.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = ExtResource( 1 )
+text = "<replace me>"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MC" type="MarginContainer" parent="VB/PC/HB"]
+margin_left = 361.0
+margin_right = 837.0
+margin_bottom = 56.0
+mouse_filter = 2
+custom_constants/margin_right = 24
+custom_constants/margin_top = 8
+custom_constants/margin_left = 24
+custom_constants/margin_bottom = 8
+
+[node name="VB" type="HBoxContainer" parent="VB/PC/HB/MC"]
+margin_left = 24.0
+margin_top = 8.0
+margin_right = 452.0
+margin_bottom = 48.0
+mouse_filter = 2
+size_flags_vertical = 4
+custom_constants/separation = 20
+alignment = 1
+
+[node name="PlayNextLevelButton" type="Button" parent="VB/PC/HB/MC/VB"]
+margin_right = 140.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 128, 40 )
+text = "Play next level"
+
+[node name="RestartButton" type="Button" parent="VB/PC/HB/MC/VB"]
+margin_left = 160.0
+margin_right = 288.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 128, 40 )
+text = "Restart"
+
+[node name="BackButton" type="Button" parent="VB/PC/HB/MC/VB"]
+margin_left = 308.0
+margin_right = 428.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 120, 30 )
+text = "Back"

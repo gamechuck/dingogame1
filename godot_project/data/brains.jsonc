@@ -1,0 +1,714 @@
+{
+    "villager": {
+        "PATROL": {
+            "default": true,
+            "making_investigations": true,
+            "alert": false,
+            "brain": {
+                "type": "REPEAT",
+                "forever": true,
+                "child": {
+                    "type": "SEQUENCE",
+                    "on_child_fail": 0, // continue
+                    "children": [
+                        { // go to DROP_WEAPON if has weapon AND is not keeping it
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "CHECK_CONDITION", "condition_name": "has_item", "condition_arguments": [] },
+                                { "type": "CHECK_CONDITION", "condition_name": "get_keep_weapon", "condition_arguments": [], "not": true },
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["DROP_WEAPON"] }
+                            ]
+                        },
+                        { // forever repeat patrol sequence
+                            "type": "REPEAT",
+                            "forever": true,
+                            "child": { // patrol sequence
+                                "type": "SEQUENCE",
+                                "children": [
+                                    { "type": "DO_ACTION", "action_name": "close_all_investigations", "action_arguments": [] },
+                                    { "type": "DO_ACTION", "action_name": "set_random_waypoint_as_target", "action_arguments": [] },
+                                    { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                                    { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                                    { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                                    { "type": "WAIT_FOR", "condition_name": "object_in_range", "condition_arguments": ["$TARGET", 4.0] },
+                                    { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                                    { "type": "DO_ACTION", "action_name": "turn_to_target_waypoint_direction", "action_arguments": [] },
+                                    { "type": "DO_ACTION", "action_name": "start_looking_around", "action_arguments": [] },
+                                    { "type": "WAIT", "duration": 2.0, "random": 3.0 },
+                                    { "type": "DO_ACTION", "action_name": "stop_looking_around", "action_arguments": [] },                                    
+                                  //{ "type": "DO_ACTION", "action_name": "set_active_patrol_idle_animation", "action_arguments": [true]},
+                                    { "type": "WAIT", "duration": 2.0, "random": 5.0 },
+                                    { "type": "DO_ACTION", "action_name": "set_active_patrol_idle_animation", "action_arguments": [false]},
+                                    { "type": "DO_ACTION", "action_name": "set_random_day_phase_state", "action_arguments": [] } // This action can sends it to day role state (job)
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "interrupts": [
+                {
+                    "type": "investigation_opened",
+                    "states": {
+                        "INVESTIGATE": 0.8,
+                        "RING_BELL": 0.2
+                    }
+                },
+                {
+                    "type": "sabotage_found",
+                    "states": 
+                    {
+                        "FIX_SABOTAGE": 1.0
+                    }
+                },
+                {
+                    "type": "day_phase_updated" 
+                }
+            ]
+        },
+        "GATHER_WOOD" : {
+            "making_investigations": false,
+            "alert": false,
+            "brain" : {
+                "type" : "REPEAT",
+                "count" : 1,
+                "child" : {                    
+                    "type": "SEQUENCE",
+                    "on_child_fail": 0, // continue
+                    "children": [
+                        { // 
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "CHECK_CONDITION", "condition_name": "has_any_wood_gather_spot_non_full", "condition_arguments": [], "not" : true },                                
+                                { "type": "DO_ACTION", "action_name": "set_random_day_phase_state", "action_arguments": [] }
+                            ]
+                        },
+                        { // 
+                            "type": "REPEAT",
+                            "forever": true,
+                            "child": { //
+                                "type": "SEQUENCE",
+                                "children": [
+                                    { "type": "DO_ACTION", "action_name": "request_closest_wood_pick_spot", "action_arguments": [] },
+                                    { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                                    { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                                    { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                                    { "type": "WAIT_FOR", "condition_name": "object_in_range", "condition_arguments": ["$TARGET", 15.0] },
+                                    { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                                    { "type": "DO_ACTION", "action_name": "turn_to_target_waypoint_direction", "action_arguments": [] }, 
+                                    { "type": "DO_ACTION", "action_name": "play_work_animation", "action_arguments": ["chop_wood"]},
+                                    { "type": "WAIT", "duration": 1},
+                                    { "type": "DO_ACTION", "action_name": "set_has_wood_in_hand", "action_arguments": [true]},
+                                    { "type": "DO_ACTION", "action_name": "request_closest_wood_gather_spot", "action_arguments": [] },
+                                    { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                                    { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                                    { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                                    { "type": "WAIT_FOR", "condition_name": "object_in_range", "condition_arguments": ["$TARGET", 15.0] },
+                                    { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                                    { "type": "DO_ACTION", "action_name": "turn_to_target_waypoint_direction", "action_arguments": [] },
+                                    { "type": "DO_ACTION", "action_name": "change_wood_amount", "action_arguments": [1]},        
+                                    { "type": "DO_ACTION", "action_name": "set_has_wood_in_hand", "action_arguments": [false]},
+                                    { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["PATROL"] }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            "interrupts" : [
+                {
+                    "type": "investigation_opened",
+                    "states": {
+                        "INVESTIGATE": 0.8,
+                        "RING_BELL": 0.2
+                    }
+                },
+                {
+                    "type": "sabotage_found",
+                    "states": 
+                    {
+                        "FIX_SABOTAGE": 1.0
+                    }
+                },
+                {
+                    "type": "day_phase_updated" 
+                },
+                {
+                    "type": "object_seen",
+                    "group": "players",
+                    "alive": true,
+                    "states": {
+                        "HUNT_TARGET": 1.0
+                    }
+                }
+            ]        
+        },
+        "KEEP_FIRE" : {
+            "making_investigations": false,
+            "alert": false,
+            "brain" : {
+                "type" : "REPEAT",
+                "count" : 1,
+                "child" : {                    
+                    "type": "SEQUENCE",
+                    "on_child_fail": 0, // continue
+                    "children": [
+                        {  // If it finds that all wood box are empty, sends NPC to pick wood first
+                            "type": "SEQUENCE",
+                            "on_child_fail" : 2,  // If first check condition node fails we want to get out of this sequence.                          
+                            "children": [
+                                { "type": "CHECK_CONDITION", "condition_name": "has_any_wood_gather_spot_non_empty", "condition_arguments": [], "not" : true },
+                                { "type": "DO_ACTION", "action_name": "request_closest_wood_pick_spot", "action_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                                { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                                { "type": "WAIT_FOR", "condition_name": "object_in_range", "condition_arguments": ["$TARGET", 15.0] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                                { "type": "DO_ACTION", "action_name": "turn_to_target_waypoint_direction", "action_arguments": [] }, 
+                                { "type": "DO_ACTION", "action_name": "play_work_animation", "action_arguments": ["chop_wood"]},
+                                { "type": "WAIT", "duration": 1}, 
+                                { "type": "DO_ACTION", "action_name": "set_has_wood_in_hand", "action_arguments": [true]}
+                            ]
+                        },
+                        { // In any case, after that sends it to closest wood gathering spot
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "DO_ACTION", "action_name": "request_closest_wood_gather_spot", "action_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                                { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                                { "type": "WAIT_FOR", "condition_name": "object_in_range", "condition_arguments": ["$TARGET", 15.0] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                                { "type": "DO_ACTION", "action_name": "turn_to_target_waypoint_direction", "action_arguments": [] },  
+                                { "type": "DO_ACTION", "action_name": "play_work_animation", "action_arguments": ["fiddle_e"]},
+                                { "type": "WAIT", "duration": 1}
+                            ]
+                        },
+                        { // Here we check if NPC is carrying wood already, if so first increase amount of wood
+                            "type": "SEQUENCE",
+                            "on_child_fail" : 2, // If first check condition node fails we want to get out of this sequence.
+                            "children": [
+                                { "type": "CHECK_CONDITION", "condition_name": "has_wood_in_hand", "condition_arguments": []},
+                                { "type": "DO_ACTION", "action_name": "change_wood_amount", "action_arguments": [2]},
+                                { "type": "DO_ACTION", "action_name": "play_work_animation", "action_arguments": ["fiddle_e"]},
+                                { "type": "WAIT", "duration": 1},
+                                { "type": "DO_ACTION", "action_name": "set_has_wood_in_hand", "action_arguments": [false]}
+                            ]
+                        },
+                        { // And here is the final part of state, where we take wood and find closest fireplace to keep fire there.
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "DO_ACTION", "action_name": "change_wood_amount", "action_arguments": [-1]},
+                                { "type": "DO_ACTION", "action_name": "set_has_wood_in_hand", "action_arguments": [true]},
+                                { "type": "DO_ACTION", "action_name": "request_closest_fireplace", "action_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                                { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                                { "type": "WAIT_FOR", "condition_name": "object_in_range", "condition_arguments": ["$TARGET", 10.0] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                                { "type": "DO_ACTION", "action_name": "turn_to_target_waypoint_direction", "action_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "play_work_animation", "action_arguments": ["fiddle_e"]},
+                                { "type": "WAIT", "duration": 1},
+                                { "type": "DO_ACTION", "action_name": "set_has_wood_in_hand", "action_arguments": [false]},
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["PATROL"] }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "interrupts" : [
+                {
+                    "type": "investigation_opened",
+                    "states": {
+                        "INVESTIGATE": 0.8,
+                        "RING_BELL": 0.2
+                    }
+                },
+                {
+                    "type": "sabotage_found",
+                    "states": 
+                    {
+                        "FIX_SABOTAGE": 1.0
+                    }
+                },
+                {
+                    "type": "day_phase_updated" 
+                },
+                {
+                    "type": "object_seen",
+                    "group": "players",
+                    "alive": true,
+                    "states": {
+                        "HUNT_TARGET": 1.0
+                    }
+                }
+            ]        
+        },
+        "SEEK_SHELTER": {
+            "making_investigations": false,
+            "alert": false,
+            "brain": {
+                "type": "REPEAT",
+                "forever": true,
+                "child": {
+                    "type": "SEQUENCE",
+                    "children": [
+                        { "type": "DO_ACTION", "action_name": "close_all_investigations", "action_arguments": [] },
+                        { "type": "DO_ACTION", "action_name": "set_random_waypoint_as_target", "action_arguments": [] },
+                        { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                        { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                        { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                        { "type": "WAIT_FOR", "condition_name": "object_in_range", "condition_arguments": ["$TARGET", 4.0] },
+                        { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                        { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["HIDDEN"] }
+                    ]
+                }
+            },
+            "interrupts": [
+
+            ]
+        },
+        "HIDDEN": {
+            "making_investigations": false,
+            "alert": false,
+            "brain": {
+                "type": "SEQUENCE",
+                "children": [
+                    { "type": "WAIT", "duration": 8.0, "random": 2.0 },
+                    { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["PATROL"] }
+                ]
+            },
+            "interrupts": [
+                
+            ]
+        },
+        "SEEK_WEAPON": {
+            "making_investigations": true,
+            "alert": true,
+            "brain": {
+                "type": "REPEAT",
+                "forever": true,
+                "child": {
+                    "type": "SEQUENCE",
+                    "on_child_success": 0, // continue
+                    "on_child_fail": 0, // continue
+                    "children": [ 
+                        { // go to INVESTIGATE if already has weapon
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "CHECK_CONDITION", "condition_name": "has_item", "condition_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["INVESTIGATE"] }
+                            ]
+                        },
+                        { // go to SEEK_SHELTER if all containers are empty
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "CHECK_CONDITION", "condition_name": "exists_non_empty", "condition_arguments": ["weapon_barrels"], "not": true },
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["SEEK_SHELTER"] }
+                            ]
+                        },
+                        { // pick up the weapon and go to INVESTIGATE
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "DO_ACTION", "action_name": "set_closest_non_empty_as_target", "action_arguments": ["weapon_barrels"] },
+                                { "type": "CHECK_CONDITION", "condition_name": "has_target", "condition_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                                { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                                { "type": "WAIT_FOR", "condition_name": "object_in_use_range", "condition_arguments": ["$TARGET"] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                                { "type": "WAIT", "duration": 0.3, "random": 0.3 },
+                                { "type": "CHECK_CONDITION", "condition_name": "object_has_item", "condition_arguments": ["$TARGET"] },
+                                { "type": "DO_ACTION", "action_name": "take_item_from", "action_arguments": ["$TARGET"] },
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["INVESTIGATE"] }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "interrupts": [
+
+            ]
+        },
+        "DROP_WEAPON": {
+            "making_investigations": true,
+            "alert": false,
+            "brain": {
+                "type": "REPEAT",
+                "forever": true,
+                "child": {
+                    "type": "SEQUENCE",
+                    "on_child_success": 0, // continue
+                    "on_child_fail": 0, // continue
+                    "children": [ 
+                        { // go to PATROL if already has no weapon
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "CHECK_CONDITION", "condition_name": "has_item", "condition_arguments": [], "not": true },
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["PATROL"] }
+                            ]
+                        },
+
+                        { // try set last weapon barrel as target; if not, set any random non-full; if not, go to PATROL
+                            "type": "SEQUENCE",
+                            "children": [
+                                // try set last weapon container as target
+                                { "type": "DO_ACTION", "action_name": "set_last_weapon_container_as_target", "action_arguments": [] },
+                                { "type": "CHECK_CONDITION", "condition_name": "has_target", "not": true, "condition_arguments": [] },
+
+                                // try set closest non full as target
+                                { "type": "DO_ACTION", "action_name": "set_closest_non_full_as_target", "action_arguments": ["weapon_barrels"] },
+                                { "type": "CHECK_CONDITION", "condition_name": "has_target", "not": true, "condition_arguments": [] },
+
+                                // give up, keep the weapon, and go to PATROL
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["PATROL"] }
+                            ]
+                        },
+                        { // navigate to target weapon container
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                                { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                                { "type": "WAIT_FOR", "condition_name": "object_in_use_range", "condition_arguments": ["$TARGET"] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                                { "type": "WAIT", "duration": 0.3, "random": 0.3 }
+                            ]
+                        },
+                        { // go to DROP_WEAPON state again if container is full
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "CHECK_CONDITION", "condition_name": "object_full", "condition_arguments": ["$TARGET"]},
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["DROP_WEAPON"] }
+                            ]
+                        },
+                        { // put item into it and go to PATROL
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "DO_ACTION", "action_name": "put_item_into", "action_arguments": ["$TARGET"] },
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["PATROL"] }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "interrupts": [
+                {
+                    "type": "investigation_opened",
+                    "states": {
+                        "INVESTIGATE": 1.0
+                    }
+                },
+                {
+                    "type": "object_seen",
+                    "group": "players",
+                    "alive": true,
+                    "states": {
+                        "HUNT_TARGET": 1.0
+                    }
+                }
+            ]
+        },
+        "INVESTIGATE": {
+            "making_investigations": true,
+            "alert": true,
+            "brain": {
+                "type": "SEQUENCE", // init
+                "children": [
+                    {
+                        "type": "REPEAT",
+                        "forever": true,
+                        "child": {
+                            "type": "SEQUENCE",
+                            "on_child_fail": 0, // continue
+                            "children": [
+                                { // go to PATROL if no investigations
+                                    "type": "SEQUENCE",
+                                    "children": [
+                                        { "type": "CHECK_CONDITION", "condition_name": "has_investigation", "condition_arguments": [], "not": true },
+                                        { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["PATROL"] }
+                                    ]
+                                },
+                                { // go to SEEK_WEAPON if case needs weapon AND has no weapon
+                                    "type": "SEQUENCE",
+                                    "children": [
+                                        { "type": "CHECK_CONDITION", "condition_name": "case_needs_weapon", "condition_arguments": [] },
+                                        { "type": "CHECK_CONDITION", "condition_name": "has_item", "condition_arguments": [], "not": true },
+                                        { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["SEEK_WEAPON"] }
+                                    ]
+                                },
+                                { // work out investigation
+                                    "type": "SEQUENCE",
+                                    "children": [
+                                        { "type": "CHECK_CONDITION", "condition_name": "has_investigation", "condition_arguments": [] },
+                                        { "type": "DO_ACTION", "action_name": "fetch_investigation", "action_arguments": [] },
+                                        { "type": "DO_ACTION", "action_name": "set_target_from_case", "action_arguments": [] },
+                                        { "type": "DO_ACTION", "action_name": "request_nav_path_to_case_position", "action_arguments": [false] },
+                                        { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                                        { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                                        { "type": "WAIT_FOR", "condition_name": "nav_path_end_in_range", "condition_arguments": [50.0] },
+                                        { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                                        { "type": "DO_ACTION", "action_name": "turn_to_target", "action_arguments": [] },
+                                        { "type": "DO_ACTION", "action_name": "start_looking_around", "action_arguments": [] },
+                                        { "type": "WAIT", "duration": 3.0, "random": 2.0 },
+                                        { "type": "DO_ACTION", "action_name": "stop_looking_around", "action_arguments": [] },
+                                        { "type": "DO_ACTION", "action_name": "mark_case_target_as_investigated", "action_arguments": [] },
+                                        { "type": "DO_ACTION", "action_name": "close_investigation", "action_arguments": [] }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "interrupts": [
+                {
+                    "type": "object_seen",
+                    "group": "players",
+                    "alive": true,
+                    "states": {
+                        "HUNT_TARGET": 1.0
+                    }
+                }
+            ]
+        },
+        "HUNT_TARGET": {
+            "making_investigations": true,
+            "alert": true,
+            "brain": {
+                "type": "SEQUENCE",
+                "on_child_fail": 0, // continue
+                "children": [
+                    { // go to SEEK_WEAPON if has no weapon
+                        "type": "SEQUENCE",
+                        "children": [
+                            { "type": "CHECK_CONDITION", "condition_name": "has_item", "condition_arguments": [], "not": true },
+                            { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["SEEK_WEAPON"] }
+                        ]
+                    },
+                    // set closest player as target
+                    { "type": "DO_ACTION", "action_name": "set_closest_object_as_target", "action_arguments": ["players"] },
+                    { // chase and attack player
+                        "type": "REPEAT",
+                        "forever": true,
+                        "child": {
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "DO_ACTION", "action_name": "chase_target", "action_arguments": [] },
+                                { "type": "WAIT_FOR", "condition_name": "object_attackable", "condition_arguments": ["$TARGET"] },
+                                { "type": "DO_ACTION", "action_name": "stop_chasing_target", "action_arguments": [] },
+                                { "type": "WAIT", "duration": 0.05 },
+                                { "type": "DO_ACTION", "action_name": "attack", "action_arguments": ["$TARGET"] },
+                                { "type": "WAIT", "duration": 0.5 }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "interrupts": [
+                { // go back to INVESTIGATE if player is dead
+                    "type": "object_seen",
+                    "group": "players",
+                    "alive": false,
+                    "states": {
+                        "PATROL": 1.0
+                    }
+                },
+                { // go back to INVESTIGATE if player is dead
+                    "type": "object_died",
+                    "group": "players", 
+                    "states": {
+                        "PATROL": 1.0
+                    }
+                },
+                { // go back to INVESTIGATE if can't see target player
+                    "type": "target_not_seen",
+                    "states": {
+                        "INVESTIGATE": 1.0
+                    }
+                }
+            ]
+        },
+        "RING_BELL": {
+            "making_investigations": true,
+            "alert": true,
+            "brain": {
+                "type": "SEQUENCE", // init
+                "children": [
+                    {
+                        "type": "REPEAT",
+                        "forever": true,
+                        "child": {
+                            "type": "SEQUENCE",
+                            "on_child_fail": 0, // continue
+                            "children": [
+                                { // go to INVESTIGATE if bell is already ringing
+                                    "type": "SEQUENCE",
+                                    "children": [
+                                        { "type": "CHECK_CONDITION", "condition_name": "is_bell_active", "condition_arguments": [] },
+                                        { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["INVESTIGATE"] }
+                                    ]
+                                },
+                                { // go to INVESTIGATE if brave
+                                    "type": "SEQUENCE",
+                                    "children": [
+                                        { "type": "CHECK_CONDITION", "condition_name": "get_brave", "condition_arguments": [] },
+                                        { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["INVESTIGATE"] }
+                                    ]
+                                },
+                                { // go ring the bell
+                                    "type": "SEQUENCE",
+                                    "children": [
+                                        { "type": "DO_ACTION", "action_name": "set_closest_object_as_target", "action_arguments": ["bells"] },
+                                        { "type": "CHECK_CONDITION", "condition_name": "has_target", "condition_arguments": [] },
+                                        { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                                        { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                                        { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                                        { "type": "WAIT_FOR", "condition_name": "object_in_use_range", "condition_arguments": ["$TARGET"] },
+                                        { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                                        { "type": "WAIT", "duration": 0.5, "random": 1.0 },
+                                        { "type": "DO_ACTION", "action_name": "activate_object", "action_arguments": ["$TARGET"] }
+                                        
+                                    ]
+                                },
+                                // go to INVESTIGATE
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["INVESTIGATE"] }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "interrupts": [
+                { // go to INVESTIGATE is bell got activated in meantime
+                    "type": "bell_activated",
+                    "arguments": [],
+                    "states": {
+                        "INVESTIGATE": 1.0
+                    }
+                },
+                {
+                    "type": "object_seen",
+                    "group": "players",
+                    "alive": true,
+                    "states": {
+                        "HUNT_TARGET": 1.0
+                    }
+                }
+            ]
+        },
+        "FIX_SABOTAGE": {
+            "making_investigations": false,
+            "alert": false,
+            "brain": {
+                "type": "REPEAT",
+                "forever": true,
+                "child" : {
+                    "type": "SEQUENCE",                    
+                    "on_child_fail": 0,  // continue
+                    "children": [
+                        {
+                            "type": "SEQUENCE",
+                            "children": [
+                                { "type": "CHECK_CONDITION", "condition_name": "has_sabotage_target", "condition_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "set_sabotaged_as_target", "action_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                                { "type": "CHECK_CONDITION", "condition_name": "has_target", "condition_arguments": [] },
+                                { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                                { "type": "WAIT_FOR", "condition_name": "object_in_range", "condition_arguments": ["$TARGET", 30.0] },
+                                { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                                { "type": "DO_ACTION", "action_name": "has_sabotage_target", "action_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "start_fixing_sabotage", "action_arguments": [] },
+                                { "type": "WAIT_FOR", "condition_name": "is_done_fixing", "condition_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["PATROL"] }
+                            ]
+                        },
+                        {
+                            "type": "SEQUENCE",
+                            "children": [ 
+                                { "type": "DO_ACTION", "action_name": "cancel_fixing_sabotage", "action_arguments": [] },
+                                { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["PATROL"] }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "interrupts": [
+                {
+                    "type": "object_seen",
+                    "group": "players",
+                    "alive": true,
+                    "states": {
+                        "INVESTIGATE": 1.0
+                    }
+                }
+            ]
+        }
+    },
+    "mayor": {
+        "PATROL": {
+            "default": true,
+            "making_investigations": false,
+            "alert": false,
+            "brain": {
+                "type": "REPEAT",
+                "forever": true,
+                "child": {
+                    "type": "SEQUENCE",
+                    "children": [
+                        { "type": "WAIT", "duration": 0.0, "random": 0.1 },
+                        { "type": "DO_ACTION", "action_name": "set_random_waypoint_as_target", "action_arguments": [] },
+                        { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                        { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                        { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                        { "type": "WAIT_FOR", "condition_name": "object_in_range", "condition_arguments": ["$TARGET", 4.0] },
+                        { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                        { "type": "DO_ACTION", "action_name": "turn_to_target_waypoint_direction", "action_arguments": [] },
+                        { "type": "DO_ACTION", "action_name": "start_looking_around", "action_arguments": [] },
+                        { "type": "WAIT", "duration": 4.0, "random": 6.0 },
+                        { "type": "DO_ACTION", "action_name": "stop_looking_around", "action_arguments": [] }
+                    ]
+                }
+            },
+            "interrupts": [
+                {
+                    "type": "object_seen",
+                    "group": "players",
+                    "alive": true,
+                    "states": {
+                        "HIDE_IN_FEAR": 1.0
+                    }
+                }
+            ]
+        },
+        "HIDE_IN_FEAR": {
+            "making_investigations": false,
+            "alert": false,
+            "brain": {
+                "type": "REPEAT",
+                "forever": true,
+                "child": {
+                    "type": "SEQUENCE",
+                    "children": [
+                        { "type": "DO_ACTION", "action_name": "set_panicking", "action_arguments": [true] },
+                        { "type": "WAIT", "duration": 0.5, "random": 0.2 },
+                        { "type": "DO_ACTION", "action_name": "set_panicking", "action_arguments": [false] },
+                        { "type": "DO_ACTION", "action_name": "set_random_waypoint_as_target", "action_arguments": [] },
+                        { "type": "DO_ACTION", "action_name": "request_nav_path_to_target", "action_arguments": [false] },
+                        { "type": "WAIT_FOR", "condition_name": "has_nav_path", "condition_arguments": [] },
+                        { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [true] },
+                        { "type": "WAIT_FOR", "condition_name": "object_in_range", "condition_arguments": ["$TARGET", 4.0] },
+                        { "type": "DO_ACTION", "action_name": "set_follow_navpath", "action_arguments": [false] },
+                        { "type": "DO_ACTION", "action_name": "set_panicking", "action_arguments": [true] },
+                        { "type": "WAIT", "duration": 30.0, "random": 15.0 },
+                        { "type": "DO_ACTION", "action_name": "set_panicking", "action_arguments": [false] },
+                        { "type": "DO_ACTION", "action_name": "set_next_state", "action_arguments": ["PATROL"] }
+                    ]
+                }
+            },
+            "interrupts": [
+
+            ]
+        }
+    }
+}

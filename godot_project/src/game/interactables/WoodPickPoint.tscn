@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ndh-assets/props/environment/green_tree.png" type="Texture" id=1]
+[ext_resource path="res://src/game/interactables/WoodPickPoint.gd" type="Script" id=2]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 8 )
+
+[node name="WoodPickPoint" type="StaticBody2D"]
+use_parent_material = true
+collision_layer = 72
+collision_mask = 0
+script = ExtResource( 2 )
+spawn_offset = Vector2( -32, -16 )
+interactable = false
+sabotageable = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+use_parent_material = true
+frames = SubResource( 1 )
+offset = Vector2( 0, -48 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -12 )
+shape = SubResource( 2 )

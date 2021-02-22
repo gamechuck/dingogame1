@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/window_break_1.wav-343b64a54c2e5c5155645fbb41064afa.sample"
+
+[deps]
+
+source_file="res://assets/audio/sfx/game/window_break_1.wav"
+dest_files=[ "res://.import/window_break_1.wav-343b64a54c2e5c5155645fbb41064afa.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

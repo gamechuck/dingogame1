@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/footstep_wood_floor_5.wav-34b4f7040ca641be33cf8af94eedd3f8.sample"
+
+[deps]
+
+source_file="res://assets/audio/sfx/game/footstep_wood_floor_5.wav"
+dest_files=[ "res://.import/footstep_wood_floor_5.wav-34b4f7040ca641be33cf8af94eedd3f8.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

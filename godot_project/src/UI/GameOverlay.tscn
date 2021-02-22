@@ -1,0 +1,150 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/UI/GameOverlay.gd" type="Script" id=1]
+[ext_resource path="res://ndh-assets/UI/HUD/timewheel/timewheel_background_baked.png" type="Texture" id=2]
+[ext_resource path="res://ndh-assets/UI/HUD/top/villagers_count.png" type="Texture" id=3]
+[ext_resource path="res://src/UI/EndOverlay.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ndh-assets/UI/HUD/timewheel/timewheel_frame.png" type="Texture" id=5]
+[ext_resource path="res://ndh-assets/UI/font/gamechuck_ww.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/materials/day_time_mask.tres" type="Material" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 12
+font_data = ExtResource( 6 )
+
+[node name="GameOverlay" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_edit_vertical_guides_": [ 385.073 ]
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+margin_right = -1147.0
+margin_bottom = 84.0
+rect_min_size = Vector2( 1280, 720 )
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 16
+custom_constants/margin_top = 24
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 24
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 1264.0
+margin_bottom = 696.0
+mouse_filter = 2
+custom_constants/separation = 0
+
+[node name="VersionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_left = 1147.0
+margin_right = 1248.0
+margin_bottom = 14.0
+size_flags_horizontal = 8
+text = "v0.0 (prototype)"
+align = 1
+valign = 1
+
+[node name="HUDVBox" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 1264.0
+margin_bottom = 696.0
+mouse_filter = 2
+custom_constants/separation = 28
+
+[node name="Timewheel" type="Control" parent="MarginContainer/HUDVBox"]
+material = ExtResource( 9 )
+margin_left = 624.0
+margin_right = 624.0
+size_flags_horizontal = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeFrame" type="TextureRect" parent="MarginContainer/HUDVBox/Timewheel"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -102.5
+margin_right = 102.5
+margin_bottom = 202.0
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="MarginContainer/HUDVBox/Timewheel"]
+material = ExtResource( 9 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -102.5
+margin_right = 102.5
+margin_bottom = 202.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AliveRect" type="TextureRect" parent="MarginContainer/HUDVBox"]
+margin_left = 592.0
+margin_top = 28.0
+margin_right = 656.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 64, 64 )
+mouse_filter = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HUDVBox/AliveRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopSpacer" type="Control" parent="MarginContainer/HUDVBox/AliveRect/VBoxContainer"]
+margin_right = 64.0
+margin_bottom = 33.0
+mouse_filter = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="AliveLabel" type="Label" parent="MarginContainer/HUDVBox/AliveRect/VBoxContainer"]
+margin_top = 37.0
+margin_right = 64.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 1 )
+text = "128"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomSpacer" type="Control" parent="MarginContainer/HUDVBox/AliveRect/VBoxContainer"]
+margin_top = 52.0
+margin_right = 64.0
+margin_bottom = 64.0
+mouse_filter = 2
+size_flags_vertical = 3
+
+[node name="EndOverlay" parent="." instance=ExtResource( 4 )]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

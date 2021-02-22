@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/UI/base/VolumeVBox.gd" type="Script" id=1]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=2]
+
+[node name="VolumeVBox" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+alignment = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_top = 258.0
+margin_right = 1024.0
+margin_bottom = 298.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_right = 444.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+text = "Master"
+align = 2
+
+[node name="VolumeSlider" type="HSlider" parent="HBoxContainer"]
+margin_left = 448.0
+margin_right = 576.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 128, 0 )
+size_flags_vertical = 1
+value = 100.0
+
+[node name="VolumeLabel" type="Label" parent="HBoxContainer"]
+margin_left = 580.0
+margin_right = 1024.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+text = "100 %"
+
+[node name="MuteCheckBox" type="CheckBox" parent="."]
+margin_left = 448.0
+margin_top = 302.0
+margin_right = 576.0
+margin_bottom = 342.0
+rect_min_size = Vector2( 128, 0 )
+size_flags_horizontal = 4
+text = "Mute Master"
+align = 1

@@ -1,0 +1,399 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "JSONBeautifier",
+"language": "GDScript",
+"path": "res://addons/json_beautifier/json_beautifier.gd"
+}, {
+"base": "Reference",
+"class": "JSONMinifier",
+"language": "GDScript",
+"path": "res://addons/json_minifier/json_minifier.gd"
+}, {
+"base": "classInteractable",
+"class": "classBed",
+"language": "GDScript",
+"path": "res://src/game/interactables/Bed.gd"
+}, {
+"base": "classInteractable",
+"class": "classBell",
+"language": "GDScript",
+"path": "res://src/game/interactables/Bell.gd"
+}, {
+"base": "classBrainNode",
+"class": "classBrainCheckCondition",
+"language": "GDScript",
+"path": "res://src/brain/nodes/BrainCheckCondition.gd"
+}, {
+"base": "classBrainNode",
+"class": "classBrainDoAction",
+"language": "GDScript",
+"path": "res://src/brain/nodes/BrainDoAction.gd"
+}, {
+"base": "Node",
+"class": "classBrainMaker",
+"language": "GDScript",
+"path": "res://src/brain/BrainMaker.gd"
+}, {
+"base": "Node",
+"class": "classBrainNode",
+"language": "GDScript",
+"path": "res://src/brain/BrainNode.gd"
+}, {
+"base": "classBrainNode",
+"class": "classBrainRepeat",
+"language": "GDScript",
+"path": "res://src/brain/nodes/BrainRepeat.gd"
+}, {
+"base": "classBrainNode",
+"class": "classBrainSequence",
+"language": "GDScript",
+"path": "res://src/brain/nodes/BrainSequence.gd"
+}, {
+"base": "Node",
+"class": "classBrainState",
+"language": "GDScript",
+"path": "res://src/brain/BrainState.gd"
+}, {
+"base": "classBrainNode",
+"class": "classBrainWait",
+"language": "GDScript",
+"path": "res://src/brain/nodes/BrainWait.gd"
+}, {
+"base": "classBrainNode",
+"class": "classBrainWaitFor",
+"language": "GDScript",
+"path": "res://src/brain/nodes/BrainWaitFor.gd"
+}, {
+"base": "classInteractable",
+"class": "classBreakable",
+"language": "GDScript",
+"path": "res://src/game/interactables/breakables/Breakable.gd"
+}, {
+"base": "Area2D",
+"class": "classCarpet",
+"language": "GDScript",
+"path": "res://src/game/building/Carpet.gd"
+}, {
+"base": "Reference",
+"class": "classCase",
+"language": "GDScript",
+"path": "res://src/cases/Case.gd"
+}, {
+"base": "Node",
+"class": "classCaseManager",
+"language": "GDScript",
+"path": "res://src/autoload/state/CaseManager.gd"
+}, {
+"base": "Node2D",
+"class": "classCaseVisual",
+"language": "GDScript",
+"path": "res://src/cases/CaseVisual.gd"
+}, {
+"base": "Reference",
+"class": "classCharacter",
+"language": "GDScript",
+"path": "res://src/game/characters/Character.gd"
+}, {
+"base": "Node",
+"class": "classCharacterAnimations",
+"language": "GDScript",
+"path": "res://assets/CharacterAnimations.gd"
+}, {
+"base": "classInteractable",
+"class": "classContainer",
+"language": "GDScript",
+"path": "res://src/game/interactables/containers/Container.gd"
+}, {
+"base": "classBreakable",
+"class": "classDoor",
+"language": "GDScript",
+"path": "res://src/game/interactables/Door.gd"
+}, {
+"base": "Area2D",
+"class": "classFloor",
+"language": "GDScript",
+"path": "res://src/game/building/Floor.gd"
+}, {
+"base": "classContainer",
+"class": "classHaystack",
+"language": "GDScript",
+"path": "res://src/game/interactables/containers/Haystack.gd"
+}, {
+"base": "Node",
+"class": "classInteractPrompt",
+"language": "GDScript",
+"path": "res://src/UI/InteractPrompt.gd"
+}, {
+"base": "Node2D",
+"class": "classInteractable",
+"language": "GDScript",
+"path": "res://src/game/interactables/Interactable.gd"
+}, {
+"base": "Reference",
+"class": "classInvestigation",
+"language": "GDScript",
+"path": "res://src/cases/Investigation.gd"
+}, {
+"base": "Reference",
+"class": "classItem",
+"language": "GDScript",
+"path": "res://src/items/Item.gd"
+}, {
+"base": "classNPC",
+"class": "classMayor",
+"language": "GDScript",
+"path": "res://src/game/characters/npcs/Mayor.gd"
+}, {
+"base": "Control",
+"class": "classMenuTab",
+"language": "GDScript",
+"path": "res://src/UI/menu/MenuTab.gd"
+}, {
+"base": "Control",
+"class": "classMissionPlace",
+"language": "GDScript",
+"path": "res://src/UI/menu/map/MissionPlacePanel.gd"
+}, {
+"base": "classCharacter",
+"class": "classNPC",
+"language": "GDScript",
+"path": "res://src/game/characters/NPC.gd"
+}, {
+"base": "Resource",
+"class": "classNavpathRequest",
+"language": "GDScript",
+"path": "res://src/misc/NavpathRequest.gd"
+}, {
+"base": "MarginContainer",
+"class": "classPauseTab",
+"language": "GDScript",
+"path": "res://src/UI/pause/PauseTab.gd"
+}, {
+"base": "classCharacter",
+"class": "classPlayer",
+"language": "GDScript",
+"path": "res://src/game/characters/Player.gd"
+}, {
+"base": "VBoxContainer",
+"class": "classSection",
+"language": "GDScript",
+"path": "res://src/UI/base/SectionContainer.gd"
+}, {
+"base": "classContainer",
+"class": "classStormShelter",
+"language": "GDScript",
+"path": "res://src/game/interactables/containers/StormShelter.gd"
+}, {
+"base": "Reference",
+"class": "classTown",
+"language": "GDScript",
+"path": "res://src/game/Town.gd"
+}, {
+"base": "Reference",
+"class": "classTownState",
+"language": "GDScript",
+"path": "res://src/autoload/state/TownState.gd"
+}, {
+"base": "classNPC",
+"class": "classVillager",
+"language": "GDScript",
+"path": "res://src/game/characters/npcs/Villager.gd"
+}, {
+"base": "Sprite",
+"class": "classWaypoint",
+"language": "GDScript",
+"path": "res://src/waypoints/Waypoint.gd"
+}, {
+"base": "Resource",
+"class": "classWaypointConnection",
+"language": "GDScript",
+"path": "res://src/waypoints/WaypointConnection.gd"
+}, {
+"base": "Node2D",
+"class": "classWaypointManager",
+"language": "GDScript",
+"path": "res://src/waypoints/WaypointManager.gd"
+}, {
+"base": "classContainer",
+"class": "classWeaponBarrel",
+"language": "GDScript",
+"path": "res://src/game/interactables/containers/WeaponBarrel.gd"
+}, {
+"base": "classInteractable",
+"class": "classWheatField",
+"language": "GDScript",
+"path": "res://src/game/interactables/WheatField.gd"
+}, {
+"base": "classBreakable",
+"class": "classWindow",
+"language": "GDScript",
+"path": "res://src/game/interactables/breakables/Window.gd"
+}, {
+"base": "classInteractable",
+"class": "classWoodBox",
+"language": "GDScript",
+"path": "res://src/game/interactables/WoodBox.gd"
+}, {
+"base": "classInteractable",
+"class": "classWoodPickPoint",
+"language": "GDScript",
+"path": "res://src/game/interactables/WoodPickPoint.gd"
+} ]
+_global_script_class_icons={
+"JSONBeautifier": "",
+"JSONMinifier": "",
+"classBed": "",
+"classBell": "",
+"classBrainCheckCondition": "",
+"classBrainDoAction": "",
+"classBrainMaker": "",
+"classBrainNode": "",
+"classBrainRepeat": "",
+"classBrainSequence": "",
+"classBrainState": "",
+"classBrainWait": "",
+"classBrainWaitFor": "",
+"classBreakable": "",
+"classCarpet": "",
+"classCase": "",
+"classCaseManager": "",
+"classCaseVisual": "",
+"classCharacter": "",
+"classCharacterAnimations": "",
+"classContainer": "",
+"classDoor": "",
+"classFloor": "",
+"classHaystack": "",
+"classInteractPrompt": "",
+"classInteractable": "",
+"classInvestigation": "",
+"classItem": "",
+"classMayor": "",
+"classMenuTab": "",
+"classMissionPlace": "",
+"classNPC": "",
+"classNavpathRequest": "",
+"classPauseTab": "",
+"classPlayer": "",
+"classSection": "",
+"classStormShelter": "",
+"classTown": "",
+"classTownState": "",
+"classVillager": "",
+"classWaypoint": "",
+"classWaypointConnection": "",
+"classWaypointManager": "",
+"classWeaponBarrel": "",
+"classWheatField": "",
+"classWindow": "",
+"classWoodBox": "",
+"classWoodPickPoint": ""
+}
+
+[application]
+
+config/name="Night Defence Heroes"
+run/main_scene="res://src/Menu.tscn"
+config/icon="res://assets/textures/ndh_icon.png"
+
+[autoload]
+
+Global="*res://src/Global.gd"
+ConfigData="*res://src/autoload/ConfigData.tscn"
+Flow="*res://src/autoload/Flow.tscn"
+State="*res://src/autoload/State.tscn"
+AudioEngine="*res://src/autoload/AudioEngine.tscn"
+Logger="*res://src/autoload/Logger.gd"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+shapes/collision/shape_color=Color( 0.254902, 0.894118, 1, 0.25098 )
+
+[display]
+
+window/size/width=1280
+window/size/height=720
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "waypoint_editor" )
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
+
+[input]
+
+interact={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":0,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
+ ]
+}
+attack_default={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":2,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+sprint={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"unicode":0,"echo":false,"script":null)
+, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":7,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="DEFAULT"
+2d_physics/layer_2="CHARACTER"
+2d_physics/layer_3="PLAYER"
+2d_physics/layer_4="SOLID"
+2d_physics/layer_5="CONTAINER"
+2d_physics/layer_6="ENEMY"
+2d_physics/layer_7="INTERACTABLE"
+2d_physics/layer_8="NPC"
+2d_physics/layer_9="CASE"
+2d_physics/layer_10="CORPSE"
+2d_physics/layer_11="GROUND"
+2d_physics/layer_12="SOUND"
+2d_physics/layer_13="NAV_SOLID"
+2d_physics/layer_14="SIGHT_OCCLUDER"
+
+[rendering]
+
+quality/2d/use_pixel_snap=true
+environment/default_clear_color=Color( 0.180392, 0.180392, 0.180392, 1 )
+environment/default_environment="res://default_env.tres"

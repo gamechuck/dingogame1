@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/UI/base/TitleHBox.gd" type="Script" id=1]
+
+[node name="TitleHBox" type="HBoxContainer"]
+margin_right = 960.0
+margin_bottom = 14.0
+alignment = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FrontSeparator" type="HSeparator" parent="."]
+margin_left = 348.0
+margin_right = 476.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 128, 0 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 480.0
+margin_right = 480.0
+margin_bottom = 14.0
+
+[node name="BackSeparator" type="HSeparator" parent="."]
+margin_left = 484.0
+margin_right = 612.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 128, 0 )

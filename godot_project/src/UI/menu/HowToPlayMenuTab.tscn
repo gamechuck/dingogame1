@@ -1,0 +1,309 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+[ext_resource path="res://src/UI/base/TitleHBox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/UI/menu/HowToPlayMenuTab.gd" type="Script" id=3]
+[ext_resource path="res://assets/fonts/dynamic/november_size12.tres" type="DynamicFont" id=4]
+
+[node name="HowToPlayMenuTab" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+tab_type = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 992.0
+margin_bottom = 568.0
+
+[node name="TitleHBox" parent="VBoxContainer" instance=ExtResource( 2 )]
+margin_bottom = 40.0
+text = "How To Play?"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+margin_top = 44.0
+margin_right = 960.0
+margin_bottom = 492.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+margin_right = 960.0
+margin_bottom = 448.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+margin_right = 960.0
+margin_bottom = 97.0
+custom_fonts/font = ExtResource( 4 )
+text = "YOU ARE A WEREWOLF.
+
+As a bloodthirstly creature of the night it is in your nature to murder everything alive.
+A single human is your prey, but be careful!
+A pitchfork wielding mob can quickly put an end to your murdering spree..."
+align = 1
+autowrap = true
+
+[node name="TitleHBox" parent="VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 101.0
+margin_bottom = 141.0
+text = "Controls"
+
+[node name="HeaderHBox" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+margin_top = 145.0
+margin_right = 960.0
+margin_bottom = 185.0
+alignment = 1
+
+[node name="MouseVBox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HeaderHBox"]
+margin_right = 304.0
+margin_bottom = 40.0
+size_flags_horizontal = 2
+
+[node name="TitleHBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HeaderHBox/MouseVBox" instance=ExtResource( 2 )]
+margin_right = 304.0
+margin_bottom = 40.0
+text = "Mouse"
+
+[node name="KeyboardVBox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/HeaderHBox"]
+margin_left = 482.0
+margin_right = 960.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+
+[node name="TitleHBox" parent="VBoxContainer/ScrollContainer/VBoxContainer/HeaderHBox/KeyboardVBox" instance=ExtResource( 2 )]
+margin_left = 150.0
+margin_right = 478.0
+margin_bottom = 40.0
+size_flags_horizontal = 8
+text = "Keyboard"
+
+[node name="DescriptionHBox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer"]
+margin_top = 189.0
+margin_right = 960.0
+margin_bottom = 443.0
+
+[node name="MeleeHBox" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox"]
+margin_right = 960.0
+margin_bottom = 61.0
+alignment = 1
+
+[node name="MouseLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/MeleeHBox"]
+margin_left = 90.0
+margin_right = 226.0
+margin_bottom = 61.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "Left Mouse Button"
+align = 1
+valign = 1
+
+[node name="DescriptionVBox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/MeleeHBox"]
+margin_left = 321.0
+margin_right = 638.0
+margin_bottom = 61.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/MeleeHBox/DescriptionVBox"]
+margin_left = 110.0
+margin_right = 206.0
+margin_bottom = 40.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "Melee Attack"
+align = 1
+valign = 1
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/MeleeHBox/DescriptionVBox"]
+margin_left = 62.0
+margin_top = 44.0
+margin_right = 254.0
+margin_bottom = 61.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 4 )
+text = "Kill villagers & Destroy windows"
+align = 1
+valign = 1
+
+[node name="KeyboardLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/MeleeHBox"]
+margin_left = 797.0
+margin_right = 805.0
+margin_bottom = 61.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "E"
+align = 1
+valign = 1
+
+[node name="InteractHBox" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox"]
+margin_top = 65.0
+margin_right = 960.0
+margin_bottom = 166.0
+alignment = 1
+
+[node name="MouseLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/InteractHBox"]
+margin_left = 154.0
+margin_right = 162.0
+margin_bottom = 101.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "F"
+align = 1
+valign = 1
+
+[node name="DescriptionVBox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/InteractHBox"]
+margin_left = 321.0
+margin_right = 638.0
+margin_bottom = 101.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/InteractHBox/DescriptionVBox"]
+margin_left = 126.0
+margin_right = 190.0
+margin_bottom = 40.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "Interact"
+align = 1
+valign = 1
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/InteractHBox/DescriptionVBox"]
+margin_left = 8.0
+margin_top = 44.0
+margin_right = 308.0
+margin_bottom = 101.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 4 )
+text = "Hide in haybales, storm shelters and empty barrels
+Traverse through windows
+Open/Close doors"
+align = 1
+valign = 1
+
+[node name="KeyboardLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/InteractHBox"]
+margin_left = 797.0
+margin_right = 805.0
+margin_bottom = 101.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "F"
+align = 1
+valign = 1
+
+[node name="MovementHBox" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox"]
+margin_top = 170.0
+margin_right = 960.0
+margin_bottom = 210.0
+alignment = 1
+
+[node name="MouseLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/MovementHBox"]
+margin_left = 86.0
+margin_right = 230.0
+margin_bottom = 40.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "Right Mouse Button"
+align = 1
+valign = 1
+
+[node name="DescriptionVBox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/MovementHBox"]
+margin_left = 321.0
+margin_right = 638.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/MovementHBox/DescriptionVBox"]
+margin_left = 126.0
+margin_right = 190.0
+margin_bottom = 40.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "Movement"
+align = 1
+valign = 1
+
+[node name="KeyboardLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/MovementHBox"]
+margin_left = 729.0
+margin_right = 873.0
+margin_bottom = 40.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "WASD or Arrow Keys"
+align = 1
+valign = 1
+
+[node name="RunHBox" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox"]
+margin_top = 214.0
+margin_right = 960.0
+margin_bottom = 254.0
+alignment = 1
+
+[node name="MouseLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/RunHBox"]
+margin_left = 138.0
+margin_right = 178.0
+margin_bottom = 40.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "Shift"
+align = 1
+valign = 1
+
+[node name="DescriptionVBox" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/RunHBox"]
+margin_left = 321.0
+margin_right = 638.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/RunHBox/DescriptionVBox"]
+margin_left = 146.0
+margin_right = 170.0
+margin_bottom = 40.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "Run"
+align = 1
+valign = 1
+
+[node name="KeyboardLabel" type="Label" parent="VBoxContainer/ScrollContainer/VBoxContainer/DescriptionHBox/RunHBox"]
+margin_left = 781.0
+margin_right = 821.0
+margin_bottom = 40.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+text = "Shift"
+align = 1
+valign = 1
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+margin_left = 416.0
+margin_top = 496.0
+margin_right = 544.0
+margin_bottom = 536.0
+rect_min_size = Vector2( 128, 0 )
+size_flags_horizontal = 4
+text = "Back"

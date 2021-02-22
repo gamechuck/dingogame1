@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/Menu.gd" type="Script" id=1]
+[ext_resource path="res://src/UI/menu/MainMenuTab.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/UI/menu/MenuTabContainer.gd" type="Script" id=3]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=4]
+[ext_resource path="res://src/UI/menu/SettingsMenuTab.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/UI/menu/WorldMapTab.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/UI/menu/HowToPlayMenuTab.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/textures/menu_background.png" type="Texture" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="BackgroundTextureRect" type="TextureRect" parent="."]
+self_modulate = Color( 0.376471, 0.376471, 0.376471, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="MenuTabContainer" type="TabContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+tabs_visible = false
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenuTab" parent="MenuTabContainer" instance=ExtResource( 2 )]
+margin_bottom = 0.0
+
+[node name="WorldMap" parent="MenuTabContainer" instance=ExtResource( 6 )]
+visible = false
+
+[node name="HowToPlayMenuTab" parent="MenuTabContainer" instance=ExtResource( 7 )]
+visible = false
+
+[node name="SettingsMenuTab" parent="MenuTabContainer" instance=ExtResource( 5 )]
+visible = false
