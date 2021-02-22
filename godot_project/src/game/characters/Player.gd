@@ -80,8 +80,10 @@ func _get_input():
 		_movement_speed = _walk_speed
 	if Input.is_action_pressed("move_left"):
 		_velocity += Vector2.LEFT
+		$AnimatedSprite.flip_h = true
 	if Input.is_action_pressed("move_right"):
 		_velocity += Vector2.RIGHT
+		$AnimatedSprite.flip_h = false
 
 
 	_velocity = _velocity.normalized() * _movement_speed
