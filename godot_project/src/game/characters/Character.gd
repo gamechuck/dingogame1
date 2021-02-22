@@ -71,26 +71,26 @@ func set_hp_max(v : int) -> void:
 
 # how much damage you deal when attacking
 var attack_power := 1
-
-# if true, can't be investigated again by NPCs
-# (set this to true when ex. NPCs are done investigating this corpse)
-var investigated := false setget set_investigated
-func set_investigated(v : bool) -> void:
-	investigated = v
-
-# keeps track of entered container
-var container : classContainer = null
-
-# keep track where we entered the container from so on exiting it we end up here
-var container_enter_position := Vector2()
-
-# keep track of carried character (for corpse manipulation by player)
-var carried_character : KinematicBody2D = null
-
-# called by AI
-var follow_navpath := false setget set_follow_navpath
-func set_follow_navpath(v : bool) -> void:
-	follow_navpath = v
+#
+## if true, can't be investigated again by NPCs
+## (set this to true when ex. NPCs are done investigating this corpse)
+#var investigated := false setget set_investigated
+#func set_investigated(v : bool) -> void:
+#	investigated = v
+#
+## keeps track of entered container
+#var container : classContainer = null
+#
+## keep track where we entered the container from so on exiting it we end up here
+#var container_enter_position := Vector2()
+#
+## keep track of carried character (for corpse manipulation by player)
+#var carried_character : KinematicBody2D = null
+#
+## called by AI
+#var follow_navpath := false setget set_follow_navpath
+#func set_follow_navpath(v : bool) -> void:
+#	follow_navpath = v
 
 ################################################################################
 ## PRIVATE VARIABLES
@@ -199,72 +199,72 @@ func _physics_process(delta : float) -> void:
 		_velocity = Vector2.ZERO
 	if alive:
 		_update_animation_dict()
-		_update_shadow()
-
-		# moving
-		if not _is_knocked_back:
-			if _chasing_target:
-				if _navpath_update_delay.time_left == 0.0:
-					if _target:
-						_update_path_to(_target, true)
-					_navpath_update_delay.start(NAVPATH_UPDATE_INTERVAL)
-				_move_on_nav_path(delta)
-			elif follow_navpath:
-				_move_on_nav_path(delta)
+#		_update_shadow()
+#
+#		# moving
+#		if not _is_knocked_back:
+#			if _chasing_target:
+#				if _navpath_update_delay.time_left == 0.0:
+#					if _target:
+#						_update_path_to(_target, true)
+#					_navpath_update_delay.start(NAVPATH_UPDATE_INTERVAL)
+#				_move_on_nav_path(delta)
+#			elif follow_navpath:
+#				_move_on_nav_path(delta)
 
 		# looking
-		if _looking_around:
-			self._look_angle += 0.01 * sin(OS.get_ticks_msec() * 0.001 * TAU * 0.25 + _looking_around_phase_offset)
-		else:
-			if _chasing_target and _target and object_in_sight(_target):
-				var angle := (_target.global_position - global_position).angle()
-				_look_towards_angle(angle)
-			else:
-				_look_towards_angle(_movement_angle)
-
-		# checking if objects are seen + target
-		var target_seen := false
-		for o in get_objects_in_see_range():
-			if o.name == name:
-				continue
-			if not object_in_sight(o):
-				continue
-			if o.is_in_group("players") and not o.seeable:
-				continue
-
-			emit_signal("object_seen", o)
-
-			if _target and o.name == _target.name:
-				target_seen = true
-		if target_seen:
-			_target_focused = true
-			_target_not_focused_duration = 0.0
-		else:
-			_target_not_focused_duration += delta
-
-		# update target focused
-		if _target_focused:
-			# update hunted target state changes (ex. target entering a container)
-			if _target and hunting_target:
-				if _target.is_in_group("characters") and _target.is_in_container:
-					set_target(_target.container)
-				if _target.is_in_group("containers") and not _target.contained_character:
-					set_target(_target.last_removed_character)
-
-			if _target_not_focused_duration >= HUNT_TARGET_NOT_FOCUSED_DEBOUNCE:
-				_target_focused = false
-				emit_signal("target_not_seen")
-		else:
-			pass
+#		if _looking_around:
+#			self._look_angle += 0.01 * sin(OS.get_ticks_msec() * 0.001 * TAU * 0.25 + _looking_around_phase_offset)
+#		else:
+#			if _chasing_target and _target and object_in_sight(_target):
+#				var angle := (_target.global_position - global_position).angle()
+#				_look_towards_angle(angle)
+#			else:
+#				_look_towards_angle(_movement_angle)
+#
+#		# checking if objects are seen + target
+#		var target_seen := false
+#		for o in get_objects_in_see_range():
+#			if o.name == name:
+#				continue
+#			if not object_in_sight(o):
+#				continue
+#			if o.is_in_group("players") and not o.seeable:
+#				continue
+#
+#			emit_signal("object_seen", o)
+#
+#			if _target and o.name == _target.name:
+#				target_seen = true
+#		if target_seen:
+#			_target_focused = true
+#			_target_not_focused_duration = 0.0
+#		else:
+#			_target_not_focused_duration += delta
+#
+#		# update target focused
+#		if _target_focused:
+#			# update hunted target state changes (ex. target entering a container)
+#			if _target and hunting_target:
+#				if _target.is_in_group("characters") and _target.is_in_container:
+#					set_target(_target.container)
+#				if _target.is_in_group("containers") and not _target.contained_character:
+#					set_target(_target.last_removed_character)
+#
+#			if _target_not_focused_duration >= HUNT_TARGET_NOT_FOCUSED_DEBOUNCE:
+#				_target_focused = false
+#				emit_signal("target_not_seen")
+#		else:
+#			pass
 
 		# update move direction state
-		_current_direction = Flow.angle_to_direction(_movement_angle)
+#		_current_direction = Flow.angle_to_direction(_movement_angle)
 
 		_play_move_sound()
 
 ################################################################################
 ## PUBLIC FUNCTIONS
-
+#
 func set_target(new_target : Node2D) -> void:
 	# cleanup previous target first, ex. waypoints reserved bool
 	if _target:
@@ -315,68 +315,68 @@ func look_at_position(target_position : Vector2) -> void:
 	_attack_range.rotation = angle
 	_movement_angle = angle
 	set_look_angle(angle)
-
-func set_random_waypoint_as_target() -> void:
-	emit_signal("random_waypoint_requested")
-	if _target:
-		last_target_waypoint = _target
-		_target.reserved = true
-
-func set_closest_object_as_target(target_group : String) -> void:
-	emit_signal("closest_object_requested", target_group)
-
-func set_closest_non_empty_as_target(group : String) -> void:
-	var objects := []
-	for o in get_tree().get_nodes_in_group(group):
-		if o.is_empty(): continue
-		objects.append(o)
-
-	if objects.size() > 0:
-		set_target(Flow.get_closest_object(self, objects))
-
-func set_closest_non_full_as_target(group : String) -> void:
-	var objects := []
-	for o in get_tree().get_nodes_in_group(group):
-		if o.is_full(): continue
-		objects.append(o)
-
-	if objects.size() > 0:
-		set_target(Flow.get_closest_object(self, objects))
-
-func set_random_object_as_target(target_group := "") -> void:
-	if target_group != "":
-		var objects := get_tree().get_nodes_in_group(target_group)
-		if objects.size() > 0:
-			set_target(objects[randi() % objects.size()])
-
-func set_object_as_target(object : Node2D) -> void:
-	set_target(object)
-
-func request_nav_path_to_target(ignore_waypoints : bool) -> void:
-	nav_path = []
-	emit_signal("nav_path_to_target_requested", _target, ignore_waypoints)
-
-func request_nav_path_to_position(pos : Vector2, ignore_waypoints : bool) -> void:
-	nav_path = []
-	emit_signal("nav_path_to_position_requested", pos, ignore_waypoints)
-
-func chase_target() -> void:
-	_chasing_target = true
-
-func take_item_from(c : Node2D) -> void:
-	if not c: return
-	if not c.is_in_group("weapon_barrels"): return
-	if not c.has_item(): return
-
-	_set_item(c.pop_item())
-
-func put_item_into(c : Node2D) -> void:
-	if not c: return
-	if not c.is_in_group("weapon_barrels"): return
-	if c.is_full(): return
-
-	c.push_item(_item)
-	_set_item(null)
+#
+#func set_random_waypoint_as_target() -> void:
+#	emit_signal("random_waypoint_requested")
+#	if _target:
+#		last_target_waypoint = _target
+#		_target.reserved = true
+#
+#func set_closest_object_as_target(target_group : String) -> void:
+#	emit_signal("closest_object_requested", target_group)
+#
+#func set_closest_non_empty_as_target(group : String) -> void:
+#	var objects := []
+#	for o in get_tree().get_nodes_in_group(group):
+#		if o.is_empty(): continue
+#		objects.append(o)
+#
+#	if objects.size() > 0:
+#		set_target(Flow.get_closest_object(self, objects))
+#
+#func set_closest_non_full_as_target(group : String) -> void:
+#	var objects := []
+#	for o in get_tree().get_nodes_in_group(group):
+#		if o.is_full(): continue
+#		objects.append(o)
+#
+#	if objects.size() > 0:
+#		set_target(Flow.get_closest_object(self, objects))
+#
+#func set_random_object_as_target(target_group := "") -> void:
+#	if target_group != "":
+#		var objects := get_tree().get_nodes_in_group(target_group)
+#		if objects.size() > 0:
+#			set_target(objects[randi() % objects.size()])
+#
+#func set_object_as_target(object : Node2D) -> void:
+#	set_target(object)
+#
+#func request_nav_path_to_target(ignore_waypoints : bool) -> void:
+#	nav_path = []
+#	emit_signal("nav_path_to_target_requested", _target, ignore_waypoints)
+#
+#func request_nav_path_to_position(pos : Vector2, ignore_waypoints : bool) -> void:
+#	nav_path = []
+#	emit_signal("nav_path_to_position_requested", pos, ignore_waypoints)
+#
+#func chase_target() -> void:
+#	_chasing_target = true
+#
+#func take_item_from(c : Node2D) -> void:
+#	if not c: return
+#	if not c.is_in_group("weapon_barrels"): return
+#	if not c.has_item(): return
+#
+#	_set_item(c.pop_item())
+#
+#func put_item_into(c : Node2D) -> void:
+#	if not c: return
+#	if not c.is_in_group("weapon_barrels"): return
+#	if c.is_full(): return
+#
+#	c.push_item(_item)
+#	_set_item(null)
 
 func attack(object : Node2D) -> void:
 	if _is_attacking:
@@ -406,15 +406,15 @@ func take_damage(amount : float, _damager : Node2D) -> void:
 
 	if alive:
 		emit_signal("audio_source_spawn_requested", self, global_position,  { "noise": _on_damaged_noise, "type" : Global.SOUND_SOURCE_TYPE.ATTACKED })
-
-func stop_chasing_target() -> void:
-	_chasing_target = false
+#
+#func stop_chasing_target() -> void:
+#	_chasing_target = false
 
 func activate_object(o : Node2D) -> void:
 	o.set_active(true)
-
-func debug_print(s : String) -> void:
-	print("[", name, "] ", s)
+#
+#func debug_print(s : String) -> void:
+#	print("[", name, "] ", s)
 
 func start_looking_around() -> void:
 	_looking_around = true
@@ -427,25 +427,25 @@ func turn_to_target_waypoint_direction() -> void:
 		turn_to_waypoint_direction(_target)
 
 # AI / CHECKS
-
-func has_target() -> bool:
-	return _target != null
-
-func has_item() -> bool:
-	return _item != null
-
-func object_has_item(object : Node2D) -> bool:
-	return object.has_item()
-
-func has_nav_path() -> bool:
-	return nav_path.size() > 0
-
-func object_full(object : Node2D) -> bool:
-	return object.is_full()
-
-func object_visible(object : Node2D) -> bool:
-	return object_in_sight(object) and object_in_see_range(object) and object.visible
-
+#
+#func has_target() -> bool:
+#	return _target != null
+#
+#func has_item() -> bool:
+#	return _item != null
+#
+#func object_has_item(object : Node2D) -> bool:
+#	return object.has_item()
+#
+#func has_nav_path() -> bool:
+#	return nav_path.size() > 0
+#
+#func object_full(object : Node2D) -> bool:
+#	return object.is_full()
+#
+#func object_visible(object : Node2D) -> bool:
+#	return object_in_sight(object) and object_in_see_range(object) and object.visible
+#
 func object_in_sight(object : Node2D) -> bool:
 	if not object.visible:
 		return false
@@ -456,8 +456,8 @@ func object_in_sight(object : Node2D) -> bool:
 
 	ray.clear_exceptions()
 	ray.add_exception(self)
-	if is_in_container:
-		ray.add_exception(container)
+#	if is_in_container:
+#		ray.add_exception(container)
 	while true:
 		ray.force_raycast_update()
 		if not ray.is_colliding():
@@ -473,83 +473,83 @@ func object_in_sight(object : Node2D) -> bool:
 			continue
 		return false
 	return false
-
-func object_in_range(object : Node2D, r : float) -> bool:
-	return global_position.distance_to(object.global_position) <= r
-
-func object_in_use_range(object : Node2D) -> bool:
-	for o in _use_range.get_overlapping_bodies():
-		if object == o:
-			return true
-	for o in _use_range.get_overlapping_areas():
-		if object == o:
-			return true
-	return false
-
-func object_in_attack_range(object : Node2D) -> bool:
-	for o in _attack_range.get_overlapping_bodies():
-		if object == o:
-			return true
-	for o in _attack_range.get_overlapping_areas():
-		if object == o:
-			return true
-	return false
-
-func object_in_see_range(object : Node2D) -> bool:
-	for o in _see_range.get_overlapping_bodies():
-		if object == o:
-			return true
-	for o in _see_range.get_overlapping_areas():
-		if object == o:
-			return true
-	return false
-
-func object_in_hear_range(object : Node2D) -> bool:
-	for o in _hear_range.get_overlapping_bodies():
-		if object == o:
-			return true
-	for o in _hear_range.get_overlapping_areas():
-		if object == o:
-			return true
-	return false
-
-func object_attackable(object : Node2D) -> bool:
-	var in_range =  object_in_attack_range(object)
-	return in_range and not _is_attacking and _can_update_animations
-
-func object_dead(object : Node2D) -> bool:
-	return not object.alive
-
-func object_has_any_item(object : Node2D) -> bool:
-	if not object: return false
-	if not object.is_in_group("item_containers"): return false
-	return object.has_item()
-
-func exists_non_empty(group : String) -> bool:
-	for o in get_tree().get_nodes_in_group(group):
-		if o.has_item():
-			return true
-	return false
-
-func exists_non_full(group : String) -> bool:
-	for o in get_tree().get_nodes_in_group(group):
-		if not o.is_full():
-			return true
-	return false
-
-func is_bell_active() -> bool:
-	for bell in get_tree().get_nodes_in_group("bells"):
-		if bell.get_active():
-			return true
-	return false
-
-# returns if we're this close to end of nav_path
-func nav_path_end_in_range(r : float) -> bool:
-	if nav_path.size() == 0:
-		push_warning("nav_path is empty!")
-		return true
-
-	return global_position.distance_to(nav_path[-1]) <= r
+#
+#func object_in_range(object : Node2D, r : float) -> bool:
+#	return global_position.distance_to(object.global_position) <= r
+#
+#func object_in_use_range(object : Node2D) -> bool:
+#	for o in _use_range.get_overlapping_bodies():
+#		if object == o:
+#			return true
+#	for o in _use_range.get_overlapping_areas():
+#		if object == o:
+#			return true
+#	return false
+#
+#func object_in_attack_range(object : Node2D) -> bool:
+#	for o in _attack_range.get_overlapping_bodies():
+#		if object == o:
+#			return true
+#	for o in _attack_range.get_overlapping_areas():
+#		if object == o:
+#			return true
+#	return false
+#
+#func object_in_see_range(object : Node2D) -> bool:
+#	for o in _see_range.get_overlapping_bodies():
+#		if object == o:
+#			return true
+#	for o in _see_range.get_overlapping_areas():
+#		if object == o:
+#			return true
+#	return false
+#
+#func object_in_hear_range(object : Node2D) -> bool:
+#	for o in _hear_range.get_overlapping_bodies():
+#		if object == o:
+#			return true
+#	for o in _hear_range.get_overlapping_areas():
+#		if object == o:
+#			return true
+#	return false
+#
+#func object_attackable(object : Node2D) -> bool:
+#	var in_range =  object_in_attack_range(object)
+#	return in_range and not _is_attacking and _can_update_animations
+#
+#func object_dead(object : Node2D) -> bool:
+#	return not object.alive
+#
+#func object_has_any_item(object : Node2D) -> bool:
+#	if not object: return false
+#	if not object.is_in_group("item_containers"): return false
+#	return object.has_item()
+#
+#func exists_non_empty(group : String) -> bool:
+#	for o in get_tree().get_nodes_in_group(group):
+#		if o.has_item():
+#			return true
+#	return false
+#
+#func exists_non_full(group : String) -> bool:
+#	for o in get_tree().get_nodes_in_group(group):
+#		if not o.is_full():
+#			return true
+#	return false
+#
+#func is_bell_active() -> bool:
+#	for bell in get_tree().get_nodes_in_group("bells"):
+#		if bell.get_active():
+#			return true
+#	return false
+#
+## returns if we're this close to end of nav_path
+#func nav_path_end_in_range(r : float) -> bool:
+#	if nav_path.size() == 0:
+#		push_warning("nav_path is empty!")
+#		return true
+#
+#	return global_position.distance_to(nav_path[-1]) <= r
 
 ################################################################################
 ## PRIVATE FUNCTIONS
@@ -584,32 +584,6 @@ func _update_animation_dict() -> void:
 	elif (is_in_container or is_in_wheat) and _last_animation_dict != _in_wheat_animations:
 		_last_animation_dict = _in_wheat_animations
 
-func _update_shadow() -> void:
-	if _shadow:
-		if not is_in_wheat and not _shadow.visible :
-			_shadow.visible = true
-		elif _shadow.visible:
-			_shadow.visible = false
-
-func _draw_nav_path() -> void:
-	if nav_path.size() == 0: return
-
-	draw_line(Vector2(0, 0), to_local(nav_path[0]), COLOR_NAVPATH, 4.0)
-	for i in nav_path.size() - 1:
-		draw_line(to_local(nav_path[i]), to_local(nav_path[i + 1]), COLOR_NAVPATH, 4.0)
-
-func _draw_vision_cone() -> void:
-	var points : Array = $SeeRange/CollisionShape2D.polygon
-	for i in points.size():
-		points[i] = points[i].rotated(_look_angle)
-	draw_colored_polygon(points, Color(0.1, 0.3, 0.7, 0.2))
-
-func _update_path_to(object : Node2D, ignore_waypoints : bool) -> void:
-	emit_signal("nav_path_to_target_requested", object, ignore_waypoints)
-
-func _update_path_to_position(pos : Vector2) -> void:
-	emit_signal("nav_path_to_target_position_requested", pos)
-
 func _play_move_sound() -> bool:
 	var _sfx_move_delay = ConfigData.FOOTSTEPS_SOUND_UPDATE_RATIO * (1.0 / _movement_speed)
 	if is_moving and OS.get_ticks_msec() > _sfx_move_start_time + _sfx_move_delay:
@@ -625,25 +599,6 @@ func _play_move_sound() -> bool:
 	else:
 		return false
 
-func _move_on_nav_path(delta : float) -> void:
-	if nav_path.size() == 0: return
-
-	_using_navpath = true
-
-	var distance_to_next_point : float = global_position.distance_to(nav_path[0])
-	var direction_to_next_point : Vector2 = (nav_path[0] - global_position).normalized()
-
-	if distance_to_next_point < _movement_speed * delta:
-		nav_path.remove(0)
-		if nav_path.empty():
-			follow_navpath = false
-		_turn_towards_direction(direction_to_next_point)
-		_move_in_direction(direction_to_next_point)
-	else:
-		_using_navpath = true
-		_turn_towards_direction(direction_to_next_point)
-		_move_in_direction(direction_to_next_point)
-
 func _move_towards_target_directly(_delta : float) -> void:
 	var direction := global_position.direction_to(_target.global_position).normalized()
 	var movement := direction * _movement_speed
@@ -655,19 +610,6 @@ func _turn_towards_direction(dir : Vector2) -> void:
 	var target_angle := dir.angle()
 	var turn_distance : float = deg2rad(MOVEMENT_TURN_SPEED) * get_physics_process_delta_time()
 	_movement_angle = _move_angle_towards_angle(_movement_angle, target_angle, turn_distance)
-
-func _knock_back() -> void:
-	_can_update_animations = false
-	_current_knockback_speed -= ConfigData.PLAYER_KNOCKBACK_DECREASE_RATE
-	_turn_towards_direction(-_move_direction)
-	_move_in_direction(_move_direction)
-	_play_animation(classCharacterAnimations.ANIMATION_TYPE.KNOCKED)
-	if _current_knockback_speed <= 0.0:
-		_finish_knockback()
-
-func _finish_knockback() -> void:
-	_is_knocked_back = false
-	_can_update_animations = true
 
 func _move_in_direction(direction : Vector2) -> void:
 	if not _is_knocked_back:
@@ -689,25 +631,6 @@ func _move_angle_towards_angle(a : float, b : float, d : float) -> float:
 	else:
 		return wrapf(a + d * sign(angle_diff), 0, TAU)
 
-func _get_weapon_barrel_in_range(empty := false) -> Node2D:
-	var closest_container : Node2D = null
-	var distance_to_closest_container := INF
-	for object in _use_range.get_overlapping_bodies():
-		if not object.is_in_group("weapon_barrels"): continue
-		if empty and object.is_full(): continue
-		if not empty and not object.has_item(): continue
-
-		var distance_to_object = global_position.distance_to(object.global_position)
-		if distance_to_object >= distance_to_closest_container: continue
-
-		closest_container = object
-		distance_to_closest_container = distance_to_object
-
-	return closest_container
-
-func _set_item(v : classItem) -> void:
-	_item = v
-
 func _get_closest_object_in_use_range() -> Node2D:
 	var objects := []
 	objects += _use_range.get_overlapping_bodies()
@@ -717,7 +640,85 @@ func _get_closest_object_in_use_range() -> Node2D:
 		return null
 
 	return Flow.get_closest_object(self, objects)
+#
+#	_is_knocked_back = false
+#	_can_update_animations = true
 
+#func _update_shadow() -> void:
+#	if _shadow:
+#		if not is_in_wheat and not _shadow.visible :
+#			_shadow.visible = true
+#		elif _shadow.visible:
+#			_shadow.visible = false
+#
+#func _draw_nav_path() -> void:
+#	if nav_path.size() == 0: return
+#
+#	draw_line(Vector2(0, 0), to_local(nav_path[0]), COLOR_NAVPATH, 4.0)
+#	for i in nav_path.size() - 1:
+#		draw_line(to_local(nav_path[i]), to_local(nav_path[i + 1]), COLOR_NAVPATH, 4.0)
+#
+#func _draw_vision_cone() -> void:
+#	var points : Array = $SeeRange/CollisionShape2D.polygon
+#	for i in points.size():
+#		points[i] = points[i].rotated(_look_angle)
+#	draw_colored_polygon(points, Color(0.1, 0.3, 0.7, 0.2))
+#
+#func _update_path_to(object : Node2D, ignore_waypoints : bool) -> void:
+#	emit_signal("nav_path_to_target_requested", object, ignore_waypoints)
+#
+#func _update_path_to_position(pos : Vector2) -> void:
+#	emit_signal("nav_path_to_target_position_requested", pos)
+
+##
+#func _move_on_nav_path(delta : float) -> void:
+#	if nav_path.size() == 0: return
+#
+#	_using_navpath = true
+#
+#	var distance_to_next_point : float = global_position.distance_to(nav_path[0])
+#	var direction_to_next_point : Vector2 = (nav_path[0] - global_position).normalized()
+#
+#	if distance_to_next_point < _movement_speed * delta:
+#		nav_path.remove(0)
+#		if nav_path.empty():
+#			follow_navpath = false
+#		_turn_towards_direction(direction_to_next_point)
+#		_move_in_direction(direction_to_next_point)
+#	else:
+#		_using_navpath = true
+#		_turn_towards_direction(direction_to_next_point)
+#		_move_in_direction(direction_to_next_point)
+
+#func _knock_back() -> void:
+#	_can_update_animations = false
+#	_current_knockback_speed -= ConfigData.PLAYER_KNOCKBACK_DECREASE_RATE
+#	_turn_towards_direction(-_move_direction)
+#	_move_in_direction(_move_direction)
+#	_play_animation(classCharacterAnimations.ANIMATION_TYPE.KNOCKED)
+#	if _current_knockback_speed <= 0.0:
+#		_finish_knockback()
+#
+#func _finish_knockback() -> void:
+#func _get_weapon_barrel_in_range(empty := false) -> Node2D:
+#	var closest_container : Node2D = null
+#	var distance_to_closest_container := INF
+#	for object in _use_range.get_overlapping_bodies():
+#		if not object.is_in_group("weapon_barrels"): continue
+#		if empty and object.is_full(): continue
+#		if not empty and not object.has_item(): continue
+#
+#		var distance_to_object = global_position.distance_to(object.global_position)
+#		if distance_to_object >= distance_to_closest_container: continue
+#
+#		closest_container = object
+#		distance_to_closest_container = distance_to_object
+#
+#	return closest_container
+#
+#func _set_item(v : classItem) -> void:
+#	_item = v
+#
 ################################################################################
 ## SIGNAL CALLBACKS
 func _on_foot_body_entered(body : Node) -> void:
