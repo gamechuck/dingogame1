@@ -152,47 +152,47 @@ func change_scene_to(key : String) -> void:
 
 ## AI
 
-func get_brain(owner_name : String, state_name : String) -> classBrainNode:
-	var brain = _brain_maker.brains_dict[owner_name][state_name]
-	return brain
-
-func get_interrupts(owner_name : String, state_name : String) -> Array:
-	var owner_data : Dictionary = _brain_maker._brains_data[owner_name]
-	return owner_data[state_name]["interrupts"]
-
-func get_brain_state_data(owner_name : String, state_name : String) -> Dictionary:
-	var owner_data : Dictionary = _brain_maker._brains_data[owner_name]
-	var state_data : Dictionary = owner_data[state_name]
-	return state_data
-
-func get_default_brain_state_for(owner_name : String) -> String:
-	var owner_data : Dictionary = _brain_maker._brains_data[owner_name]
-	for state_name in owner_data.keys():
-		var state_data : Dictionary = owner_data[state_name]
-		if state_data.has("default") and state_data["default"] == true:
-			return state_name
-	push_warning("get_default_state_for(" + owner_name + ") -- couldn't find state with [\"default\": true] entry! using first state...")
-	return owner_data.keys()[0]
-
+#func get_brain(owner_name : String, state_name : String) -> classBrainNode:
+#	var brain = _brain_maker.brains_dict[owner_name][state_name]
+#	return brain
+#
+#func get_interrupts(owner_name : String, state_name : String) -> Array:
+#	var owner_data : Dictionary = _brain_maker._brains_data[owner_name]
+#	return owner_data[state_name]["interrupts"]
+#
+#func get_brain_state_data(owner_name : String, state_name : String) -> Dictionary:
+#	var owner_data : Dictionary = _brain_maker._brains_data[owner_name]
+#	var state_data : Dictionary = owner_data[state_name]
+#	return state_data
+#
+#func get_default_brain_state_for(owner_name : String) -> String:
+#	var owner_data : Dictionary = _brain_maker._brains_data[owner_name]
+#	for state_name in owner_data.keys():
+#		var state_data : Dictionary = owner_data[state_name]
+#		if state_data.has("default") and state_data["default"] == true:
+#			return state_name
+#	push_warning("get_default_state_for(" + owner_name + ") -- couldn't find state with [\"default\": true] entry! using first state...")
+#	return owner_data.keys()[0]
+#
 
 
 ## CASE SYSTEM
-
-func get_case_priority(case_type : String) -> int:
-	if not cases_data.has(case_type):
-		push_error("case with type " + case_type + " does not exist in cases data!")
-		return -1
-
-	var case_data = cases_data[case_type]
-	return case_data["priority"]
-
-func get_case_weapon_needed(case_type : String) -> bool:
-	if not cases_data.has(case_type):
-		push_error("case with type " + case_type + " does not exist in cases data!")
-		return false
-
-	var case_data = cases_data[case_type]
-	return case_data["weapon_needed"]
+#
+#func get_case_priority(case_type : String) -> int:
+#	if not cases_data.has(case_type):
+#		push_error("case with type " + case_type + " does not exist in cases data!")
+#		return -1
+#
+#	var case_data = cases_data[case_type]
+#	return case_data["priority"]
+#
+#func get_case_weapon_needed(case_type : String) -> bool:
+#	if not cases_data.has(case_type):
+#		push_error("case with type " + case_type + " does not exist in cases data!")
+#		return false
+#
+#	var case_data = cases_data[case_type]
+#	return case_data["weapon_needed"]
 
 
 ## TOWN
@@ -206,17 +206,17 @@ func get_town_data(id : String, key : String, default):
 
 ## UTIL SCRIPTS
 # (move these to Util singleton?)
-
-func get_state_from_weighted_list(states : Dictionary) -> String:
-	var n := rand_range(0.0, 1.0)
-	var a := 0.0
-	for state in states.keys():
-		var b : float = states[state]
-		if a <= n and n < a + b:
-			return state
-		else:
-			a += b
-	return states.keys()[-1]
+#
+#func get_state_from_weighted_list(states : Dictionary) -> String:
+#	var n := rand_range(0.0, 1.0)
+#	var a := 0.0
+#	for state in states.keys():
+#		var b : float = states[state]
+#		if a <= n and n < a + b:
+#			return state
+#		else:
+#			a += b
+#	return states.keys()[-1]
 
 func get_closest_object(source : Node2D, objects : Array) -> Node2D:
 	var source_position := source.global_position

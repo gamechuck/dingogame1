@@ -11,11 +11,11 @@ const DIRECTION_TO_CURSOR_TEXTURE := {
 	Global.DIRECTION.NE: preload("res://ndh-assets/UI/elements/cursor_ne.png")
 }
 
-onready var _editor_camera := $EditorCamera
+#onready var _editor_camera := $EditorCamera
 onready var _debug_overlay := $UI/DebugOverlay
 
 var _game_camera : Camera2D
-var _spectator_camera : Camera2D
+#var _spectator_camera : Camera2D
 
 var _update_cursor := false
 
@@ -34,19 +34,19 @@ func _ready():
 	AudioEngine.play_music("town_idle")
 	AudioEngine.play_ambient("night_ambient")
 
-	_editor_camera.current = Flow.is_in_editor_mode
-	_game_camera.current = not Flow.is_in_editor_mode
+#	_editor_camera.current = Flow.is_in_editor_mode
+#	_game_camera.current = not Flow.is_in_editor_mode
 
 	State.connect("game_state_changed", self, "_on_game_state_changed")
 
 	# apply debug settings
 	_debug_overlay.visible = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_SHOW_DEBUG_OVERLAY
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("toggle_editor_mode"):
-		Flow.is_in_editor_mode = not Flow.is_in_editor_mode
-		update_current_camera()
-		get_tree().set_input_as_handled()
+#func _input(event: InputEvent) -> void:
+#	if event.is_action_pressed("toggle_editor_mode"):
+#		Flow.is_in_editor_mode = not Flow.is_in_editor_mode
+#		update_current_camera()
+#		get_tree().set_input_as_handled()
 
 func _process(_delta):
 	var player : classPlayer = get_tree().get_nodes_in_group("players")[0]
@@ -74,11 +74,11 @@ func spawn_town() -> void:
 		#TODO: Not sure if best way, but it works so: meh
 		_game_camera = (town_scene as classTown).get_player().get_camera()
 
-func update_current_camera() -> void:
-	if Flow.is_in_editor_mode:
-		_editor_camera.current = true
-	else:
-		_game_camera.current = true
+#func update_current_camera() -> void:
+#	if Flow.is_in_editor_mode:
+##		_editor_camera.current = true
+#	else:
+#		_game_camera.current = true
 
 func _on_game_state_changed(game_state : int) -> void:
 	#$ViewportContainer/UI/PlayerOverlay.hide()
