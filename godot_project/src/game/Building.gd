@@ -12,8 +12,6 @@ onready var _collision_shape  := $CollisionNode/CollisionShape2D
 ### GODOT CALLBACKS
 func _ready():
 	_collision_shape.shape = _collision_shape.shape.duplicate()
-	_set_texture(load("res://assets/Graphics/Map/building_1.png"))
-	_set_collision_shape(true)
 
 
 ################################################################################
@@ -34,10 +32,11 @@ func _set_texture(sprite : Texture) -> void:
 func _set_collision_shape(collidable : bool) -> void:
 	if collidable:
 		var collision_x = _sprite.texture.get_width() / 2.0
-		var collision_y = _sprite.texture.get_height()# + (_collision_shape.shape.extents.y / 2.0)
+		var collision_y = _sprite.texture.get_height()
 
 		_collision_shape.position = Vector2(0.0, -collision_y - 10.0)
 		_collision_shape.shape.extents.x = collision_x
+		_collision_shape.one_way_collision = true
 	else:
 		_collision.set_deferred("disabled", true)
 

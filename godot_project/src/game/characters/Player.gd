@@ -8,16 +8,11 @@ signal position_update
 
 ################################################################################
 ## PRIVATE VARIABLES
-onready var _movement_noises := {}
-onready var _sfx_footsteps := {}
-onready var _sfx_attack_samples := []
-
 # MOVEMENT STUFF
 var _walk_speed = 150.0
 var _run_speed = 250.0
-var _jump_speed : float = 250.0
+var _jump_speed : float = 2500000000000.0
 var _jumped : bool = false
-var _gravity : Vector2 = Vector2.DOWN*98
 
 
 ################################################################################
@@ -50,15 +45,10 @@ func _setup_data() -> void:
 	_movement_speed = _walk_speed
 
 func _attack() -> void:
-	if _is_attacking: # or body_state == BODY_STATE.HUMAN or carried_character:
+	if _is_attacking:
 		return
-
 	_play_animation(classCharacterAnimations.ANIMATION_TYPE.ATTACK)
-
-#	_sfx_attack.stream = _sfx_attack_samples[randi() % _sfx_attack_samples.size()]
-#	_sfx_attack.play()
 	_is_attacking = true
-
 	for target in _attack_range.get_overlapping_bodies():
 		if target.alive and object_in_sight(target):
 			target.take_damage(attack_power, self as Node2D)
@@ -92,27 +82,14 @@ func _update_animation_state() -> void:
 				_play_animation(classCharacterAnimations.ANIMATION_TYPE.RUN)
 
 func _move(delta : float) -> void:
-	_velocity += (_gravity * delta)
-
-	if _jumped:
-		if _velocity.y > -_jump_speed * 0.9:
-			_velocity.y += (_gravity.y * 3.0 * delta)
-		if is_on_floor() and _velocity.y > 0:
-			_jumped = false
-
-	if (_velocity.y > _gravity.y * 2.0):
-		_velocity.y = _gravity.y * 2.0
-
-	move_and_slide(_velocity, Vector2.UP)
+	add_central_force(_velocity * delta)
+	print(str(_velocity * delta))
 	emit_signal("position_update", global_position)
 
 func _get_input():
-	if Input.is_action_just_pressed("move_up") and not _jumped and is_on_floor():
-		_velocity.y = -_jump_speed
-		_jumped = true
+#	var vel_y = _velocity.y
+	#_velocity = Vector2.ZERO
 
-	var velocity_y = _velocity.y
-	_velocity = Vector2.ZERO
 	if Input.is_action_just_pressed("sprint"):
 		_movement_speed = _run_speed
 	if Input.is_action_just_released("sprint"):
@@ -124,7 +101,10 @@ func _get_input():
 		_velocity += Vector2.RIGHT
 		$AnimatedSprite.flip_h = false
 
+	#_velocity.y = vel_y
+	_velocity.x = _velocity.normalized().x * _movement_speed
 
-	_velocity = _velocity.normalized() * _movement_speed
-	_velocity.y = velocity_y
+	if Input.is_action_just_pressed("move_up"):
+		_velocity.y = _jump_speed
+		_jumped = true
 

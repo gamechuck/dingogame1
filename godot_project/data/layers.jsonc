@@ -12,7 +12,7 @@
 				]
 			},
 			{
-				"should_spawn": true,
+				"should_spawn": false,
 				"z_index": -2,
 				"name": "middle_buildings",
 				"collidable": true,

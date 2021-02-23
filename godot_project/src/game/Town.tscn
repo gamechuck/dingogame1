@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/game/Town.gd" type="Script" id=1]
-[ext_resource path="res://src/game/Building.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/materials/night_shader.tres" type="Material" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -99,12 +98,7 @@ position = Vector2( 90, 0 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 107.943, -1.5874 )
 offset = Vector2( 0, -170 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
-
-[node name="Building" parent="." instance=ExtResource( 2 )]
-position = Vector2( 219.186, -1.0621 )
-
-[node name="Building2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 392.046, -1.0621 )

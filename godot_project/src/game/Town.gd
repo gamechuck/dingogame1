@@ -20,9 +20,8 @@ onready var _camera := $Camera2D
 var _negative_layers_data := []
 
 # BUILDING SPAWN STUFF
-var _building_batch_amount := 10
+var _building_batch_amount := 1004
 var _building_last_spawn_position := Vector2.ZERO
-var _building_spawn_offset := 200
 var _building_offset_random_delta := Vector2(-50, 50)
 
 # PLAYER STUFF
@@ -43,11 +42,10 @@ func _ready():
 ## PRIVATE FUNCTIONS
 ## SPAWNING
 func _spawn_level() -> void:
-#	_spawn_buildings()
+	_spawn_buildings()
 	_spawn_player()
-#	_spawn_npcs()
-#	_spawn_interactables()
-#	_connect_signals()
+	_spawn_npcs()
+	_spawn_interactables()
 
 func _spawn_buildings() -> void:
 	# Positive layers buildings spawning is not yet implemented since we don't need anything
@@ -66,14 +64,14 @@ func _spawn_buildings() -> void:
 		layer_index += 1
 
 		for j in _building_batch_amount:
-			var offset := Vector2(_building_spawn_offset, 0) + Vector2(rand_range(_building_offset_random_delta.x, _building_offset_random_delta.y), 0)
+			var offset := Vector2(rand_range(_building_offset_random_delta.x, _building_offset_random_delta.y), 0)
 			var spawn_position := last_spawn_position + offset
-			var building := SCENE_BUILDING.instance()
-			var textures = layer_data.get("textures", [])
-			var random_texture := load("res://assets/Graphics/Map/" + textures[rand_range(0, textures.size())] + ".png")
 			var collidable : bool = layer_data.get("collidable", true)
+			var textures = layer_data.get("textures", [])
+			var random_texture : Texture = load("res://assets/Graphics/Map/" + textures[rand_range(0, textures.size())] + ".png")
+			var building := SCENE_BUILDING.instance()
 			negative_layer_node.add_child(building)
-			building.position = Vector2.ZERO
+			spawn_position.x += random_texture.get_width() * building.scale.x
 			building.set_data({"position": spawn_position, "texture": random_texture, "collidable": collidable})
 			last_spawn_position = spawn_position
 

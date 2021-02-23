@@ -1,5 +1,5 @@
 class_name classCharacter
-extends KinematicBody2D
+extends RigidBody2D
 
 ################################################################################
 ## CONSTANTS
@@ -204,11 +204,6 @@ func _play_animation(_animation_type) -> void:
 
 func _play_move_sound() -> void:
 	pass
-
-func _move_towards_target_directly(_delta : float) -> void:
-	var direction := global_position.direction_to(_target.global_position).normalized()
-	var movement := direction * _movement_speed
-	var _linear_velocity = move_and_slide(movement)
 
 func _turn_towards_direction(dir : Vector2) -> void:
 	if dir == Vector2.ZERO: return
