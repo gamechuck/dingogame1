@@ -1,9 +1,26 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://assets/Graphics/Map/building_1.png" type="Texture" id=1]
 [ext_resource path="res://src/game/Building.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 237.844, 94.0395 )
 
 [node name="Building" type="Node2D"]
 use_parent_material = true
+position = Vector2( 646.252, 400.292 )
+scale = Vector2( 0.1, 0.1 )
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1, 1 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -640 )
+
+[node name="CollisionNode" type="StaticBody2D" parent="."]
+scale = Vector2( 1, 1 )
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionNode"]
+shape = SubResource( 1 )

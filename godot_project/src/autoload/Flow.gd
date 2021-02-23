@@ -18,25 +18,17 @@ const SAVE_FOLDER := "user://saves"
 const DEFAULT_CONTEXT_PATH := "res://default_context.json"
 const USER_SAVE_PATH := SAVE_FOLDER + "/user_save.json"
 
-const PATH_DATA_BRAINS := "res://data/brains.jsonc"
 const PATH_DATA_TOWNS := "res://data/towns.jsonc"
-const PATH_DATA_CASES := "res://data/cases.jsonc"
+const PATH_DATA_LAYERS := "res://data/layers.jsonc"
 const PATH_DATA_INTERACTABLES := "res://data/interactables.jsonc"
 const PATH_DATA_PLAYER := "res://data/player.jsonc"
 const PATH_DATA_NPCS := "res://data/npcs.jsonc"
 
-const CURSOR_TEXTURE := preload("res://ndh-assets/UI/elements/cursor.png")
-const CURSOR_PRESSED_TEXTURE := preload("res://ndh-assets/UI/elements/cursor_pressed.png")
 
 ################################################################################
 ## PUBLIC VARIABLES
-
-# Is the game currently in editor mode? or not?
-var is_in_editor_mode := false
-
-# WHY is this an array? Towns need their order to be preserved!!!
+var layer_data := {}
 var town_data := []
-#var cases_data := {}
 var interactable_data := {}
 var player_data := {}
 var npcs_data := {}
@@ -46,7 +38,6 @@ var npcs_data := {}
 
 onready var _controls_loader := $ControlsLoader
 onready var _data_loader := $DataLoader
-#onready var _brain_maker := $BrainMaker
 
 var _game_flow := {
 	"menu": {
@@ -71,13 +62,6 @@ signal pause_toggled
 func _ready():
 	var _error := load_settings()
 	if ConfigData.verbose_mode:
-		print(
-			"     _     _   _        _     ___                    _                       \n",
-			" ___|_|___| |_| |_    _| |___|  _|___ ___ ___ ___   | |_ ___ ___ ___ ___ ___ \n",
-			"|   | | . |   |  _|  | . | -_|  _| -_|   |  _| -_|  |   | -_|  _| . | -_|_ -|\n",
-			"|_|_|_|_  |_|_|_|    |___|___|_| |___|_|_|___|___|  |_|_|___|_| |___|___|___|\n",
-			"      |___|                                                                  \n"
-		)
 		# ASCII -> Rectangles
 		print("version {0}.{1} ({2})".format([
 			ConfigData.major_version,
@@ -109,13 +93,6 @@ func load_settings() -> int:
 	var _error : int = ConfigData.load_optionsCFG()
 	_error += _controls_loader.load_controlsJSON()
 	_error += _data_loader.load_dataJSON()
-#	_error += _brain_maker.load_brainsJSON()
-#	_brain_maker.clear_brains()
-#	_brain_maker.make_brains()
-
-	# Also load the default context..
-	# might autoload the user_context in the future here?
-#	_error += State.load_stateJSON()
 	if _error == OK:
 		if ConfigData.verbose_mode:
 			print("----> Succesfully loaded settings!")
@@ -150,30 +127,6 @@ func change_scene_to(key : String) -> void:
 				print("Succesfully changed scene to '{0}'.".format([key]))
 	else:
 		push_error("Requested scene '{0}' was not recognized... ignoring call for changing scene.".format([key]))
-
-
-## TOWN
-
-#func get_town_data(id : String, key : String, default):
-#	for data in town_data:
-#		if data.get("id", "MISSING ID") == id:
-#			return data.get(key, default)
-#
-#	return default
-
-## UTIL SCRIPTS
-# (move these to Util singleton?)
-#
-#func get_state_from_weighted_list(states : Dictionary) -> String:
-#	var n := rand_range(0.0, 1.0)
-#	var a := 0.0
-#	for state in states.keys():
-#		var b : float = states[state]
-#		if a <= n and n < a + b:
-#			return state
-#		else:
-#			a += b
-#	return states.keys()[-1]
 
 func get_closest_object(source : Node2D, objects : Array) -> Node2D:
 	var source_position := source.global_position
@@ -269,47 +222,3 @@ static func load_TXT(path : String) -> String:
 	else:
 		push_error("Failed to open '{0}', check file availability!".format([path]))
 		return ""
-
-## AI
-
-#func get_brain(owner_name : String, state_name : String) -> classBrainNode:
-#	var brain = _brain_maker.brains_dict[owner_name][state_name]
-#	return brain
-#
-#func get_interrupts(owner_name : String, state_name : String) -> Array:
-#	var owner_data : Dictionary = _brain_maker._brains_data[owner_name]
-#	return owner_data[state_name]["interrupts"]
-#
-#func get_brain_state_data(owner_name : String, state_name : String) -> Dictionary:
-#	var owner_data : Dictionary = _brain_maker._brains_data[owner_name]
-#	var state_data : Dictionary = owner_data[state_name]
-#	return state_data
-#
-#func get_default_brain_state_for(owner_name : String) -> String:
-#	var owner_data : Dictionary = _brain_maker._brains_data[owner_name]
-#	for state_name in owner_data.keys():
-#		var state_data : Dictionary = owner_data[state_name]
-#		if state_data.has("default") and state_data["default"] == true:
-#			return state_name
-#	push_warning("get_default_state_for(" + owner_name + ") -- couldn't find state with [\"default\": true] entry! using first state...")
-#	return owner_data.keys()[0]
-#
-
-
-## CASE SYSTEM
-#
-#func get_case_priority(case_type : String) -> int:
-#	if not cases_data.has(case_type):
-#		push_error("case with type " + case_type + " does not exist in cases data!")
-#		return -1
-#
-#	var case_data = cases_data[case_type]
-#	return case_data["priority"]
-#
-#func get_case_weapon_needed(case_type : String) -> bool:
-#	if not cases_data.has(case_type):
-#		push_error("case with type " + case_type + " does not exist in cases data!")
-#		return false
-#
-#	var case_data = cases_data[case_type]
-#	return case_data["weapon_needed"]

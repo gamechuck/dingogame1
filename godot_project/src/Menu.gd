@@ -13,11 +13,3 @@ func _ready():
 		#AudioEngine.play_music("main_menu")
 		AudioEngine.stop_ambient()
 
-#	Input.set_custom_mouse_cursor(Flow.CURSOR_TEXTURE, Input.CURSOR_ARROW)
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
-		if event.is_pressed():
-			Input.set_custom_mouse_cursor(Flow.CURSOR_PRESSED_TEXTURE, Input.CURSOR_ARROW)
-		else:
-			Input.set_custom_mouse_cursor(Flow.CURSOR_TEXTURE, Input.CURSOR_ARROW)

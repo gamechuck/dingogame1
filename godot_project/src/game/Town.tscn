@@ -1,9 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/game/Town.gd" type="Script" id=1]
 [ext_resource path="res://assets/materials/night_shader.tres" type="Material" id=5]
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2, 44 )
+
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1111, 1 )
 
 [node name="Town" type="Node2D"]
 material = ExtResource( 5 )
@@ -15,13 +19,18 @@ __meta__ = {
 [node name="Terrain" type="Node2D" parent="."]
 use_parent_material = true
 
+[node name="LeftVertLimiter" type="StaticBody2D" parent="Terrain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/LeftVertLimiter"]
+position = Vector2( 0, -44 )
+shape = SubResource( 2 )
+
 [node name="Ground" type="StaticBody2D" parent="Terrain"]
-position = Vector2( 11110, 10 )
-scale = Vector2( 1111, 1 )
 collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/Ground"]
+position = Vector2( 1111, 0 )
 shape = SubResource( 1 )
 
 [node name="Objects" type="Node2D" parent="."]
@@ -35,6 +44,22 @@ use_parent_material = true
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Negative" type="Node2D" parent="Objects/Buildings"]
+
+[node name="Layer03" type="Node2D" parent="Objects/Buildings/Negative"]
+
+[node name="Layer02" type="Node2D" parent="Objects/Buildings/Negative"]
+
+[node name="Layer01" type="Node2D" parent="Objects/Buildings/Negative"]
+
+[node name="Positive" type="Node2D" parent="Objects/Buildings"]
+
+[node name="Layer01" type="Node2D" parent="Objects/Buildings/Positive"]
+
+[node name="Layer02" type="Node2D" parent="Objects/Buildings/Positive"]
+
+[node name="Layer03" type="Node2D" parent="Objects/Buildings/Positive"]
 
 [node name="Players" type="Node2D" parent="Objects"]
 use_parent_material = true
@@ -69,3 +94,8 @@ __meta__ = {
 position = Vector2( 90, 0 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 0, -170 )
+current = true
+zoom = Vector2( 0.5, 0.5 )

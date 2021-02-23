@@ -8,10 +8,10 @@ func load_dataJSON() -> int:
 			"path": Flow.PATH_DATA_TOWNS,
 			"setter": funcref(self, "_set_towns_data")
 		},
-#		"cases": {
-#			"path": Flow.PATH_DATA_CASES,
-#			"setter": funcref(self, "_set_cases_data")
-#		},
+		"layers": {
+			"path": Flow.PATH_DATA_LAYERS,
+			"setter": funcref(self, "_set_layers_data")
+		},
 		"interactables" : {
 			"path": Flow.PATH_DATA_INTERACTABLES,
 			"setter": funcref(self, "_set_interactable_data")
@@ -48,8 +48,8 @@ func load_dataJSON() -> int:
 func _set_towns_data(data : Dictionary) -> void:
 	Flow.town_data = data.get("towns", [])
 #
-#func _set_cases_data(data : Dictionary) -> void:
-#	Flow.cases_data = data
+func _set_layers_data(data : Dictionary) -> void:
+	Flow.layer_data = data
 
 func _set_interactable_data(data : Dictionary) -> void:
 	Flow.interactable_data = data

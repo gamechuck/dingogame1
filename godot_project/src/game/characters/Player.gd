@@ -2,19 +2,23 @@ class_name classPlayer
 extends classCharacter
 
 ################################################################################
+## SIGNALS
+signal position_update
+
+
+################################################################################
 ## PRIVATE VARIABLES
 onready var _camera := $GameCamera
 onready var _movement_noises := {}
 onready var _sfx_footsteps := {}
 onready var _sfx_attack_samples := []
 
-var _walk_speed = 50.0
-var _run_speed = 100.0
-var _jump_speed : float = 60.0
-
+# MOVEMENT STUFF
+var _walk_speed = 200.0
+var _run_speed = 400.0
+var _jump_speed : float = 500.0
 var _jumped : bool = false
-
-var _gravity : Vector2 = Vector2.DOWN*98
+var _gravity : Vector2 = Vector2.DOWN*980
 
 
 ################################################################################
@@ -29,7 +33,6 @@ func _ready() -> void:
 	_animated_sprite.play("default")
 	set_hp_max(ConfigData.PLAYER_HP_MAX)
 	set_hp(hp_max)
-	_connect_player_signals()
 	attack_power = ConfigData.PLAYER_ATTACK_POWER
 	# debug
 	_debug_godmode = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_PLAYER_GODMODE
@@ -49,22 +52,16 @@ func _physics_process(delta : float) -> void:
 				if Input.is_action_just_pressed("attack_default"): # E KEY
 					pass
 
-################################################################################
-## PUBLIC FUNCTIONS
-func get_camera() -> Camera2D:
-	return _camera as Camera2D
 
 ################################################################################
 ## PRIVATE FUNCTIONS
 func _setup_data() -> void:
-	pass
-
-func _connect_player_signals() -> void:
-	connect("died", self, "_on_died")
+	_movement_speed = _walk_speed
 
 func _move(delta : float) -> void:
 	move_and_slide(_velocity, Vector2.UP)
 	_velocity += (_gravity * delta)
+	emit_signal("position_update", global_position)
 	if _jumped and _velocity.y > 0 and is_on_floor():
 		_jumped = false
 
@@ -163,3 +160,4 @@ func _get_input():
 
 	_velocity = _velocity.normalized() * _movement_speed
 	_velocity.y = velocity_y
+

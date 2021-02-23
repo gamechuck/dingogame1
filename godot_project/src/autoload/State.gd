@@ -6,11 +6,6 @@ enum GAME_STATE { WIN, LOSE }
 
 
 ################################################################################
-## CONSTANTS
-const SCENE_TOWN_STATE := preload("res://src/autoload/state/TownState.gd")
-
-
-################################################################################
 ## SIGNALS
 signal game_state_changed # new_state
 
@@ -21,7 +16,6 @@ signal game_state_changed # new_state
 var game_state := -1 setget set_game_state
 func set_game_state(v : int) -> void:
 	game_state = v
-#	_can_update_day_phase = false
 	emit_signal("game_state_changed", game_state)
 
 # Called from Town.gd
@@ -64,7 +58,6 @@ func save_stateJSON(path : String = Flow.USER_SAVE_PATH) -> int:
 func load_state_from_context(_context : Dictionary):
 	if ConfigData.verbose_mode:
 		print("Loading state from the context...")
-
 
 func save_state_to_context() -> Dictionary:
 	var context := {}
