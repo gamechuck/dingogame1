@@ -60,45 +60,18 @@ signal pause_toggled
 ## GODOT CALLBACKS
 
 func _ready():
-	var _error := load_settings()
-	if ConfigData.verbose_mode:
-		# ASCII -> Rectangles
-		print("version {0}.{1} ({2})".format([
-			ConfigData.major_version,
-			ConfigData.minor_version,
-			ConfigData.version_string]))
-
-# Catch all unhandled input not caught be any other control nodes.
-func _unhandled_input(event : InputEvent):
-	if InputMap.has_action("toggle_full_screen") and event.is_action_pressed("toggle_full_screen"):
-		OS.window_fullscreen = not OS.window_fullscreen
-
-	if InputMap.has_action("reload_all") and event.is_action_pressed("reload_all"):
-		call_deferred("deferred_reload_current_scene", true)
-	elif InputMap.has_action("reload_scene") and event.is_action_pressed("reload_scene"):
-		call_deferred("deferred_reload_current_scene", false)
-
-	match _game_state:
-		STATE.GAME:
-			if InputMap.has_action("toggle_paused") and event.is_action_pressed("toggle_paused"):
-				emit_signal("pause_toggled")
+	load_settings()
 
 ################################################################################
 ## PUBLIC FUNCTIONS
 
 # Called on scene loading
-func load_settings() -> int:
+func load_settings() -> void:
 	if ConfigData.verbose_mode:
 		print("----- (Re)loading game settings from file -----")
-	var _error : int = ConfigData.load_optionsCFG()
-	_error += _controls_loader.load_controlsJSON()
-	_error += _data_loader.load_dataJSON()
-	if _error == OK:
-		if ConfigData.verbose_mode:
-			print("----> Succesfully loaded settings!")
-	else:
-		push_error("Failed to load settings! Check console for clues!")
-	return _error
+	#ConfigData.load_optionsCFG()
+	_controls_loader.load_controlsJSON()
+	_data_loader.load_dataJSON()
 
 # Quit the game during an idle frame.
 func deferred_quit() -> void:
@@ -107,9 +80,8 @@ func deferred_quit() -> void:
 # It is now safe to reload the current scene.
 func deferred_reload_current_scene(reload_all : bool = true) -> void:
 	if reload_all:
-		var _error := load_settings()
+		load_settings()
 
-	var _error := get_tree().reload_current_scene()
 	get_tree().paused = false
 
 func change_scene_to(key : String) -> void:
@@ -127,46 +99,6 @@ func change_scene_to(key : String) -> void:
 				print("Succesfully changed scene to '{0}'.".format([key]))
 	else:
 		push_error("Requested scene '{0}' was not recognized... ignoring call for changing scene.".format([key]))
-
-func get_closest_object(source : Node2D, objects : Array) -> Node2D:
-	var source_position := source.global_position
-	var closest_distance := INF
-	var closest_object : Node2D = null
-
-	for object in objects:
-		var distance : float = object.global_position.distance_to(source_position)
-		if distance < closest_distance:
-			closest_distance = distance
-			closest_object = object
-
-	return closest_object
-
-func get_angle_difference(a : float, b : float) -> float:
-	var diff = b - a
-	diff = fmod2(diff + PI, TAU) - PI
-	return diff
-
-func angle_degrees_to_direction(angle_degrees : float) -> int:
-	if angle_degrees >= 337.5 or angle_degrees < 22.5:
-		return Global.DIRECTION.E
-	elif angle_degrees >= 22.5 and angle_degrees < 67.5:
-		return Global.DIRECTION.SE
-	elif angle_degrees >= 67.5 and angle_degrees < 112.5:
-		return Global.DIRECTION.S
-	elif angle_degrees >= 112.5 and angle_degrees < 157.5:
-		return Global.DIRECTION.SW
-	elif angle_degrees >= 157.5 and angle_degrees < 202.5:
-		return Global.DIRECTION.W
-	elif angle_degrees >= 202.5 and angle_degrees < 247.5:
-		return Global.DIRECTION.NW
-	elif angle_degrees >= 247.5 and angle_degrees < 292.5:
-		return Global.DIRECTION.N
-	elif angle_degrees >= 292.5 and angle_degrees < 337.5:
-		return Global.DIRECTION.NE
-	return 0
-
-func angle_to_direction(angle : float) -> int:
-	return angle_degrees_to_direction(rad2deg(angle))
 
 # special kind of mod, used for get_angle_difference above
 # (doesn't return same sign as dividend)

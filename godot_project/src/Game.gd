@@ -22,9 +22,3 @@ func _spawn_town() -> void:
 	var town_scene = SCENE_TOWN.instance()
 	$ViewportContainer.add_child(town_scene)
 
-func _on_game_state_changed(game_state : int) -> void:
-	match game_state:
-		State.GAME_STATE.WIN:
-			$UI/GameOverlay.show_end_overlay(State.GAME_STATE.WIN)
-		State.GAME_STATE.LOSE:
-			$UI/GameOverlay.show_end_overlay(State.GAME_STATE.LOSE)

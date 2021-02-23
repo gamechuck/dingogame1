@@ -37,18 +37,17 @@ func _ready():
 
 	_player.connect("position_update", self, "_on_player_position_update")
 	_player.emit_signal("position_update", _player.global_position)
-	#State.set_loaded_town(self)
 
 
 ################################################################################
 ## PRIVATE FUNCTIONS
 ## SPAWNING
 func _spawn_level() -> void:
-	_spawn_buildings()
-	_spawn_npcs()
+#	_spawn_buildings()
 	_spawn_player()
-	_spawn_interactables()
-	_connect_signals()
+#	_spawn_npcs()
+#	_spawn_interactables()
+#	_connect_signals()
 
 func _spawn_buildings() -> void:
 	# Positive layers buildings spawning is not yet implemented since we don't need anything
@@ -89,24 +88,6 @@ func _spawn_npcs() -> void:
 
 func _spawn_interactables() -> void:
 	pass
-
-func _connect_signals() -> void:
-	var players := get_tree().get_nodes_in_group("players")
-#	var characters := get_tree().get_nodes_in_group("characters")
-	var npcs := get_tree().get_nodes_in_group("npcs")
-
-	# players
-	for player in players:
-		player.connect("died", self, "_on_player_died")
-#		player.connect("overlay_update_requested", State, "_on_player_overlay_update_requested")
-
-	# characters
-#	for character in characters:
-#		character.connect("closest_object_requested", self, "_on_closest_object_requested", [character])
-
-	# npcs
-	for npc in npcs:
-		npc.connect("died", self, "_on_npc_died", [npc])
 
 ################################################################################
 ## PRIVATE FUNCTIONS

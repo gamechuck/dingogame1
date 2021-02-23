@@ -18,10 +18,10 @@ func _on_check_box_toggled(value : bool):
 	match toggle_type:
 		TOGGLE.FULLSCREEN:
 			ConfigData.fullscreen = value
-
-func _ready():
-	if not Engine.editor_hint:
-		var _error : int = connect("toggled", self, "_on_check_box_toggled")
+#
+#func _ready():
+#	if not Engine.editor_hint:
+#		var _error : int = connect("toggled", self, "_on_check_box_toggled")
 
 func update_setting() -> void:
 	match toggle_type:

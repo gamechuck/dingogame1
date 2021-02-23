@@ -34,14 +34,6 @@ func _on_item_selected(index : int) -> void:
 	ConfigData.set_input_mode(control_scheme)
 	ConfigData.save_settingsCFG()
 
-func _ready():
-	var _error := $VBoxContainer/OptionButton.connect("item_selected", self, "_on_item_selected")
-
-	if not Engine.editor_hint:
-		for key in control_dict.keys():
-			$VBoxContainer/OptionButton.add_item(control_dict[key].text, key)
-
-		update_setting()
 
 func update_setting() -> void:
 	$VBoxContainer/OptionButton.selected = $VBoxContainer/OptionButton.get_item_index(ConfigData.input_mode)

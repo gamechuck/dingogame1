@@ -78,7 +78,7 @@ _global_script_class_icons={
 "JSONBeautifier": "",
 "JSONMinifier": "",
 "classBuilding": "",
-"classCharacter": "res://assets/textures/class_icons/classCharacter.png",
+"classCharacter": "",
 "classCharacterAnimations": "",
 "classInteractable": "",
 "classItem": "",
@@ -181,6 +181,10 @@ sprint={
 2d_physics/layer_12="SOUND"
 2d_physics/layer_13="NAV_SOLID"
 2d_physics/layer_14="SIGHT_OCCLUDER"
+
+[physics]
+
+2d/physics_engine="GodotPhysics"
 
 [rendering]
 

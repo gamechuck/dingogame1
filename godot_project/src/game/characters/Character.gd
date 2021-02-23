@@ -1,4 +1,4 @@
-class_name classCharacter, "res://assets/textures/class_icons/classCharacter.png"
+class_name classCharacter
 extends KinematicBody2D
 
 ################################################################################
@@ -71,7 +71,7 @@ func set_look_angle(v : float) -> void:
 	_look_angle = v
 
 var _last_attacker : Node2D
-var _current_direction : int = Global.DIRECTION.E
+
 var _move_direction : Vector2 = Vector2.ZERO
 
 var _debug_godmode := false
@@ -121,14 +121,7 @@ func die() -> void:
 
 func get_objects_in_see_range() -> Array:
 	var objects := []
-#	for o in _see_range.get_overlapping_bodies():
-#		objects.append(o)
-#	for o in _see_range.get_overlapping_areas():
-#		objects.append(o)
 	return objects
-
-func get_current_look_direction() -> int:
-	return _current_direction
 
 func get_current_look_vector() -> Vector2:
 	return Vector2(cos(_movement_angle), sin(_movement_angle))
@@ -143,8 +136,6 @@ func object_in_sight(object : Node2D) -> bool:
 
 	ray.clear_exceptions()
 	ray.add_exception(self)
-#	if is_in_container:
-#		ray.add_exception(container)
 	while true:
 		ray.force_raycast_update()
 		if not ray.is_colliding():
@@ -211,20 +202,8 @@ func _connect_signals() -> void:
 func _play_animation(_animation_type) -> void:
 	pass
 
-func _play_move_sound() -> bool:
-	var _sfx_move_delay = ConfigData.FOOTSTEPS_SOUND_UPDATE_RATIO * (1.0 / _movement_speed)
-	if is_moving and OS.get_ticks_msec() > _sfx_move_start_time + _sfx_move_delay:
-		if _sfx_movement_samples.size() > 0:
-			_sfx_movement.stream = _sfx_movement_samples[randi() % _sfx_movement_samples.size()]
-			_sfx_movement.pitch_scale = rand_range(0.99, 1.1)
-			_sfx_movement.play()
-		_sfx_move_start_time = OS.get_ticks_msec()
-		return true
-	elif not is_moving:
-		_sfx_movement.stop()
-		return false
-	else:
-		return false
+func _play_move_sound() -> void:
+	pass
 
 func _move_towards_target_directly(_delta : float) -> void:
 	var direction := global_position.direction_to(_target.global_position).normalized()

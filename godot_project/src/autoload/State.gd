@@ -23,17 +23,6 @@ var loaded_town : classTown setget set_loaded_town
 func set_loaded_town(v : classTown) -> void:
 	loaded_town = v
 
-#################################################################################
-### GODOT CALLBACKS
-func _ready() -> void:
-	# If it doesn't exist, create the saves-folder in user://
-	var dir : Directory = Directory.new()
-	if not dir.dir_exists(Flow.SAVE_FOLDER):
-		print("Creating saves-folder at '{0}' (First-time initialization).".format([Flow.SAVE_FOLDER]))
-		var error : int = dir.make_dir(Flow.SAVE_FOLDER)
-		if error != OK:
-			push_error("Failed to create saves-folder due to error '{0}'.".format([error]))
-
 
 ################################################################################
 ## PUBLIC FUNCTIONS

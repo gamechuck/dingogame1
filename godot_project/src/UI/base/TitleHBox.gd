@@ -9,6 +9,6 @@ func set_text(value : String) -> void:
 		$Label.text = text
 func get_text() -> String:
 	return text
-
-func _ready() -> void:
-	set_text(text)
+#
+#func _ready() -> void:
+#	set_text(text)

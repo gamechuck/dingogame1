@@ -23,7 +23,6 @@ var _gravity : Vector2 = Vector2.DOWN*98
 ################################################################################
 ## GODOT CALLBACKS
 func _ready() -> void:
-	_current_direction = Global.DIRECTION.E
 	_animated_sprite.play("default")
 
 	controllable = true
@@ -70,18 +69,7 @@ func _interact() -> void:
 	# ignore if already interacting
 	if _is_interacting:
 		return
-
-	# take care of carried character first
-#	if carried_character:
-#		# if closest interactable is empty container, dispose of body, otherwise drop it
-#		if _closest_interactable and _closest_interactable is classContainer and not _closest_interactable.has_item():
-#			carried_character = null
-#		else:
-#			_drop_carried_character()
-#		return
-
 	_is_interacting = true
-
 	# get closest object in use range and interact with it if it exists
 	var interactable : Node2D = _get_closest_object_in_use_range()
 	if not interactable:
@@ -104,19 +92,22 @@ func _update_animation_state() -> void:
 				_play_animation(classCharacterAnimations.ANIMATION_TYPE.RUN)
 
 func _move(delta : float) -> void:
-	move_and_slide(_velocity, Vector2.UP)
-
 	_velocity += (_gravity * delta)
 
-	emit_signal("position_update", global_position)
 	if _jumped:
 		if _velocity.y > -_jump_speed * 0.9:
 			_velocity.y += (_gravity.y * 3.0 * delta)
 		if is_on_floor() and _velocity.y > 0:
 			_jumped = false
 
+	if (_velocity.y > _gravity.y * 2.0):
+		_velocity.y = _gravity.y * 2.0
+
+	move_and_slide(_velocity, Vector2.UP)
+	emit_signal("position_update", global_position)
+
 func _get_input():
-	if Input.is_action_just_pressed("move_up") and not _jumped:
+	if Input.is_action_just_pressed("move_up") and not _jumped and is_on_floor():
 		_velocity.y = -_jump_speed
 		_jumped = true
 

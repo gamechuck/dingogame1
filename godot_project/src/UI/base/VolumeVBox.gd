@@ -34,30 +34,30 @@ func _on_check_box_toggled(value : bool):
 		VOLUME.MASTER:
 			ConfigData.mute_master = value
 		VOLUME.MUSIC:
-			ConfigData.mute_music = value 
+			ConfigData.mute_music = value
 		VOLUME.SFX:
 			ConfigData.mute_sfx = value
 		VOLUME.SFX:
-			ConfigData.mute_ambient_sound = value 
+			ConfigData.mute_ambient_sound = value
 
 func _on_slider_value_changed(value : float):
 	$HBoxContainer/VolumeLabel.text = "%3d %%" % value
 
 	match volume_type:
 		VOLUME.MASTER:
-			ConfigData.master_volume = value 
+			ConfigData.master_volume = value
 		VOLUME.MUSIC:
-			ConfigData.music_volume = value 
+			ConfigData.music_volume = value
 		VOLUME.SFX:
 			ConfigData.sfx_volume = value
 			#AudioEngine.play_effect("door_open")
 		VOLUME.AMBIENT_SOUND:
-			ConfigData.ambient_sound_volume = value 
-
-func _ready():
-	if not Engine.editor_hint:
-		var _error : int = $HBoxContainer/VolumeSlider.connect("value_changed", self, "_on_slider_value_changed")
-		_error = $MuteCheckBox.connect("toggled", self, "_on_check_box_toggled")
+			ConfigData.ambient_sound_volume = value
+#
+#func _ready():
+#	if not Engine.editor_hint:
+#		var _error : int = $HBoxContainer/VolumeSlider.connect("value_changed", self, "_on_slider_value_changed")
+#		_error = $MuteCheckBox.connect("toggled", self, "_on_check_box_toggled")
 
 func update_setting() -> void:
 	match volume_type:

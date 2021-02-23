@@ -25,17 +25,17 @@ func update_sections() -> void:
 
 func _on_back_button_pressed() -> void:
 	# Save the user-settings to the local system.
-	var _error := ConfigData.save_settingsCFG()
-	if _error != OK:
-		push_error("Failed to save settings to local storage! Check console for clues!")
+#	var _error := ConfigData.save_settingsCFG()
+#	if _error != OK:
+#		push_error("Failed to save settings to local storage! Check console for clues!")
 
 	._on_back_button_pressed()
 
 func _on_reset_button_pressed() -> void:
 	# Reset the user-settings to the default ones.
-	var _error := ConfigData.reset_optionsCFG()
-	if _error != OK:
-		push_error("Failed to reset settings to the default ones! Check console for clues!")
+#	var _error := ConfigData.reset_optionsCFG()
+#	if _error != OK:
+#		push_error("Failed to reset settings to the default ones! Check console for clues!")
 
 	# Update here without calling 'update_tab()' to avoid grabbing focus.
 	update_sections()

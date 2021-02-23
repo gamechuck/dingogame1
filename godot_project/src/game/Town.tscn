@@ -1,12 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/game/Town.gd" type="Script" id=1]
+[ext_resource path="res://src/game/Building.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/materials/night_shader.tres" type="Material" id=5]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 2, 44 )
-
 [sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 11, 1111 )
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1111, 1 )
 
 [node name="Town" type="Node2D"]
@@ -20,10 +21,12 @@ __meta__ = {
 use_parent_material = true
 
 [node name="LeftVertLimiter" type="StaticBody2D" parent="Terrain"]
+collision_layer = 8
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/LeftVertLimiter"]
-position = Vector2( 0.222725, -44.1114 )
-shape = SubResource( 2 )
+position = Vector2( 0.223, -1111 )
+shape = SubResource( 1 )
 
 [node name="Ground" type="StaticBody2D" parent="Terrain"]
 collision_layer = 8
@@ -31,7 +34,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/Ground"]
 position = Vector2( 1111, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Objects" type="Node2D" parent="."]
 use_parent_material = true
@@ -99,3 +102,9 @@ position = Vector2( 90, 0 )
 offset = Vector2( 0, -170 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
+
+[node name="Building" parent="." instance=ExtResource( 2 )]
+position = Vector2( 219.186, -1.0621 )
+
+[node name="Building2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 392.046, -1.0621 )
