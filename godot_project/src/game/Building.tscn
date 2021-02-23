@@ -2,6 +2,6 @@
 
 [ext_resource path="res://src/game/Building.gd" type="Script" id=3]
 
-[node name="Building" type="YSort"]
+[node name="Building" type="Node2D"]
 use_parent_material = true
 script = ExtResource( 3 )

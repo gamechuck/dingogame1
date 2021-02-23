@@ -68,27 +68,6 @@ func _move(delta : float) -> void:
 	if _jumped and _velocity.y > 0 and is_on_floor():
 		_jumped = false
 
-func _get_input():
-	if Input.is_action_just_pressed("move_up") and not _jumped:
-		_velocity.y = -_jump_speed
-		_jumped = true
-	var velocity_y = _velocity.y
-	_velocity = Vector2.ZERO
-	if Input.is_action_just_pressed("sprint"):
-		_movement_speed = _run_speed
-	if Input.is_action_just_released("sprint"):
-		_movement_speed = _walk_speed
-	if Input.is_action_pressed("move_left"):
-		_velocity += Vector2.LEFT
-		$AnimatedSprite.flip_h = true
-	if Input.is_action_pressed("move_right"):
-		_velocity += Vector2.RIGHT
-		$AnimatedSprite.flip_h = false
-
-
-	_velocity = _velocity.normalized() * _movement_speed
-	_velocity.y = velocity_y
-
 func _attack() -> void:
 	if _is_attacking: # or body_state == BODY_STATE.HUMAN or carried_character:
 		return
@@ -164,29 +143,23 @@ func _update_animation_state() -> void:
 			elif _movement_speed == _run_speed:
 				_play_animation(classCharacterAnimations.ANIMATION_TYPE.RUN)
 
-################################################################################
-## SIGNAL CALLBACKS
-func _on_animation_finished() -> void:
-	if _is_attacking:
-		_is_attacking = false
-#		if is_in_container:
-#			set_as_toplevel(false)
-#			_animated_sprite.hide()
-#			if container and container.has_character():
-#				container._animated_sprite.play("contains_character")
-#		emit_signal("overlay_update_requested", hp, _is_attacking, is_running)
-	if _is_interacting:
-		_is_interacting = false
-#	if _window_jumping:
-#		_window_jumping = false
-#		if _should_transform:
-#			_start_transformation()
-#	if not _is_knocked_back:
-	_can_update_animations = true
+func _get_input():
+	if Input.is_action_just_pressed("move_up") and not _jumped:
+		_velocity.y = -_jump_speed
+		_jumped = true
+	var velocity_y = _velocity.y
+	_velocity = Vector2.ZERO
+	if Input.is_action_just_pressed("sprint"):
+		_movement_speed = _run_speed
+	if Input.is_action_just_released("sprint"):
+		_movement_speed = _walk_speed
+	if Input.is_action_pressed("move_left"):
+		_velocity += Vector2.LEFT
+		$AnimatedSprite.flip_h = true
+	if Input.is_action_pressed("move_right"):
+		_velocity += Vector2.RIGHT
+		$AnimatedSprite.flip_h = false
 
-func _on_died() -> void:
-	_camera.set_as_toplevel(true)
-	_camera.global_position = global_position
-	_is_interacting = false
-	_can_update_animations = false
-	_play_animation(classCharacterAnimations.ANIMATION_TYPE.DEATH)
+
+	_velocity = _velocity.normalized() * _movement_speed
+	_velocity.y = velocity_y

@@ -7,14 +7,13 @@
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2( 0, -20 )
+position = Vector2( 0, -14.25 )
 
 [node name="AnimatedSprite" parent="." index="1"]
 position = Vector2( 0, -15 )
 scale = Vector2( 1, 1 )
-offset = Vector2( 0, 0 )
 
 [node name="GameCamera" type="Camera2D" parent="." index="7"]
-position = Vector2( 0.374573, -29.6254 )
+position = Vector2( 0, -29.625 )
 current = true
 zoom = Vector2( 0.5, 0.5 )

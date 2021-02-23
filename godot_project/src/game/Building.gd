@@ -1,4 +1,4 @@
-extends YSort
+extends Node2D
 #
 #func _ready():
 #	$Floor.connect("body_entered", self, "_on_body_entered")
