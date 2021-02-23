@@ -22,7 +22,7 @@ use_parent_material = true
 [node name="LeftVertLimiter" type="StaticBody2D" parent="Terrain"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/LeftVertLimiter"]
-position = Vector2( 0, -44 )
+position = Vector2( 0.222725, -44.1114 )
 shape = SubResource( 2 )
 
 [node name="Ground" type="StaticBody2D" parent="Terrain"]

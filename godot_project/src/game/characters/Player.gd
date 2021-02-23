@@ -8,36 +8,28 @@ signal position_update
 
 ################################################################################
 ## PRIVATE VARIABLES
-onready var _camera := $GameCamera
 onready var _movement_noises := {}
 onready var _sfx_footsteps := {}
 onready var _sfx_attack_samples := []
 
 # MOVEMENT STUFF
-var _walk_speed = 200.0
-var _run_speed = 400.0
-var _jump_speed : float = 500.0
+var _walk_speed = 150.0
+var _run_speed = 250.0
+var _jump_speed : float = 250.0
 var _jumped : bool = false
-var _gravity : Vector2 = Vector2.DOWN*980
+var _gravity : Vector2 = Vector2.DOWN*98
 
 
 ################################################################################
 ## GODOT CALLBACKS
 func _ready() -> void:
+	_current_direction = Global.DIRECTION.E
+	_animated_sprite.play("default")
+
+	controllable = true
+
 	_setup_data()
 	add_to_group("players")
-	controllable = true
-	_current_direction = Global.DIRECTION.E
-#	_last_animation_type = classCharacterAnimations.ANIMATION_TYPE.IDLE
-#	_default_animations = classCharacterAnimations.PLAYER_DEFAULT
-	_animated_sprite.play("default")
-	set_hp_max(ConfigData.PLAYER_HP_MAX)
-	set_hp(hp_max)
-	attack_power = ConfigData.PLAYER_ATTACK_POWER
-	# debug
-	_debug_godmode = ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_PLAYER_GODMODE
-	if ConfigData.DEBUG_ENABLED and ConfigData.DEBUG_PLAYER_NOCLIP:
-		set_collision_mask_bit(ConfigData.PHYSICS_LAYER.SOLID, false)
 
 func _physics_process(delta : float) -> void:
 	if _can_update_animations:
@@ -58,13 +50,6 @@ func _physics_process(delta : float) -> void:
 func _setup_data() -> void:
 	_movement_speed = _walk_speed
 
-func _move(delta : float) -> void:
-	move_and_slide(_velocity, Vector2.UP)
-	_velocity += (_gravity * delta)
-	emit_signal("position_update", global_position)
-	if _jumped and _velocity.y > 0 and is_on_floor():
-		_jumped = false
-
 func _attack() -> void:
 	if _is_attacking: # or body_state == BODY_STATE.HUMAN or carried_character:
 		return
@@ -75,33 +60,11 @@ func _attack() -> void:
 #	_sfx_attack.play()
 	_is_attacking = true
 
-#	emit_signal("overlay_update_requested", hp, _is_attacking, is_running)
-
-	# deal damage to characters or break objects
-	var npc_hit := false
 	for target in _attack_range.get_overlapping_bodies():
-#		if target is classBreakable and target.breakable and not target.is_broken:
-#			target.shatter()
-		# If we have this object_in_sight() check, it can't hit villager from container
 		if target.alive and object_in_sight(target):
-#			if container:
-#				# if we're in container, hide the body (drag it in)
-#				target.take_damage(999999, self)
-#				target.visible = false
-#				target.global_position = Vector2(999999, 999999.0)
-#				npc_hit = true
-#			else:
-				# otherwise damage target, twice as much if target is not alerted (surprise attack)
-			if target.alerted:
-				target.take_damage(attack_power, self as Node2D)
-			else:
-				target.take_damage(attack_power * ConfigData.PLAYER_STEALTH_ATTACK_POWER_MODIFIER, self as Node2D)
-
-			npc_hit = true
-
-
-	if npc_hit:
-		_camera.shake(_camera.SHAKE_DURATION_DEAL_DAMAGE, _camera.SHAKE_STRENGTH_DEAL_DAMAGE)
+			target.take_damage(attack_power, self as Node2D)
+		else:
+			target.take_damage(attack_power * ConfigData.PLAYER_STEALTH_ATTACK_POWER_MODIFIER, self as Node2D)
 
 func _interact() -> void:
 	# ignore if already interacting
@@ -140,10 +103,23 @@ func _update_animation_state() -> void:
 			elif _movement_speed == _run_speed:
 				_play_animation(classCharacterAnimations.ANIMATION_TYPE.RUN)
 
+func _move(delta : float) -> void:
+	move_and_slide(_velocity, Vector2.UP)
+
+	_velocity += (_gravity * delta)
+
+	emit_signal("position_update", global_position)
+	if _jumped:
+		if _velocity.y > -_jump_speed * 0.9:
+			_velocity.y += (_gravity.y * 3.0 * delta)
+		if is_on_floor() and _velocity.y > 0:
+			_jumped = false
+
 func _get_input():
 	if Input.is_action_just_pressed("move_up") and not _jumped:
 		_velocity.y = -_jump_speed
 		_jumped = true
+
 	var velocity_y = _velocity.y
 	_velocity = Vector2.ZERO
 	if Input.is_action_just_pressed("sprint"):

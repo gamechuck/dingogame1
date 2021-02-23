@@ -20,10 +20,10 @@ onready var _camera := $Camera2D
 var _negative_layers_data := []
 
 # BUILDING SPAWN STUFF
-var _building_batch_amount := 2
+var _building_batch_amount := 10
 var _building_last_spawn_position := Vector2.ZERO
-var _building_spawn_offset := 400
-var _building_offset_random_delta := Vector2(-30, 30)
+var _building_spawn_offset := 200
+var _building_offset_random_delta := Vector2(-50, 50)
 
 # PLAYER STUFF
 var _player : classPlayer
@@ -32,7 +32,7 @@ var _player : classPlayer
 ################################################################################
 ## GODOT CALLBACKS
 func _ready():
-	_negative_layers_data = Flow.layer_data.get("negative", {})
+	_negative_layers_data = Flow.layer_data.get("layers").get("negative", {})
 	_spawn_level()
 
 	_player.connect("position_update", self, "_on_player_position_update")
@@ -57,6 +57,9 @@ func _spawn_buildings() -> void:
 	var negative_layers := _buildings_root.get_node("Negative").get_children()
 	var layer_index = 0
 	for layer_data in _negative_layers_data:
+		if not layer_data.get("should_spawn", true):
+			continue
+
 		var last_spawn_position := Vector2.ZERO
 		var z_order = layer_data.get("z_index", 0)
 		var negative_layer_node = negative_layers[layer_index]
