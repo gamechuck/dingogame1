@@ -86,7 +86,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Night Defence Heroes"
+config/name="Dingo"
 run/main_scene="res://src/Menu.tscn"
 config/icon="res://assets/textures/ndh_icon.png"
 
