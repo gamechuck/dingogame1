@@ -8,9 +8,9 @@ const SCENE_PLAYER := preload("res://src/game/characters/Player.tscn")
 
 ################################################################################
 ## PRIVATE VARIABLES
-onready var _players := $Sorted/Characters/Players
-onready var _npcs := $Sorted/Characters/NPCs
-onready var _interactables_root := $Sorted/Objects
+onready var _players_root := $Objects/Players
+onready var _npcs_root := $Objects/NPCs
+onready var _interactables_root := $Sorted/Interactables
 onready var _player_spawn_point := $Misc/PlayerSpawnPoint
 
 var _interactables := []
@@ -31,7 +31,7 @@ func _ready():
 ################################################################################
 ## PUBLIC FUNCTIONS
 func get_player() -> classPlayer:
-	return _players.get_child(0) as classPlayer
+	return _players_root.get_child(0) as classPlayer
 
 
 ################################################################################
@@ -60,8 +60,8 @@ func _spawn_level() -> void:
 
 func _spawn_player() -> void:
 	var player := SCENE_PLAYER.instance()
-	_players.add_child(player)
-	_players.global_position = _player_spawn_point.global_position
+	_players_root.add_child(player)
+	get_player().global_position = _player_spawn_point.global_position
 	pass
 
 func _spawn_npcs() -> void:

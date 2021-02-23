@@ -24,37 +24,37 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/Ground"]
 shape = SubResource( 1 )
 
-[node name="Sorted" type="Node2D" parent="."]
+[node name="Objects" type="Node2D" parent="."]
 use_parent_material = true
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Characters" type="Node2D" parent="Sorted"]
+[node name="Buildings" type="Node2D" parent="Objects"]
 use_parent_material = true
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="NPCs" type="Node2D" parent="Sorted/Characters"]
+[node name="Players" type="Node2D" parent="Objects"]
 use_parent_material = true
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Players" type="Node2D" parent="Sorted/Characters"]
+[node name="NPCs" type="Node2D" parent="Objects"]
 use_parent_material = true
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Objects" type="Node2D" parent="Sorted"]
+[node name="Interactables" type="Node2D" parent="Objects"]
 use_parent_material = true
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="BuildingsYSort" type="Node2D" parent="Sorted"]
+[node name="Props" type="Node2D" parent="Objects"]
 use_parent_material = true
 __meta__ = {
 "_edit_lock_": true
