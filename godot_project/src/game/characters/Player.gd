@@ -12,8 +12,8 @@ onready var _jump_timer := $Timer
 # MOVEMENT STUFF
 var _walk_speed = 55
 var _run_speed = 77
-var _jump_speed = 222.0
-var _jumped : bool = false
+var _jump_speed = 222
+var _jumped := false
 
 
 ################################################################################
@@ -51,12 +51,12 @@ func _move() -> void:
 		if Input.is_action_just_pressed("move_up"):
 			linear_velocity.y = 0
 			apply_central_impulse(Vector2.UP * _jump_speed)
-			_jump_timer.start()
+			#_jump_timer.start()
 			_jumped = true
 			print("Jumped")
 	elif _jumped and linear_velocity.y == 0:
 		_jumped = false
-		gravity_scale = 1
+		#gravity_scale = 1
 		print("Jump reset")
 
 func _update_movement_speed():
@@ -65,5 +65,5 @@ func _update_movement_speed():
 	if Input.is_action_just_released("sprint"):
 		_movement_speed = _walk_speed
 
-func _on_jump_timeout() -> void:
-	gravity_scale = 7
+#func _on_jump_timeout() -> void:
+#	gravity_scale = 7
