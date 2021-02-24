@@ -63,6 +63,11 @@ _global_script_classes=[ {
 "class": "classTownState",
 "language": "GDScript",
 "path": "res://src/autoload/state/TownState.gd"
+}, {
+"base": "classInteractable",
+"class": "classTrafo",
+"language": "GDScript",
+"path": "res://src/game/interactables/Trafo.gd"
 } ]
 _global_script_class_icons={
 "JSONBeautifier": "",
@@ -75,7 +80,8 @@ _global_script_class_icons={
 "classNPC": "",
 "classPlayer": "",
 "classTown": "",
-"classTownState": ""
+"classTownState": "",
+"classTrafo": ""
 }
 
 [application]

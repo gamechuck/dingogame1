@@ -5,7 +5,7 @@ extends Node2D
 ## CONSTANTS
 const SCENE_PLAYER := preload("res://src/game/characters/Player.tscn")
 const SCENE_BUILDING := preload("res://src/game/Building.tscn")
-
+const SCENE_TRAFO := preload("res://src/game/interactables/Trafo.tscn")
 
 ################################################################################
 ## PRIVATE VARIABLES
