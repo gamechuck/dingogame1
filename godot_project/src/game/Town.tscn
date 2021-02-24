@@ -21,6 +21,9 @@ __meta__ = {
 [node name="Terrain" type="Node2D" parent="."]
 use_parent_material = true
 position = Vector2( -1.49831, 11.6119 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="LeftVertLimiter" type="StaticBody2D" parent="Terrain"]
 collision_layer = 8
