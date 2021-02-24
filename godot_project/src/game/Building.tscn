@@ -4,7 +4,7 @@
 [ext_resource path="res://src/game/Building.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 553.007, 50 )
+extents = Vector2( 553.007, 1 )
 
 [node name="Building" type="Node2D"]
 use_parent_material = true

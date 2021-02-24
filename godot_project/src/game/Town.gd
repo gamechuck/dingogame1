@@ -27,7 +27,7 @@ var _negative_layers := []
 var _building_batch_amount := 1004
 var _building_last_spawn_position := Vector2.ZERO
 var _building_offset_random_delta := Vector2(0, 50)
-
+var _building_parallax_direction = 0
 # PLAYER STUFF
 var _player : classPlayer
 
@@ -40,9 +40,11 @@ func _ready():
 
 	_player.connect("position_update", self, "_on_player_position_update")
 	_player.emit_signal("position_update", _player.global_position)
+	_player.connect("direction_update", self, "_on_player_direction_update")
 
-#func _process(delta):
-#	_move_building_layers(delta)
+
+func _process(delta):
+	_move_building_layers(delta)
 
 ################################################################################
 ## PRIVATE FUNCTIONS
@@ -59,18 +61,21 @@ func _spawn_buildings() -> void:
 	# Positive layers buildings spawning is not yet implemented since we don't need anything
 	# in front of player, but who knows in future
 	#var positive_layers := _buildings_root.get_node("Positive").get_children()
-	_negative_layers = _buildings_root.get_node("Negative").get_children()
-	if _negative_layers_data.size() > _negative_layers.size():
-		print("Can't spawn layers, not enough layer nodes!")
-		return
-	var layer_index = _negative_layers_data.size()
+	_negative_layers = []
+#	if _negative_layers_data.size() != _negative_layers.size():
+#		print("Can't spawn layers, data size and layer nodes count is not same!")
+#		return
+	var layer_index = -1
 	for layer_data in _negative_layers_data:
-		layer_index -= 1
+		layer_index += 1
 
 		var last_spawn_position = 0
 		var z_order = layer_data.get("z_index", 0)
+		var layer_node = Node2D.new()
+		layer_node.name = "BuildingLayerNeg=" + str(z_order)
+		_negative_layers.append(layer_node)
 		_negative_layers[layer_index].z_index = z_order
-
+		_buildings_root.get_node("Negative").add_child(layer_node)
 		if not layer_data.get("should_spawn", true):
 			continue
 
@@ -101,9 +106,14 @@ func _spawn_interactables() -> void:
 	pass
 
 func _move_building_layers(delta : float) -> void:
+	if not _player or not _player.is_moving:
+		return
 	for i in _negative_layers.size():
-		var layer_parallax_speed = _negative_layers_data[i].get("parallax_speed", 0.0)
-		_negative_layers[i].position -= Vector2.RIGHT * delta * layer_parallax_speed
+		if not _negative_layers_data[i].get("should_spawn", false):
+			continue
+		var layer_parallax_speed = _negative_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta #* 0.5
+		_negative_layers[i].global_position.x += layer_parallax_speed
+		print(layer_parallax_speed)
 
 
 ################################################################################
@@ -112,3 +122,8 @@ func _on_player_position_update(new_position : Vector2) -> void:
 	if new_position.x >= _player_spawn_point.global_position.x:
 		_camera.global_position = Vector2(new_position.x, _camera.global_position.y)
 
+func _on_player_direction_update(new_direction : Vector2) -> void:
+	if new_direction == Vector2.LEFT:
+		_building_parallax_direction = 1
+	else:
+		_building_parallax_direction = -1
