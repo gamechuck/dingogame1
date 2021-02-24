@@ -35,10 +35,12 @@ func _set_collision_shape(collidable : bool) -> void:
 		var collision_y = _sprite.texture.get_height()
 
 		_collision_shape.position = Vector2(0.0, -collision_y - 10.0)
-		_collision_shape.shape.extents.x = collision_x
+		if _collision_shape.shape is RectangleShape2D:
+			_collision_shape.shape.extents.x = collision_x
+		if _collision_shape.shape is SegmentShape2D:
+			_collision_shape.shape.a = Vector2(-collision_x, 0.0)
+			_collision_shape.shape.b = Vector2(collision_x, 0.0)
 		_collision_shape.one_way_collision = true
 	else:
 		_collision_shape.set_deferred("disabled", true)
 		_collision_shape.hide()
-
-

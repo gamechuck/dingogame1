@@ -9,10 +9,9 @@ signal direction_update
 
 ################################################################################
 ## PRIVATE VARIABLES
-onready var _jump_timer := $Timer
 # MOVEMENT STUFF
-var _walk_speed = 55
-var _run_speed = 155
+var _walk_speed = 33
+var _run_speed = 99
 var _jump_speed = 300
 var _jumped := false
 var _jump_start := Vector2.ZERO
@@ -26,7 +25,6 @@ func _ready() -> void:
 	controllable = true
 
 	_animated_sprite.play("default")
-	_jump_timer.connect("timeout", self, "_on_jump_timeout")
 
 func _physics_process(_delta : float) -> void:
 	if controllable:
@@ -69,12 +67,11 @@ func _update_movement_speed():
 		_movement_speed = _run_speed
 	if Input.is_action_just_released("sprint"):
 		_movement_speed = _walk_speed
+	if _jumped:
+		_movement_speed *= 0.5
 
 func _update_is_moving():
 	if linear_velocity.x == 0.0:
 		is_moving = false
 	else:
 		is_moving = true
-
-func _on_jump_timeout() -> void:
-	gravity_scale = 7

@@ -85,15 +85,12 @@ __meta__ = {
 }
 
 [node name="PlayerSpawnPoint" type="Position2D" parent="Misc"]
-position = Vector2( 88.7401, -7.55952 )
+position = Vector2( 165.357, -22.7048 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 88.443, -7.5874 )
-offset = Vector2( 0, -170 )
+position = Vector2( 164.169, -22.2872 )
+offset = Vector2( 0, -66.249 )
 current = true
-zoom = Vector2( 0.5, 0.5 )
-__meta__ = {
-"_edit_lock_": true
-}
+zoom = Vector2( 0.25, 0.25 )

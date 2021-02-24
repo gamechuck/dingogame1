@@ -6,6 +6,7 @@ extends Node2D
 const SCENE_PLAYER := preload("res://src/game/characters/Player.tscn")
 const SCENE_BUILDING := preload("res://src/game/Building.tscn")
 
+
 ################################################################################
 ## PRIVATE VARIABLES
 onready var _buildings_root := $Objects/Buildings
@@ -18,14 +19,11 @@ onready var _camera := $Camera2D
 
 # EXTERNAL DATA
 var _negative_layers_data := []
-
-
 # BUILDING LAYERS
 var _negative_layers := []
-
 # BUILDING SPAWN STUFF
 var _building_batch_amount := 1004
-var _building_last_spawn_position := Vector2.ZERO
+var _building_start_spawn_position_x = -400
 var _building_offset_random_delta := Vector2(0, 50)
 var _building_parallax_direction = 0
 # PLAYER STUFF
@@ -42,9 +40,9 @@ func _ready():
 	_player.emit_signal("position_update", _player.global_position)
 	_player.connect("direction_update", self, "_on_player_direction_update")
 
-
 func _process(delta):
 	_move_building_layers(delta)
+
 
 ################################################################################
 ## PRIVATE FUNCTIONS
@@ -60,16 +58,12 @@ func _spawn_level() -> void:
 func _spawn_buildings() -> void:
 	# Positive layers buildings spawning is not yet implemented since we don't need anything
 	# in front of player, but who knows in future
-	#var positive_layers := _buildings_root.get_node("Positive").get_children()
 	_negative_layers = []
-#	if _negative_layers_data.size() != _negative_layers.size():
-#		print("Can't spawn layers, data size and layer nodes count is not same!")
-#		return
 	var layer_index = -1
 	for layer_data in _negative_layers_data:
 		layer_index += 1
 
-		var last_spawn_position = 0
+		var last_spawn_position = _building_start_spawn_position_x
 		var z_order = layer_data.get("z_index", 0)
 		var layer_node = Node2D.new()
 		layer_node.name = "BuildingLayerNeg=" + str(z_order)
@@ -113,13 +107,13 @@ func _move_building_layers(delta : float) -> void:
 			continue
 		var layer_parallax_speed = _negative_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta #* 0.5
 		_negative_layers[i].global_position.x += layer_parallax_speed
-		print(layer_parallax_speed)
 
 
 ################################################################################
 ## SIGNAL CALLBACKS
 func _on_player_position_update(new_position : Vector2) -> void:
-	if new_position.x >= _player_spawn_point.global_position.x:
+	var threshold = OS.window_size.x * 0.01 * _camera.zoom.x
+	if new_position.x >= _player_spawn_point.global_position.x + threshold:
 		_camera.global_position = Vector2(new_position.x, _camera.global_position.y)
 
 func _on_player_direction_update(new_direction : Vector2) -> void:
