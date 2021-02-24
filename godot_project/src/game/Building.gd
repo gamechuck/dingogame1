@@ -38,6 +38,7 @@ func _set_collision_shape(collidable : bool) -> void:
 		_collision_shape.shape.extents.x = collision_x
 		_collision_shape.one_way_collision = true
 	else:
-		_collision.set_deferred("disabled", true)
+		_collision_shape.set_deferred("disabled", true)
+		_collision_shape.hide()
 
 

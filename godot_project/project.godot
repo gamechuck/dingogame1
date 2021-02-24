@@ -44,11 +44,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/items/Item.gd"
 }, {
-"base": "Control",
-"class": "classMenuTab",
-"language": "GDScript",
-"path": "res://src/UI/menu/MenuTab.gd"
-}, {
 "base": "classCharacter",
 "class": "classNPC",
 "language": "GDScript",
@@ -58,11 +53,6 @@ _global_script_classes=[ {
 "class": "classPlayer",
 "language": "GDScript",
 "path": "res://src/game/characters/Player.gd"
-}, {
-"base": "VBoxContainer",
-"class": "classSection",
-"language": "GDScript",
-"path": "res://src/UI/base/SectionContainer.gd"
 }, {
 "base": "Node2D",
 "class": "classTown",
@@ -82,10 +72,8 @@ _global_script_class_icons={
 "classCharacterAnimations": "",
 "classInteractable": "",
 "classItem": "",
-"classMenuTab": "",
 "classNPC": "",
 "classPlayer": "",
-"classSection": "",
 "classTown": "",
 "classTownState": ""
 }
@@ -181,10 +169,6 @@ sprint={
 2d_physics/layer_12="SOUND"
 2d_physics/layer_13="NAV_SOLID"
 2d_physics/layer_14="SIGHT_OCCLUDER"
-
-[physics]
-
-2d/physics_engine="GodotPhysics"
 
 [rendering]
 

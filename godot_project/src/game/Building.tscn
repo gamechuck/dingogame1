@@ -9,7 +9,7 @@ extents = Vector2( 553.007, 50 )
 [node name="Building" type="Node2D"]
 use_parent_material = true
 position = Vector2( 646.252, 400.292 )
-scale = Vector2( 0.1, 0.1 )
+scale = Vector2( 0.05, 0.05 )
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -17,9 +17,8 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -640 )
 
 [node name="CollisionNode" type="StaticBody2D" parent="."]
-scale = Vector2( 1, 1 )
-collision_layer = 1048575
-collision_mask = 2148532223
+collision_layer = 8
+collision_mask = 2147483648
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionNode"]
 shape = SubResource( 1 )

@@ -22,7 +22,7 @@ var _negative_layers_data := []
 # BUILDING SPAWN STUFF
 var _building_batch_amount := 1004
 var _building_last_spawn_position := Vector2.ZERO
-var _building_offset_random_delta := Vector2(-50, 50)
+var _building_offset_random_delta := Vector2(0, 50)
 
 # PLAYER STUFF
 var _player : classPlayer
@@ -57,23 +57,24 @@ func _spawn_buildings() -> void:
 		if not layer_data.get("should_spawn", true):
 			continue
 
-		var last_spawn_position := Vector2.ZERO
+		var last_spawn_position = 0
 		var z_order = layer_data.get("z_index", 0)
+		var y_offset = layer_data.get("y_offset", 0)
 		var negative_layer_node = negative_layers[layer_index]
 		negative_layer_node.z_index = z_order
 		layer_index += 1
 
 		for j in _building_batch_amount:
-			var offset := Vector2(rand_range(_building_offset_random_delta.x, _building_offset_random_delta.y), 0)
-			var spawn_position := last_spawn_position + offset
 			var collidable : bool = layer_data.get("collidable", true)
 			var textures = layer_data.get("textures", [])
 			var random_texture : Texture = load("res://assets/Graphics/Map/" + textures[rand_range(0, textures.size())] + ".png")
+			var offset := Vector2(rand_range(_building_offset_random_delta.x, _building_offset_random_delta.y), y_offset)
 			var building := SCENE_BUILDING.instance()
+			var spawn_position := Vector2(last_spawn_position, 0) + offset + Vector2(random_texture.get_width() * building.scale.x, 0)
 			negative_layer_node.add_child(building)
-			spawn_position.x += random_texture.get_width() * building.scale.x
+
 			building.set_data({"position": spawn_position, "texture": random_texture, "collidable": collidable})
-			last_spawn_position = spawn_position
+			last_spawn_position = spawn_position.x
 
 func _spawn_player() -> void:
 	_player = SCENE_PLAYER.instance()

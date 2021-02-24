@@ -44,18 +44,16 @@ var attack_power := 1
 
 ################################################################################
 ## PRIVATE VARIABLES
-export var _on_damaged_noise := 50.0
-
 onready var _animated_sprite := $AnimatedSprite
-onready var _use_range := $UseRange
-onready var _attack_range := $AttackRange
-onready var _line_of_sight_ray := $LineOfSightRay
-onready var _sfx_attack := $SFX/Attack
-onready var _sfx_death := $SFX/Death
-onready var _sfx_take_damage := $SFX/TakeDamage
-onready var _sfx_movement := $SFX/Movement
-onready var _damage_take_tween := $DamageTakeTween
-onready var _collision := $CollisionShape2D
+onready var _use_range# := $UseRange
+onready var _attack_range# := $AttackRange
+onready var _line_of_sight_ray# := $LineOfSightRay
+onready var _sfx_attack #:= $SFX/Attack
+onready var _sfx_death# := $SFX/Death
+onready var _sfx_take_damage# := $SFX/TakeDamage
+onready var _sfx_movement# := $SFX/Movement
+onready var _damage_take_tween# := $DamageTakeTween
+onready var _collision# := $CollisionShape2D
 
 var _is_attacking := false
 var _is_interacting := false
@@ -64,7 +62,7 @@ var _movement_speed := 10.0 setget set_movement_speed
 func set_movement_speed(v : float) -> void:
 	_movement_speed = v
 var _movement_angle := 0.0
-var _velocity := Vector2.ZERO
+#var _velocity := Vector2.ZERO
 var _target : Node2D = null
 var _look_angle := 0.0 setget set_look_angle
 func set_look_angle(v : float) -> void:
@@ -186,9 +184,6 @@ func take_damage(amount : float, _damager : Node2D) -> void:
 #	_is_knocked_back = true
 #	_current_knockback_speed = _knockback_start_speed
 	_last_attacker = _damager
-
-	if alive:
-		emit_signal("audio_source_spawn_requested", self, global_position,  { "noise": _on_damaged_noise, "type" : Global.SOUND_SOURCE_TYPE.ATTACKED })
 
 func activate_object(o : Node2D) -> void:
 	o.set_active(true)

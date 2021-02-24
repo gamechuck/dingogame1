@@ -1,10 +1,9 @@
-# The game's main menu...
 extends Control
 
-onready var _menu_tab_container := $MenuTabContainer
+onready var _start_button := $Button
 
 func _ready():
-	_menu_tab_container.set_current_tab(classMenuTab.TABS.MAIN)
-	#AudioEngine.play_music("main_menu")
-	AudioEngine.stop_ambient()
+	_start_button.connect("pressed", self, "_on_start_button_pressed")
 
+func _on_start_button_pressed():
+	Flow.change_scene_to("game")

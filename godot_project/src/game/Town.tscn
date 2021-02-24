@@ -49,6 +49,10 @@ __meta__ = {
 
 [node name="Negative" type="Node2D" parent="Objects/Buildings"]
 
+[node name="Layer05" type="Node2D" parent="Objects/Buildings/Negative"]
+
+[node name="Layer04" type="Node2D" parent="Objects/Buildings/Negative"]
+
 [node name="Layer03" type="Node2D" parent="Objects/Buildings/Negative"]
 
 [node name="Layer02" type="Node2D" parent="Objects/Buildings/Negative"]
@@ -93,7 +97,7 @@ __meta__ = {
 }
 
 [node name="PlayerSpawnPoint" type="Position2D" parent="Misc"]
-position = Vector2( 90, 0 )
+position = Vector2( 88.7401, -7.55952 )
 
 [node name="Tween" type="Tween" parent="."]
 

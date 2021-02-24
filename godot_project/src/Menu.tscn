@@ -1,11 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/Menu.gd" type="Script" id=1]
-[ext_resource path="res://src/UI/menu/MainMenuTab.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/UI/menu/MenuTabContainer.gd" type="Script" id=3]
-[ext_resource path="res://src/UI/menu/SettingsMenuTab.tscn" type="PackedScene" id=5]
-
-[sub_resource type="StyleBoxEmpty" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -16,29 +12,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BackgroundTextureRect" type="TextureRect" parent="."]
-self_modulate = Color( 0.376471, 0.376471, 0.376471, 1 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-expand = true
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="MenuTabContainer" type="TabContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_styles/panel = SubResource( 1 )
-tabs_visible = false
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="MainMenuTab" parent="MenuTabContainer" instance=ExtResource( 2 )]
-margin_bottom = 0.0
-
-[node name="SettingsMenuTab" parent="MenuTabContainer" instance=ExtResource( 5 )]
-visible = false
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -73.0
+margin_top = -35.0
+margin_right = 73.0
+margin_bottom = 35.0
+text = "Start game"
+icon = ExtResource( 2 )
+expand_icon = true
