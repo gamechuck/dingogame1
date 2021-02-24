@@ -53,7 +53,6 @@ func _spawn_level() -> void:
 	_spawn_buildings()
 	_spawn_player()
 	_spawn_npcs()
-	_spawn_interactables()
 
 func _spawn_buildings() -> void:
 	# Positive layers buildings spawning is not yet implemented since we don't need anything
@@ -66,7 +65,7 @@ func _spawn_buildings() -> void:
 		var last_spawn_position = _building_start_spawn_position_x
 		var z_order = layer_data.get("z_index", 0)
 		var layer_node = Node2D.new()
-		layer_node.name = "BuildingLayerNeg=" + str(z_order)
+		layer_node.name = "BuildingLayer=" + str(z_order)
 		_negative_layers.append(layer_node)
 		_negative_layers[layer_index].z_index = z_order
 		_buildings_root.get_node("Negative").add_child(layer_node)
@@ -76,6 +75,8 @@ func _spawn_buildings() -> void:
 		var y_offset = layer_data.get("y_offset", 0)
 
 		for j in _building_batch_amount:
+			if j % 3 == 0:
+				_spawn_interactable()
 			var collidable : bool = layer_data.get("collidable", true)
 			var textures = layer_data.get("textures", [])
 			var random_texture : Texture = load("res://assets/Graphics/Map/" + textures[rand_range(0, textures.size())] + ".png")
@@ -96,7 +97,7 @@ func _spawn_player() -> void:
 func _spawn_npcs() -> void:
 	pass
 
-func _spawn_interactables() -> void:
+func _spawn_interactable() -> void:
 	pass
 
 func _move_building_layers(delta : float) -> void:
