@@ -12,9 +12,9 @@ onready var _jump_timer := $Timer
 # MOVEMENT STUFF
 var _walk_speed = 55
 var _run_speed = 77
-var _jump_speed = 222.0
-var _jumped : bool = false
-
+var _jump_speed = 300
+var _jumped := false
+var _jump_start := Vector2.ZERO
 
 ################################################################################
 ## GODOT CALLBACKS
@@ -51,13 +51,14 @@ func _move() -> void:
 		if Input.is_action_just_pressed("move_up"):
 			linear_velocity.y = 0
 			apply_central_impulse(Vector2.UP * _jump_speed)
-			_jump_timer.start()
+			_jump_start = global_position
 			_jumped = true
-			print("Jumped")
-	elif _jumped and linear_velocity.y == 0:
-		_jumped = false
-		gravity_scale = 1
-		print("Jump reset")
+	elif _jumped:
+		if global_position.y < _jump_start.y - 11:
+			gravity_scale = 7
+		if  linear_velocity.y == 0:
+			_jumped = false
+			gravity_scale = 1
 
 func _update_movement_speed():
 	if Input.is_action_just_pressed("sprint"):
