@@ -6,7 +6,7 @@
 				"should_spawn": true,
 				"z_index": -5,
 				"y_offset": -88,
-				"parallax_speed": 44.0,
+				"parallax_speed": 12.0,
 				"name": "background_skycrapers_5",
 				"collidable": false,
 				"textures": [
@@ -17,7 +17,7 @@
 				"should_spawn": true,
 				"z_index": -4,
 				"y_offset": -33,
-				"parallax_speed": 33.0,
+				"parallax_speed": 18.0,
 				"name": "middle_buildings_4",
 				"collidable": false,
 				"textures": [
@@ -28,7 +28,7 @@
 				"should_spawn": true,
 				"z_index": -3,
 				"y_offset": -22,
-				"parallax_speed": 22.0,
+				"parallax_speed": 24.0,
 				"name": "middle_buildings_3",
 				"collidable": true,
 				"textures": [
@@ -39,7 +39,7 @@
 				"should_spawn": true,
 				"z_index": -2,
 				"y_offset": -5,
-				"parallax_speed": 11.0,
+				"parallax_speed": 30.0,
 				"name": "middle_buildings_2",
 				"collidable": true,
 				"textures": [
@@ -51,7 +51,7 @@
 				"should_spawn": true,
 				"z_index": -1,
 				"y_offset": 0,
-				"parallax_speed": 0.0,
+				"parallax_speed": 35.0,
 				"name": "forward_buildings_1",
 				"collidable": true,
 				"textures": [

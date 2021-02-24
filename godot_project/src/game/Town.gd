@@ -105,7 +105,7 @@ func _move_building_layers(delta : float) -> void:
 	for i in _negative_layers.size():
 		if not _negative_layers_data[i].get("should_spawn", false):
 			continue
-		var layer_parallax_speed = _negative_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta #* 0.5
+		var layer_parallax_speed = _negative_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta
 		_negative_layers[i].global_position.x += layer_parallax_speed
 
 

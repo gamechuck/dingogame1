@@ -67,8 +67,6 @@ func _update_movement_speed():
 		_movement_speed = _run_speed
 	if Input.is_action_just_released("sprint"):
 		_movement_speed = _walk_speed
-	if _jumped:
-		_movement_speed *= 0.5
 
 func _update_is_moving():
 	if linear_velocity.x == 0.0:
