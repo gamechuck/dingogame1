@@ -43,8 +43,8 @@
 				"name": "middle_buildings_2",
 				"collidable": true,
 				"textures": [
-					"building_4",
-					"building_3"
+					"building_2",
+					"building_4"
 				]
 			},
 			{
@@ -55,8 +55,8 @@
 				"name": "forward_buildings_1",
 				"collidable": true,
 				"textures": [
-					"building_1",
-					"building_2"
+					"building_3",
+					"building_1"
 				]		
 			}
 		]
