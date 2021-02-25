@@ -1,5 +1,6 @@
 class_name classPlayer
-extends classCharacter
+extends RigidBody2D
+
 
 ################################################################################
 ## SIGNALS
@@ -8,13 +9,22 @@ signal direction_update
 
 
 ################################################################################
+## PUBLIC VARIABLES
+var controllable = true
+var is_moving = false
+
+
+################################################################################
 ## PRIVATE VARIABLES
+onready var _animated_sprite := $AnimatedSprite
 # MOVEMENT STUFF
+var _movement_speed = 0
 var _walk_speed = 33
 var _run_speed = 99
 var _jump_speed = 300
 var _jumped := false
 var _jump_start := Vector2.ZERO
+
 
 ################################################################################
 ## GODOT CALLBACKS
