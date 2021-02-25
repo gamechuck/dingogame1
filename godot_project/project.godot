@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/Player.gd"
 }, {
+"base": "classInteractable",
+"class": "classThief",
+"language": "GDScript",
+"path": "res://src/game/Thief.gd"
+}, {
 "base": "Node2D",
 "class": "classTown",
 "language": "GDScript",
@@ -67,6 +72,7 @@ _global_script_class_icons={
 "classInteractable": "",
 "classItem": "",
 "classPlayer": "",
+"classThief": "",
 "classTown": "",
 "classTownState": "",
 "classTrafo": ""

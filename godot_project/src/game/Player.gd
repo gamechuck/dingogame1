@@ -17,6 +17,7 @@ var is_moving = false
 ################################################################################
 ## PRIVATE VARIABLES
 onready var _animated_sprite := $AnimatedSprite
+onready var _area2D := $Area2D
 # MOVEMENT STUFF
 var _movement_speed = 0
 var _walk_speed = 33
@@ -25,24 +26,33 @@ var _jump_speed = 300
 var _jumped := false
 var _jump_start := Vector2.ZERO
 
+var _overlapping_bodies := []
 
 ################################################################################
 ## GODOT CALLBACKS
 func _ready() -> void:
 	add_to_group("players")
 	_setup_data()
+	_area2D.connect("body_entered", self, "_on_body_entered")
+	_area2D.connect("body_exited", self, "_on_body_exited")
 
 	controllable = true
-
 	_animated_sprite.play("default")
 
 func _physics_process(_delta : float) -> void:
 	if controllable:
 		_update_is_moving()
 		_update_movement_speed()
-		if linear_velocity.x != 0.0:
-			emit_signal("position_update", global_position)
 		_move()
+		if Input.is_action_just_pressed("interact"):
+			_interact()
+
+
+################################################################################
+## PUBLIC FUNCTIONS
+func disable() -> void:
+	controllable = false
+	linear_velocity = Vector2.ZERO
 
 
 ################################################################################
@@ -83,4 +93,19 @@ func _update_is_moving():
 		is_moving = false
 	else:
 		is_moving = true
+		emit_signal("position_update", global_position)
 
+func _interact():
+	for body in _overlapping_bodies:
+		if body.owner.interactable:
+			body.owner.interact(self)
+
+
+################################################################################
+## SIGNAL CALLBACKS
+func _on_body_entered(_body : Node2D) -> void:
+	_overlapping_bodies = _area2D.get_overlapping_bodies()
+
+func _on_body_exited(_body : Node2D) -> void:
+	if _overlapping_bodies.has(_body):
+		_overlapping_bodies.erase(_body)

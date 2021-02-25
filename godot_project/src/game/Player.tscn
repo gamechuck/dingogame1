@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/game/Player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -12,13 +12,16 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 9.03061, 8.65801 )
+extents = Vector2( 7.65696, 8.04287 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 11.4495, 6.35752 )
 
 [node name="Player" type="RigidBody2D"]
 use_parent_material = true
 position = Vector2( 0, 0.0701523 )
 collision_layer = 4
-collision_mask = 8
+collision_mask = 2147483656
 mode = 2
 script = ExtResource( 1 )
 
@@ -29,5 +32,14 @@ frames = SubResource( 1 )
 offset = Vector2( 0, -30 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.00426209, -7.92574 )
+visible = false
+position = Vector2( 0.0744144, -8.06604 )
 shape = SubResource( 2 )
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -0.210461, -8.62893 )
+shape = SubResource( 3 )

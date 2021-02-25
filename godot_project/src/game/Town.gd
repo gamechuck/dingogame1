@@ -9,6 +9,7 @@ const SCENE_BUILDING := preload("res://src/game/Building.tscn")
 const SCENE_TRAFO := preload("res://src/game/interactables/Trafo.tscn")
 const SCENE_THIEF := preload("res://src/game/Thief.tscn")
 
+
 ################################################################################
 ## PRIVATE VARIABLES
 onready var _buildings_root := $Objects/Buildings
@@ -20,6 +21,12 @@ onready var _player_spawn_point := $Misc/PlayerSpawnPoint
 onready var _camera := $Camera2D
 
 # EXTERNAL DATA
+var _game_data := {
+	"scores": {
+		"trafo": 10.0,
+		"thief": 20.0
+	}
+}
 var _negative_layers_data := []
 # BUILDING LAYERS
 var _negative_layers := []
@@ -29,8 +36,6 @@ var _building_start_spawn_position_x = -100
 var _building_offset_random_delta := Vector2(0, 50)
 var _building_parallax_direction = 0
 var _buildings_with_trafos := []
-# PLAYER STUFF
-var _player : classPlayer
 # INTERACTABLES STUFF
 var _interactables_layers := []
 # NPCS STUFF
@@ -38,14 +43,25 @@ var _npc_layers := []
 
 
 ################################################################################
+## PROPERTY VARIABLES
+var _thief_score := 0.0 setget , get_thief_score
+func get_thief_score() -> float:
+	return _thief_score
+var _trafo_score := 0.0 setget , get_trafo_score
+func get_trafo_score() -> float:
+	return _trafo_score
+# PLAYER STUFF
+var _player : classPlayer setget , get_player
+func get_player() -> classPlayer:
+	return _player
+
+################################################################################
 ## GODOT CALLBACKS
 func _ready():
 	_set_data()
-	_spawn_level()
-
-	_player.connect("position_update", self, "_on_player_position_update")
-	_player.emit_signal("position_update", _player.global_position)
-	_player.connect("direction_update", self, "_on_player_direction_update")
+	_spawn_buildings()
+	_spawn_interactables()
+	_spawn_player()
 
 func _process(delta):
 	if _player and _player.is_moving:
@@ -60,12 +76,6 @@ func _set_data() -> void:
 	_negative_layers_data = Flow.layer_data.get("layers").get("negative", {})
 
 ## SPAWNING
-func _spawn_level() -> void:
-	_spawn_buildings()
-	_spawn_player()
-	_spawn_interactables() # They must precede npcs, cause npc spawning is checking if trafo is on building
-	_spawn_npcs()
-
 func _spawn_buildings() -> void:
 	# Positive layers buildings spawning is not yet implemented since we don't need anything
 	# in front of player, but who knows in future
@@ -102,7 +112,9 @@ func _spawn_player() -> void:
 	_player = SCENE_PLAYER.instance()
 	_players_root.add_child(_player)
 	_player.global_position = _player_spawn_point.global_position
-	pass
+	_player.connect("position_update", self, "_on_player_position_update")
+	_player.emit_signal("position_update", _player.global_position)
+	_player.connect("direction_update", self, "_on_player_direction_update")
 
 func _spawn_interactables() -> void:
 	# Go through each bulding layer and get each building from it
@@ -130,8 +142,8 @@ func _spawn_interactables() -> void:
 				trafo.global_position = building.global_position - Vector2(0, building.get_building_height())
 				interactable_layer.add_child(trafo)
 				_buildings_with_trafos.append(building)
+				trafo.connect("trafo_fixed", self, "_on_trafo_fixed")
 
-func _spawn_npcs() -> void:
 	for j in _negative_layers.size():
 		# Create new layer node as parent for interactables of this layer
 		var npc_layer = Node2D.new()
@@ -157,8 +169,8 @@ func _spawn_npcs() -> void:
 					continue
 				var thief = SCENE_THIEF.instance()
 				thief.global_position = building.global_position - Vector2(0, building.get_building_height())
+				thief.connect("thief_handled", self, "_on_thief_handled")
 				npc_layer.add_child(thief)
-
 
 #PARALLAX STUFF
 func _move_building_layers(delta : float) -> void:
@@ -189,3 +201,9 @@ func _on_player_direction_update(new_direction : Vector2) -> void:
 		_building_parallax_direction = 1
 	else:
 		_building_parallax_direction = -1
+
+func _on_trafo_fixed() -> void:
+	_trafo_score += _game_data.get("scores").get("trafo")
+
+func _on_thief_handled() -> void:
+	_thief_score += _game_data.get("scores").get("thief")

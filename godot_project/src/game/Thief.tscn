@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://src/game/Thief.gd" type="Script" id=2]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -10,9 +11,21 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 24.7086, 28.4566 )
+
 [node name="Thief" type="Node2D"]
 scale = Vector2( 0.3, 0.3 )
+script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 offset = Vector2( 0, -30 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -1.32284, -27.7795 )
+shape = SubResource( 2 )

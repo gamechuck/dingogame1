@@ -7,6 +7,12 @@ extends classInteractable
 var is_being_fixed := false
 var is_fixed := false
 
+
+################################################################################
+## SIGNALS
+signal trafo_fixed
+
+
 ################################################################################
 ## GODOT CALLBACKS
 func _ready():
@@ -18,14 +24,19 @@ func _ready():
 
 ################################################################################
 ## PUBLIC FUNCTIONS
-func start_fixing(_interactor : classPlayer) -> void:
-	is_being_fixed = true
-
-func finish_fixing(_interactor : classPlayer) -> void:
-	is_being_fixed = false
+func interact(_interactor : Node2D) -> void:
+	_fix(_interactor)
 
 
 ################################################################################
 ## PRIVATE FUNCTIONS
 func _set_data() -> void:
 	pass
+
+func _fix(_interactor : classPlayer) -> void:
+	is_being_fixed = true
+	interactable = false
+	_animated_sprite.play("default")
+	emit_signal("trafo_fixed")
+
+
