@@ -1,11 +1,13 @@
 class_name classTown
 extends Node2D
 
+
 ################################################################################
 ## CONSTANTS
 const SCENE_PLAYER := preload("res://src/game/characters/Player.tscn")
 const SCENE_BUILDING := preload("res://src/game/Building.tscn")
 const SCENE_TRAFO := preload("res://src/game/interactables/Trafo.tscn")
+const SCENE_THIEF := preload("res://src/game/interactables/Trafo.tscn")
 
 ################################################################################
 ## PRIVATE VARIABLES
@@ -22,10 +24,13 @@ var _negative_layers_data := []
 # BUILDING LAYERS
 var _negative_layers := []
 # BUILDING SPAWN STUFF
-var _building_batch_amount := 1004
-var _building_start_spawn_position_x = -400
+var _building_batch_amount := 55
+#var _building_start_spawn_position_x = -400
+var _building_start_spawn_position_x = 100
 var _building_offset_random_delta := Vector2(0, 50)
 var _building_parallax_direction = 0
+# INTERACTABLES STUFF
+var _interactables_layers := []
 # PLAYER STUFF
 var _player : classPlayer
 
@@ -35,6 +40,7 @@ var _player : classPlayer
 func _ready():
 	_set_data()
 	_spawn_level()
+	_spawn_interactables()
 
 	_player.connect("position_update", self, "_on_player_position_update")
 	_player.emit_signal("position_update", _player.global_position)
@@ -42,12 +48,14 @@ func _ready():
 
 func _process(delta):
 	_move_building_layers(delta)
+	_move_interactable_layers(delta)
 
 
 ################################################################################
 ## PRIVATE FUNCTIONS
 func _set_data() -> void:
 	_negative_layers_data = Flow.layer_data.get("layers").get("negative", {})
+
 ## SPAWNING
 func _spawn_level() -> void:
 	_spawn_buildings()
@@ -75,8 +83,6 @@ func _spawn_buildings() -> void:
 		var y_offset = layer_data.get("y_offset", 0)
 
 		for j in _building_batch_amount:
-			if j % 3 == 0:
-				_spawn_interactable()
 			var collidable : bool = layer_data.get("collidable", true)
 			var textures = layer_data.get("textures", [])
 			var random_texture : Texture = load("res://assets/Graphics/Map/" + textures[rand_range(0, textures.size())] + ".png")
@@ -97,17 +103,46 @@ func _spawn_player() -> void:
 func _spawn_npcs() -> void:
 	pass
 
-func _spawn_interactable() -> void:
-	pass
+func _spawn_interactables() -> void:
+	# Go through each bulding layer and get each building from it
+	for j in _negative_layers.size():
+		# Create new layer node as parent for interactables of this layer
+		var interactable_layer = Node2D.new()
+		# Set name, z_index and add it to interactables root parent
+		_interactables_root.add_child(interactable_layer)
+		interactable_layer.z_index = _negative_layers[j].z_index
+		interactable_layer.name = "InteractableLayer=" + str(interactable_layer.z_index)
+		# Here we get data from about offsets for interactable spawning
+		_interactables_layers.append(interactable_layer)
+		# Get data from json about spawning frequency for interactables
+		var offsets_array = _negative_layers_data[j].get("interactable_delta_random", [])
+		# If it is empty, it means we don't want interactables to be spawned in this layer
+		if not offsets_array or offsets_array.size() == 0:
+			continue
+		# We get random offset from array
+		var spawn_offset : int = offsets_array[rand_range(0, offsets_array.size())]
+		for i in _negative_layers[j].get_children().size():
+			# If i divided by offset is divisible, we spawn interactable
+			if i > 0 and i % spawn_offset == 0:
+				var building = _negative_layers[j].get_child(i)
+				var trafo = SCENE_TRAFO.instance()
+				trafo.global_position = building.global_position - Vector2(0, building.get_building_height())
+				interactable_layer.add_child(trafo)
 
+#PARALLAX STUFF
 func _move_building_layers(delta : float) -> void:
 	if not _player or not _player.is_moving:
 		return
 	for i in _negative_layers.size():
-		if not _negative_layers_data[i].get("should_spawn", false):
-			continue
 		var layer_parallax_speed = _negative_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta
 		_negative_layers[i].global_position.x += layer_parallax_speed
+
+func _move_interactable_layers(delta : float) -> void:
+	if not _player or not _player.is_moving:
+		return
+	for i in _interactables_layers.size():
+		var layer_parallax_speed = _negative_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta
+		_interactables_layers[i].global_position.x += layer_parallax_speed
 
 
 ################################################################################

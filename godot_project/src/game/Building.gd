@@ -21,6 +21,11 @@ func set_data(data_dict : Dictionary) -> void:
 	_set_texture(data_dict.get("texture", null))
 	_set_collision_shape(data_dict.get("collidable", true))
 
+func get_building_height() -> float:
+	if not _sprite or not _sprite.texture:
+		return 0.0
+	return _sprite.texture.get_size().y * scale.y
+
 
 ################################################################################
 ## PRIVATE FUNCTIONS

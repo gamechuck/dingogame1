@@ -3,57 +3,67 @@
 	{
 		"negative": [
 			{
+				"name": "background_skycrapers_5",
 				"should_spawn": true,
+				"collidable": false,
 				"z_index": -5,
 				"y_offset": -88,
 				"parallax_speed": 12.0,
-				"name": "background_skycrapers_5",
-				"collidable": false,
+				"interactable_delta_random": [],
+				"thieves_delta_random": [],
 				"textures": [
 					"far_buildings"
 				]
 			},
 			{
+				"name": "middle_buildings_4",
 				"should_spawn": true,
+				"collidable": true,
 				"z_index": -4,
 				"y_offset": -33,
-				"parallax_speed": 18.0,
-				"name": "middle_buildings_4",
-				"collidable": false,
+				"parallax_speed": 18.0,				
+				"interactable_delta_random": [3, 4 ,5],
+				"thieves_delta_random": [6, 7, 8],
 				"textures": [
 					"back_building_1"
 				]
 			},
 			{
+				"name": "middle_buildings_3",
 				"should_spawn": true,
+				"collidable": true,
 				"z_index": -3,
 				"y_offset": -22,
 				"parallax_speed": 24.0,
-				"name": "middle_buildings_3",
-				"collidable": true,
+				"interactable_delta_random": [3, 4 ,5],
+				"thieves_delta_random": [6, 7, 8],
 				"textures": [
 					"back_building_2" 
 				]
 			},
 			{
+				"name": "middle_buildings_2",
 				"should_spawn": true,
+				"collidable": true,
 				"z_index": -2,
 				"y_offset": -5,
-				"parallax_speed": 30.0,
-				"name": "middle_buildings_2",
-				"collidable": true,
+				"parallax_speed": 30.0,				
+				"interactable_delta_random": [3, 4 ,5],
+				"thieves_delta_random": [6, 7, 8],
 				"textures": [
 					"building_2",
 					"building_4"
 				]
 			},
 			{
+				"name": "forward_buildings_1",
 				"should_spawn": true,
+				"collidable": true,
 				"z_index": -1,
 				"y_offset": 0,
 				"parallax_speed": 35.0,
-				"name": "forward_buildings_1",
-				"collidable": true,
+				"interactable_delta_random": [3, 4 ,5],
+				"thieves_delta_random": [6, 7, 8],
 				"textures": [
 					"building_3",
 					"building_1"

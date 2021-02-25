@@ -88,12 +88,8 @@ func _ready() -> void:
 	add_to_group("characters")
 	set_hp_max(hp_max)
 	set_hp(hp_max, true)
-	_connect_signals()
 	_animated_sprite.play("default")
 
-func _physics_process(_delta : float) -> void:
-	if alive:
-		_play_move_sound()
 
 
 ################################################################################
@@ -172,7 +168,6 @@ func attack(object : Node2D) -> void:
 		object.take_damage(attack_power, self as Node2D)
 #	_sfx_attack.play()
 	_can_update_animations = false
-	_play_animation(classCharacterAnimations.ANIMATION_TYPE.ATTACK)
 
 func take_damage(amount : float, _damager : Node2D) -> void:
 	if _debug_godmode: return
@@ -190,50 +185,3 @@ func activate_object(o : Node2D) -> void:
 
 ################################################################################
 ## PRIVATE FUNCTIONS
-
-func _connect_signals() -> void:
-	pass
-
-func _play_animation(_animation_type) -> void:
-	pass
-
-func _play_move_sound() -> void:
-	pass
-
-func _turn_towards_direction(dir : Vector2) -> void:
-	if dir == Vector2.ZERO: return
-
-	var target_angle := dir.angle()
-	var turn_distance : float = deg2rad(MOVEMENT_TURN_SPEED) * get_physics_process_delta_time()
-	_movement_angle = _move_angle_towards_angle(_movement_angle, target_angle, turn_distance)
-
-func _look_towards_angle(angle : float) -> void:
-	set_look_angle(_move_angle_towards_angle(_look_angle, angle, deg2rad(LOOK_SPEED) * get_physics_process_delta_time()))
-
-func _move_angle_towards_angle(a : float, b : float, d : float) -> float:
-	# wrap things up first
-	a = wrapf(a, 0, TAU)
-	b = wrapf(b, 0, TAU)
-
-	var angle_diff = Flow.get_angle_difference(a, b)
-	if abs(angle_diff) <= d:
-		return b
-	else:
-		return wrapf(a + d * sign(angle_diff), 0, TAU)
-
-func _get_closest_object_in_use_range() -> Node2D:
-	var objects := []
-	objects += _use_range.get_overlapping_bodies()
-	objects += _use_range.get_overlapping_areas()
-
-	if objects.size() == 0:
-		return null
-
-	return Flow.get_closest_object(self, objects)
-
-func _on_animation_finished() -> void:
-	if _is_attacking:
-		_is_attacking = false
-	if _is_interacting:
-		_is_interacting = false
-	_can_update_animations = true
