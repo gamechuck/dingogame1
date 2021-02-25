@@ -55,7 +55,7 @@ func _move() -> void:
 		linear_velocity.x = 0
 		apply_central_impulse(Vector2.LEFT * _movement_speed)
 		emit_signal("direction_update", Vector2.LEFT)
-	elif Input.is_action_pressed("move_right"):
+	if Input.is_action_pressed("move_right"):
 		linear_velocity.x = 0
 		apply_central_impulse(Vector2.RIGHT * _movement_speed)
 		emit_signal("direction_update", Vector2.RIGHT)
@@ -83,3 +83,4 @@ func _update_is_moving():
 		is_moving = false
 	else:
 		is_moving = true
+

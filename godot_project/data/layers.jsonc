@@ -62,8 +62,8 @@
 				"z_index": -1,
 				"y_offset": 0,
 				"parallax_speed": 35.0,
-				"interactable_delta_random": [3, 4 ,5],
-				"thieves_delta_random": [6, 7, 8],
+				"interactable_delta_random": [4],
+				"thieves_delta_random": [2],
 				"textures": [
 					"building_3",
 					"building_1"
