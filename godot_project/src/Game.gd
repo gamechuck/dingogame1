@@ -1,5 +1,9 @@
 extends Node2D
 
+################################################################################
+## SIGNALS
+signal game_finished
+
 
 ################################################################################
 ## CONSTANTS
@@ -19,7 +23,6 @@ func _ready():
 	_spawn_town()
 	_game_timer.connect("timeout", self, "_on_game_timer_timeout")
 
-
 ################################################################################
 ## PRIVATE FUNCTIONS
 func _spawn_town() -> void:
@@ -30,10 +33,10 @@ func _spawn_town() -> void:
 #
 	_town = SCENE_TOWN.instance()
 	$ViewportContainer.add_child(_town)
+	connect("game_finished", _town, "_on_game_finished")
 
 func _finish_game() -> void:
-	# disable player movememnt
-	_town.get_player().disable()
+	emit_signal("game_finished")
 	# calculate score
 	var thief_score = _town.get_thief_score()
 	var trafo_score = _town.get_trafo_score()

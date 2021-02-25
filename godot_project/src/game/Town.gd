@@ -36,24 +36,24 @@ var _building_start_spawn_position_x = -100
 var _building_offset_random_delta := Vector2(0, 50)
 var _building_parallax_direction = 0
 var _buildings_with_trafos := []
+var _can_update_parallax := true
 # INTERACTABLES STUFF
 var _interactables_layers := []
 # NPCS STUFF
 var _npc_layers := []
+var _player : classPlayer
 
 
 ################################################################################
 ## PROPERTY VARIABLES
 var _thief_score := 0.0 setget , get_thief_score
 func get_thief_score() -> float:
+
 	return _thief_score
 var _trafo_score := 0.0 setget , get_trafo_score
 func get_trafo_score() -> float:
 	return _trafo_score
-# PLAYER STUFF
-var _player : classPlayer setget , get_player
-func get_player() -> classPlayer:
-	return _player
+
 
 ################################################################################
 ## GODOT CALLBACKS
@@ -64,7 +64,7 @@ func _ready():
 	_spawn_player()
 
 func _process(delta):
-	if _player and _player.is_moving:
+	if _player and _player.is_moving and _can_update_parallax:
 		_move_building_layers(delta)
 		_move_interactable_layers(delta)
 		_move_npcs_layers(delta)
@@ -74,6 +74,7 @@ func _process(delta):
 ## PRIVATE FUNCTIONS
 func _set_data() -> void:
 	_negative_layers_data = Flow.layer_data.get("layers").get("negative", {})
+	_can_update_parallax = true
 
 ## SPAWNING
 func _spawn_buildings() -> void:
@@ -191,6 +192,10 @@ func _move_npcs_layers(delta : float) -> void:
 
 ################################################################################
 ## SIGNAL CALLBACKS
+func _on_game_finished() -> void:
+	 _can_update_parallax = false
+	 _player.disable()
+
 func _on_player_position_update(new_position : Vector2) -> void:
 	var threshold = OS.window_size.x * 0.01 * _camera.zoom.x
 	if new_position.x >= _player_spawn_point.global_position.x + threshold:
@@ -207,3 +212,4 @@ func _on_trafo_fixed() -> void:
 
 func _on_thief_handled() -> void:
 	_thief_score += _game_data.get("scores").get("thief")
+
