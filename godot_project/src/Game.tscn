@@ -13,5 +13,5 @@ __meta__ = {
 }
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 44.0
 autostart = true

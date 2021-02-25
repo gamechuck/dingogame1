@@ -12,7 +12,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 24.7086, 28.4566 )
+extents = Vector2( 32.0694, 16.1116 )
 
 [node name="Thief" type="Node2D"]
 scale = Vector2( 0.3, 0.3 )
@@ -27,5 +27,5 @@ collision_layer = 64
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( -1.32284, -27.7795 )
+position = Vector2( -0.210474, -44.465 )
 shape = SubResource( 2 )

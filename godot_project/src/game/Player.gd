@@ -17,35 +17,40 @@ var is_moving = false
 ################################################################################
 ## PRIVATE VARIABLES
 onready var _animated_sprite := $AnimatedSprite
-onready var _area2D := $Area2D
+onready var _interactablesArea2D := $InteractablesArea2D
+onready var _buildingArea2D := $BuilidingArea2D
 # MOVEMENT STUFF
 var _movement_speed = 0
 var _walk_speed = 33
 var _run_speed = 99
-var _jump_speed = 300
+var _jump_speed = 177
 var _jumped := false
 var _jump_start := Vector2.ZERO
 
 var _overlapping_bodies := []
+var _overlapping_buildings := []
+
 
 ################################################################################
 ## GODOT CALLBACKS
 func _ready() -> void:
 	add_to_group("players")
 	_setup_data()
-	_area2D.connect("body_entered", self, "_on_body_entered")
-	_area2D.connect("body_exited", self, "_on_body_exited")
+	_interactablesArea2D.connect("body_entered", self, "_on_body_entered")
+	_interactablesArea2D.connect("body_exited", self, "_on_body_exited")
+	_buildingArea2D.connect("body_entered", self, "_on_building_entered")
+	_buildingArea2D.connect("body_exited", self, "_on_building_exited")
 
 	controllable = true
 	_animated_sprite.play("default")
 
 func _physics_process(_delta : float) -> void:
 	if controllable:
+		_update_ledge_collision()
 		_update_is_moving()
 		_update_movement_speed()
 		_move()
-		if Input.is_action_just_pressed("interact"):
-			_interact()
+		_interact()
 
 
 ################################################################################
@@ -59,6 +64,7 @@ func disable() -> void:
 ## PRIVATE FUNCTIONS
 func _setup_data() -> void:
 	_movement_speed = _walk_speed
+	set_collision_mask_bit(4, true)
 
 func _move() -> void:
 	if Input.is_action_pressed("move_left"):
@@ -75,12 +81,20 @@ func _move() -> void:
 			apply_central_impulse(Vector2.UP * _jump_speed)
 			_jump_start = global_position
 			_jumped = true
+			set_collision_mask_bit(4, true)
 	elif _jumped:
-		if global_position.y < _jump_start.y - 11:
-			gravity_scale = 7
+		if global_position.y < _jump_start.y - 35:
+			gravity_scale = 5
+			set_collision_mask_bit(4, true)
 		if  linear_velocity.y == 0:
 			_jumped = false
 			gravity_scale = 1
+
+func _interact():
+	if Input.is_action_just_pressed("interact"):
+		for body in _overlapping_bodies:
+			if body.owner.interactable:
+				body.owner.interact(self)
 
 func _update_movement_speed():
 	if Input.is_action_just_pressed("sprint"):
@@ -95,17 +109,28 @@ func _update_is_moving():
 		is_moving = true
 		emit_signal("position_update", global_position)
 
-func _interact():
-	for body in _overlapping_bodies:
-		if body.owner.interactable:
-			body.owner.interact(self)
+func _update_ledge_collision() -> void:
+	if not _jumped and Input.is_action_just_pressed("move_down"):
+		if _overlapping_buildings.size() > 0:
+			set_collision_mask_bit(4, false)
 
 
 ################################################################################
 ## SIGNAL CALLBACKS
 func _on_body_entered(_body : Node2D) -> void:
-	_overlapping_bodies = _area2D.get_overlapping_bodies()
+	_overlapping_bodies = _interactablesArea2D.get_overlapping_bodies()
 
 func _on_body_exited(_body : Node2D) -> void:
 	if _overlapping_bodies.has(_body):
 		_overlapping_bodies.erase(_body)
+
+func _on_building_entered(_body : Node2D) -> void:
+	_overlapping_buildings = _buildingArea2D.get_overlapping_bodies()
+	if linear_velocity.y > 0  and Input.is_action_pressed("move_down"):
+		set_collision_mask_bit(4, false)
+
+func _on_building_exited(_body : Node2D) -> void:
+	if _overlapping_buildings.has(_body):
+		_overlapping_buildings.erase(_body)
+		set_collision_mask_bit(4, true)
+
