@@ -31,6 +31,7 @@ var _town : classTown
 func _ready():
 	randomize()
 	_spawn_town()
+	_game_timer.wait_time = Flow.game_data.get("duration", 60.0)
 	_ui_root.hide()
 	_game_timer.connect("timeout", self, "_on_game_timer_timeout")
 	_button_restart.connect("pressed", self, "_on_restart_button_pressed")
@@ -54,11 +55,12 @@ func _finish_game() -> void:
 
 	_highscore_value.text = str(State.get_highscore())
 	# display score
-	_score_value.text = str(score)
+	_score_value.text = str(score) + " GwH OF ELECTRICITY"
 	# enable end game UI
 
 	_ui_root.show()
 	_viewport.hide()
+
 
 ################################################################################
 ## GODOT CALLBACKS

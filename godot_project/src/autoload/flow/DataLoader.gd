@@ -4,8 +4,12 @@ extends Node
 func load_dataJSON() -> int:
 	## Load all report_templates, clues, etc... from their relevant data JSON.
 	var data_dict := {
+		"game": {
+			"path": Flow.PATH_DATA,
+			"setter": funcref(self, "_set_game_data")
+		},
 		"layers": {
-			"path": Flow.PATH_DATA_LAYERS,
+			"path": Flow.PATH_DATA,
 			"setter": funcref(self, "_set_layers_data")
 		}
 	}
@@ -29,5 +33,8 @@ func load_dataJSON() -> int:
 
 	return error
 
+func _set_game_data(data : Dictionary) -> void:
+	Flow.game_data = data.get("game")
+
 func _set_layers_data(data : Dictionary) -> void:
-	Flow.layer_data = data
+	Flow.layer_data = data.get("layers")

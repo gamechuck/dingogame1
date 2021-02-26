@@ -23,7 +23,7 @@ onready var _buildingArea2D := $BuilidingArea2D
 var _movement_speed = 0
 var _walk_speed = 33
 var _run_speed = 99
-var _jump_speed = 177
+var _jump_speed = 222
 var _jumped := false
 var _jump_start := Vector2.ZERO
 

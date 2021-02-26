@@ -1,4 +1,17 @@
 {
+	"game":
+	{
+		"duration": 120,
+		"camera_zoom": [0.3, 0.3],
+		"camera_offset_y": -70,
+		"building_batch_amount": 300,
+		"building_starting_x": 0,
+		"building_offset_random_delta": [0, 50],
+		"scores": {
+			"trafo": 10.0,
+			"thief": 20.0
+		}
+	},
 	"layers": 
 	{
 		"negative": [

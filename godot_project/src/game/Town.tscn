@@ -20,7 +20,7 @@ __meta__ = {
 
 [node name="Terrain" type="Node2D" parent="."]
 use_parent_material = true
-position = Vector2( -24, 8 )
+position = Vector2( 0, 720 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -54,6 +54,7 @@ texture = ExtResource( 3 )
 
 [node name="Objects" type="Node2D" parent="."]
 use_parent_material = true
+position = Vector2( 0, 720 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -64,12 +65,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Negative" type="Node2D" parent="Objects/Buildings"]
-
-[node name="Positive" type="Node2D" parent="Objects/Buildings"]
-
 [node name="Players" type="Node2D" parent="Objects"]
 use_parent_material = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="NPCs" type="Node2D" parent="Objects"]
 use_parent_material = true
@@ -90,17 +90,13 @@ __meta__ = {
 }
 
 [node name="Misc" type="Node2D" parent="."]
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="PlayerSpawnPoint" type="Position2D" parent="Misc"]
-position = Vector2( 165.357, -22.7048 )
+position = Vector2( 126.401, 681.499 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 164.169, -22.2872 )
-offset = Vector2( 0, -66.249 )
+[node name="PlayerCamera2D" type="Camera2D" parent="."]
+position = Vector2( 140.564, 668.096 )
 current = true
 zoom = Vector2( 0.25, 0.25 )
