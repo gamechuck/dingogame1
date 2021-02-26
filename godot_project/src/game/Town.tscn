@@ -41,16 +41,19 @@ collision_mask = 0
 position = Vector2( 1.11111e+07, 0 )
 shape = SubResource( 2 )
 
-[node name="SkySprite" type="Sprite" parent="Terrain"]
-position = Vector2( 969.498, -555.612 )
-z_index = -20
-texture = ExtResource( 2 )
-
 [node name="GroundSprite" type="Sprite" parent="Terrain"]
 position = Vector2( 11111, 0 )
 scale = Vector2( 44, 4 )
 z_index = -19
 texture = ExtResource( 3 )
+
+[node name="Sky" type="Node2D" parent="Terrain"]
+
+[node name="SkySprite1" type="Sprite" parent="Terrain/Sky"]
+position = Vector2( 50063.9, -331.3 )
+scale = Vector2( 55, 1 )
+z_index = -20
+texture = ExtResource( 2 )
 
 [node name="Objects" type="Node2D" parent="."]
 use_parent_material = true
