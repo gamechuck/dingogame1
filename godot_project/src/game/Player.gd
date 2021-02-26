@@ -120,17 +120,17 @@ func _update_ledge_collision() -> void:
 func _on_body_entered(_body : Node2D) -> void:
 	_overlapping_bodies = _interactablesArea2D.get_overlapping_bodies()
 
-func _on_body_exited(_body : Node2D) -> void:
-	if _overlapping_bodies.has(_body):
-		_overlapping_bodies.erase(_body)
+func _on_body_exited(body : Node2D) -> void:
+	if _overlapping_bodies.has(body):
+		_overlapping_bodies.erase(body)
 
-func _on_building_entered(_body : Node2D) -> void:
+func _on_building_entered(body : Node2D) -> void:
 	_overlapping_buildings = _buildingArea2D.get_overlapping_bodies()
-	if linear_velocity.y > 0  and Input.is_action_pressed("move_down"):
+	if linear_velocity.y > 0 and Input.is_action_pressed("move_down"):
 		set_collision_mask_bit(4, false)
 
-func _on_building_exited(_body : Node2D) -> void:
-	if _overlapping_buildings.has(_body):
-		_overlapping_buildings.erase(_body)
+func _on_building_exited(body : Node2D) -> void:
+	if _overlapping_buildings.has(body):
+		_overlapping_buildings.erase(body)
 		set_collision_mask_bit(4, true)
 

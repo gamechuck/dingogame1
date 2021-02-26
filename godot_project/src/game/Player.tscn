@@ -36,7 +36,6 @@ frames = SubResource( 1 )
 offset = Vector2( 0, -30 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.0898792, -0.781118 )
 shape = SubResource( 2 )
 
 [node name="InteractablesArea2D" type="Area2D" parent="."]
@@ -49,9 +48,8 @@ position = Vector2( -0.210461, -8.62893 )
 shape = SubResource( 3 )
 
 [node name="BuilidingArea2D" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 16
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuilidingArea2D"]
-position = Vector2( 0.0707893, 1.02732 )
 shape = SubResource( 4 )
