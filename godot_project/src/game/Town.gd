@@ -143,7 +143,7 @@ func _spawn_interactables() -> void:
 		var spawn_offset : int = offsets_array[rand_range(0, offsets_array.size())]
 		for i in _building_layers[j].get_children().size():
 			# If i divided by offset is divisible, we spawn interactable
-			if i == 0 or i % spawn_offset == 0:
+			if i > 0 and i % spawn_offset == 0:
 				var building = _building_layers[j].get_child(i)
 				var trafo = SCENE_TRAFO.instance()
 				interactable_layer.add_child(trafo)
