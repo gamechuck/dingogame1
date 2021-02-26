@@ -54,11 +54,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/Town.gd"
 }, {
-"base": "Reference",
-"class": "classTownState",
-"language": "GDScript",
-"path": "res://src/autoload/state/TownState.gd"
-}, {
 "base": "classInteractable",
 "class": "classTrafo",
 "language": "GDScript",
@@ -74,7 +69,6 @@ _global_script_class_icons={
 "classPlayer": "",
 "classThief": "",
 "classTown": "",
-"classTownState": "",
 "classTrafo": ""
 }
 

@@ -4,25 +4,9 @@ extends Node
 func load_dataJSON() -> int:
 	## Load all report_templates, clues, etc... from their relevant data JSON.
 	var data_dict := {
-		"towns": {
-			"path": Flow.PATH_DATA_TOWNS,
-			"setter": funcref(self, "_set_towns_data")
-		},
 		"layers": {
 			"path": Flow.PATH_DATA_LAYERS,
 			"setter": funcref(self, "_set_layers_data")
-		},
-		"interactables" : {
-			"path": Flow.PATH_DATA_INTERACTABLES,
-			"setter": funcref(self, "_set_interactable_data")
-		},
-		"player" : {
-			"path": Flow.PATH_DATA_PLAYER,
-			"setter": funcref(self, "_set_player_data")
-		},
-		"npcs" : {
-			"path": Flow.PATH_DATA_NPCS,
-			"setter": funcref(self, "_set_npcs_data")
 		}
 	}
 
@@ -45,17 +29,5 @@ func load_dataJSON() -> int:
 
 	return error
 
-func _set_towns_data(data : Dictionary) -> void:
-	Flow.town_data = data.get("towns", [])
-#
 func _set_layers_data(data : Dictionary) -> void:
 	Flow.layer_data = data
-
-func _set_interactable_data(data : Dictionary) -> void:
-	Flow.interactable_data = data
-
-func _set_player_data(data : Dictionary) -> void:
-	Flow.player_data = data
-
-func _set_npcs_data(data : Dictionary) -> void:
-	Flow.npcs_data = data

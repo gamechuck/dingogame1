@@ -5,7 +5,76 @@
 [node name="Game" type="Node2D"]
 script = ExtResource( 4 )
 
+[node name="UI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1280.0
+margin_bottom = 720.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreTitle" type="Label" parent="UI/VBoxContainer"]
+margin_top = 305.0
+margin_right = 1280.0
+margin_bottom = 336.0
+text = "GAME WON
+YOUR SCORE:"
+align = 1
+valign = 1
+
+[node name="ScoreValue" type="Label" parent="UI/VBoxContainer"]
+margin_top = 340.0
+margin_right = 1280.0
+margin_bottom = 354.0
+text = "0"
+align = 1
+valign = 1
+
+[node name="HighscoreTitle" type="Label" parent="UI/VBoxContainer"]
+margin_top = 358.0
+margin_right = 1280.0
+margin_bottom = 372.0
+text = "HIGHSCORE:"
+align = 1
+valign = 1
+
+[node name="HighscoreValue" type="Label" parent="UI/VBoxContainer"]
+margin_top = 376.0
+margin_right = 1280.0
+margin_bottom = 390.0
+text = "0"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 394.0
+margin_right = 1280.0
+margin_bottom = 414.0
+alignment = 1
+
+[node name="ButtonRestart" type="Button" parent="UI/VBoxContainer/HBoxContainer"]
+margin_left = 560.0
+margin_right = 625.0
+margin_bottom = 20.0
+text = "RESTART"
+
+[node name="ButtonMainMenu" type="Button" parent="UI/VBoxContainer/HBoxContainer"]
+margin_left = 629.0
+margin_right = 720.0
+margin_bottom = 20.0
+text = "MAIN MENU"
+
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -13,5 +82,5 @@ __meta__ = {
 }
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 44.0
+wait_time = 5.0
 autostart = true

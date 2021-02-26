@@ -18,24 +18,16 @@ const SAVE_FOLDER := "user://saves"
 const DEFAULT_CONTEXT_PATH := "res://default_context.json"
 const USER_SAVE_PATH := SAVE_FOLDER + "/user_save.json"
 
-const PATH_DATA_TOWNS := "res://data/towns.jsonc"
 const PATH_DATA_LAYERS := "res://data/layers.jsonc"
-const PATH_DATA_INTERACTABLES := "res://data/interactables.jsonc"
-const PATH_DATA_PLAYER := "res://data/player.jsonc"
-const PATH_DATA_NPCS := "res://data/npcs.jsonc"
 
 
 ################################################################################
 ## PUBLIC VARIABLES
 var layer_data := {}
-var town_data := []
-var interactable_data := {}
-var player_data := {}
-var npcs_data := {}
+
 
 ################################################################################
 ## PRIVATE VARIABLES
-
 onready var _controls_loader := $ControlsLoader
 onready var _data_loader := $DataLoader
 
@@ -79,6 +71,7 @@ func deferred_reload_current_scene(reload_all : bool = true) -> void:
 	if reload_all:
 		load_settings()
 
+	get_tree().reload_current_scene()
 	get_tree().paused = false
 
 func change_scene_to(key : String) -> void:
