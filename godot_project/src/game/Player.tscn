@@ -24,7 +24,7 @@ extents = Vector2( 9.71046, 2.50373 )
 use_parent_material = true
 position = Vector2( 0, 0.0701523 )
 collision_layer = 4
-collision_mask = 2147484696
+collision_mask = 1048
 mode = 2
 continuous_cd = 2
 script = ExtResource( 1 )
@@ -53,5 +53,6 @@ collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuilidingArea2D"]
+visible = false
 position = Vector2( 0.0707893, 1.02732 )
 shape = SubResource( 4 )

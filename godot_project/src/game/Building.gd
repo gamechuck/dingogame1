@@ -1,17 +1,21 @@
 class_name classBuilding
 extends Node2D
 
+
 ################################################################################
 ## PRIVATE VARIABLES
 onready var _sprite := $Sprite
-onready var _collision := $CollisionNode
-onready var _collision_shape  := $CollisionNode/CollisionShape2D
+onready var _collision := $CollisionStaticBody
+onready var _collision_shape  := $CollisionStaticBody/CollisionShape2D
+onready var _side_detection := $SideDetectionArea
 
 
 ################################################################################
 ### GODOT CALLBACKS
 func _ready():
 	_collision_shape.shape = _collision_shape.shape.duplicate()
+	_side_detection.connect("body_entered", self, "_on_side_detect_area_body_entered")
+	_side_detection.connect("body_exited", self, "_on_side_detect_area_body_exited")
 
 
 ################################################################################
@@ -49,3 +53,11 @@ func _set_collision_shape(collidable : bool) -> void:
 	else:
 		_collision_shape.set_deferred("disabled", true)
 		_collision_shape.hide()
+
+func _on_side_detect_area_body_entered(_body : Node2D) -> void:
+	print("Entered: " + _body.name)
+
+func _on_side_detect_area_body_exited(_body : Node2D) -> void:
+	print("Exited: " + _body.name)
+
+

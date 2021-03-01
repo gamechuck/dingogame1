@@ -112,7 +112,7 @@ func _update_is_moving():
 func _update_ledge_collision() -> void:
 	if not _jumped and Input.is_action_just_pressed("move_down"):
 		if _overlapping_buildings.size() > 0:
-			set_collision_mask_bit(4, false)
+			_set_active_building_collision(false)
 
 
 ################################################################################
@@ -127,10 +127,13 @@ func _on_body_exited(_body : Node2D) -> void:
 func _on_building_entered(_body : Node2D) -> void:
 	_overlapping_buildings = _buildingArea2D.get_overlapping_bodies()
 	if linear_velocity.y > 0  and Input.is_action_pressed("move_down"):
-		set_collision_mask_bit(4, false)
+		_set_active_building_collision(false)
 
 func _on_building_exited(_body : Node2D) -> void:
 	if _overlapping_buildings.has(_body):
 		_overlapping_buildings.erase(_body)
-		set_collision_mask_bit(4, true)
+		_set_active_building_collision(true)
 
+func _set_active_building_collision(value : bool) -> void:
+		set_collision_mask_bit(4, value)
+		_buildingArea2D.set_collision_mask_bit(19, value)
