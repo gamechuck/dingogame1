@@ -12,6 +12,12 @@
 			"thief": 20.0
 		}
 	},
+	"player": 
+	{
+		"walk_speed": 33.0,
+		"run_speed": 99.0, 
+		"jump_speed": 222.0
+	},
 	"layers": 
 	{
 		"negative": [

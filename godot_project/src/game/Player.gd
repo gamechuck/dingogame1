@@ -19,15 +19,24 @@ var is_moving = false
 onready var _animated_sprite := $AnimatedSprite
 onready var _interactablesArea2D := $InteractablesArea2D
 onready var _buildingArea2D := $BuilidingArea2D
-# MOVEMENT STUFF
+
+# EXTERNAL DATA
+export var _walk_speed = 33
+export var _run_speed = 99
+export var _jump_speed = 255
+export var _downforce = 6.0
+export var _upforce = 2.0
+export var _max_jump_distance = 15.0
+
+# INTERNAL CACHED VARS
 var _movement_speed = 0
-var _walk_speed = 33
-var _run_speed = 99
-var _jump_speed = 222
+var _dropped := false
 var _jumped := false
 var _jump_start := Vector2.ZERO
 
+# COLLIDED INTERACTABLES
 var _overlapping_bodies := []
+# COLLIDED BUILDINGS
 var _overlapping_buildings := []
 
 
@@ -35,26 +44,31 @@ var _overlapping_buildings := []
 ## GODOT CALLBACKS
 func _ready() -> void:
 	add_to_group("players")
-	_setup_data()
+	setup_data()
 	_interactablesArea2D.connect("body_entered", self, "_on_body_entered")
 	_interactablesArea2D.connect("body_exited", self, "_on_body_exited")
 	_buildingArea2D.connect("body_entered", self, "_on_building_entered")
 	_buildingArea2D.connect("body_exited", self, "_on_building_exited")
+	_animated_sprite.play("default")
 
 	controllable = true
-	_animated_sprite.play("default")
+	gravity_scale = _downforce
 
 func _physics_process(_delta : float) -> void:
 	if controllable:
-		_update_ledge_collision()
 		_update_is_moving()
 		_update_movement_speed()
 		_move()
+		_update_jump_and_drop()
 		_interact()
 
 
 ################################################################################
 ## PUBLIC FUNCTIONS
+func setup_data() -> void:
+	_movement_speed = _walk_speed
+	set_collision_mask_bit(4, true)
+
 func disable() -> void:
 	controllable = false
 	linear_velocity = Vector2.ZERO
@@ -62,12 +76,9 @@ func disable() -> void:
 func get_width() -> float:
 	return _animated_sprite.get_frame().get_width() * scale.x
 
+
 ################################################################################
 ## PRIVATE FUNCTIONS
-func _setup_data() -> void:
-	_movement_speed = _walk_speed
-	set_collision_mask_bit(4, true)
-
 func _move() -> void:
 	if Input.is_action_pressed("move_left"):
 		linear_velocity.x = 0
@@ -77,26 +88,35 @@ func _move() -> void:
 		linear_velocity.x = 0
 		apply_central_impulse(Vector2.RIGHT * _movement_speed)
 		emit_signal("direction_update", Vector2.RIGHT)
-	if not _jumped:
-		if Input.is_action_just_pressed("move_up"):
-			linear_velocity.y = 0
-			apply_central_impulse(Vector2.UP * _jump_speed)
-			_jump_start = global_position
-			_jumped = true
-			set_collision_mask_bit(4, true)
-	elif _jumped:
-		if global_position.y < _jump_start.y - 35:
-			gravity_scale = 5
-			set_collision_mask_bit(4, true)
-		if  linear_velocity.y == 0:
-			_jumped = false
-			gravity_scale = 1
 
 func _interact():
 	if Input.is_action_just_pressed("interact"):
 		for body in _overlapping_bodies:
 			if body.owner.interactable:
 				body.owner.interact(self)
+
+func _update_jump_and_drop() -> void:
+	if not _jumped and not _dropped and linear_velocity.y == 0:
+		if Input.is_action_just_pressed("move_down"):
+			_update_ledge_collision()
+		if Input.is_action_just_pressed("move_up"):
+			linear_velocity.y = 0
+			apply_central_impulse(Vector2.UP * _jump_speed)
+			_jump_start = global_position
+			_jumped = true
+			gravity_scale = _upforce
+			_set_active_building_collision(true)
+	elif _jumped:
+		if global_position.y < _jump_start.y - _max_jump_distance:
+			_set_active_building_collision(true)
+			gravity_scale = _downforce
+		if  linear_velocity.y == 0:
+			_jumped = false
+			gravity_scale = _downforce
+	elif _dropped:
+		if  linear_velocity.y == 0:
+			_dropped = false
+			gravity_scale = _downforce
 
 func _update_movement_speed():
 	if Input.is_action_just_pressed("sprint"):
@@ -112,9 +132,10 @@ func _update_is_moving():
 		emit_signal("position_update", global_position)
 
 func _update_ledge_collision() -> void:
-	if not _jumped and Input.is_action_just_pressed("move_down"):
 		if _overlapping_buildings.size() > 0:
 			_set_active_building_collision(false)
+			#gravity_scale = _downforce
+			_dropped = true
 
 
 ################################################################################
@@ -128,8 +149,8 @@ func _on_body_exited(_body : Node2D) -> void:
 
 func _on_building_entered(_body : Node2D) -> void:
 	_overlapping_buildings = _buildingArea2D.get_overlapping_bodies()
-	if linear_velocity.y > 0  and Input.is_action_pressed("move_down"):
-		_set_active_building_collision(false)
+	if Input.is_action_pressed("move_down"):
+		set_deferred("_set_active_building_collision", false)
 
 func _on_building_exited(_body : Node2D) -> void:
 	if _overlapping_buildings.has(_body):

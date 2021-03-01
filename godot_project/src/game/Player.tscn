@@ -28,6 +28,9 @@ collision_mask = 2147484696
 mode = 2
 continuous_cd = 2
 script = ExtResource( 1 )
+_walk_speed = 55
+_run_speed = 133
+_max_jump_distance = 33.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 use_parent_material = true
