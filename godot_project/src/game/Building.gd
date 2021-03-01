@@ -73,13 +73,10 @@ func _set_collision_shape(collidable : bool) -> void:
 func _on_side_detect_area_body_entered(_body : Node2D) -> void:
 		if _body.global_position.x < _side_detection_shape.global_position.x - get_building_width() / 2.0:
 			_collision.set_collision_layer_bit(4, false)
-			print("Coming from left! Disabled collisions for building: " + name)
 		if _body.global_position.x > _side_detection_shape.global_position.x + get_building_width() / 2.0:
 			_collision.set_collision_layer_bit(4, false)
-			print("Coming from right! Disabled collisions for building: " + name)
 
 func _on_side_detect_area_body_exited(_body : Node2D) -> void:
 	_collision.set_collision_layer_bit(4, true)
-	print("Enabled collisions for building: " + name)
 
 
