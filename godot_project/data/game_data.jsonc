@@ -14,11 +14,13 @@
 	},
 	"player": 
 	{
-		"walk_speed": 55.0,
-		"run_speed": 133.0, 
-		"jump_speed": 255.0,
-		"jump_downforce": 6.0,
-		"max_jump_distance": 20.0
+		"walk_speed": 55.0, // No need to explain
+		"run_speed": 133.0,  // As well
+		"jump_min_speed": 100.0, // Jump speed which player has when first time starting to wind up jump speed
+		"jump_max_speed": 255.0, // Maximum value to wound up jump speed
+		"jump_wind_up_speed": 66.0, // Speed value at which player winds up jump speed
+		"jump_downforce": 8.0, // Force which is added to player in down direction when jumps
+		"max_jump_distance": 33.0 // Distance player can jump before applying above mentioned force
 	},
 	"layers": 
 	{

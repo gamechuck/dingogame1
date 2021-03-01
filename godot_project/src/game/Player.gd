@@ -23,7 +23,9 @@ onready var _buildingArea2D := $BuilidingArea2D
 # EXTERNAL DATA
 var _walk_speed = 0.0
 var _run_speed = 0.0
-var _jump_speed = 0.0
+var _jump_min_speed = 0.0
+var _jump_max_speed = 0.0
+var _jump_wind_up_speed = 0.0
 var _downforce = 0.0
 var _max_jump_distance = 0.0
 
@@ -31,6 +33,7 @@ var _max_jump_distance = 0.0
 var _movement_speed = 0.0
 var _dropped := false
 var _upforce = 1.0
+var _vertical_speed = 0.0
 var _jumped := false
 var _jump_start := Vector2.ZERO
 
@@ -58,7 +61,7 @@ func _physics_process(_delta : float) -> void:
 		_update_is_moving()
 		_update_movement_speed()
 		_move()
-		_update_jump_and_drop()
+		_update_jump_and_drop(_delta)
 		_interact()
 
 
@@ -67,10 +70,13 @@ func _physics_process(_delta : float) -> void:
 func setup_data(data : Dictionary) -> void:
 	_walk_speed = data.get("walk_speed")
 	_run_speed = data.get("run_speed")
-	_jump_speed = data.get("jump_speed")
+	_jump_min_speed = data.get("jump_min_speed")
+	_jump_max_speed = data.get("jump_max_speed")
+	_jump_wind_up_speed = data.get("jump_wind_up_speed") * 10.0 # Just so that we don't have too huge number in json
 	_downforce = data.get("jump_downforce")
 	_max_jump_distance = data.get("max_jump_distance")
 	_movement_speed = _walk_speed
+	_vertical_speed = _jump_min_speed
 	gravity_scale = _downforce
 	set_collision_mask_bit(4, true)
 
@@ -100,28 +106,22 @@ func _interact():
 			if body.owner.interactable:
 				body.owner.interact(self)
 
-func _update_jump_and_drop() -> void:
+func _update_jump_and_drop(delta : float) -> void:
 	if not _jumped and not _dropped and linear_velocity.y == 0:
 		if Input.is_action_just_pressed("move_down"):
 			_update_ledge_collision()
-		if Input.is_action_just_pressed("move_up"):
-			linear_velocity.y = 0
-			apply_central_impulse(Vector2.UP * _jump_speed)
-			_jump_start = global_position
-			_jumped = true
-			gravity_scale = _upforce
-			_set_active_building_collision(true)
+		_jump_update(delta)
 	elif _jumped:
 		if global_position.y < _jump_start.y - _max_jump_distance:
+			gravity_scale = _downforce
+			_vertical_speed = _jump_min_speed
 			_set_active_building_collision(true)
-			gravity_scale = _downforce
-		if  linear_velocity.y == 0:
-			_jumped = false
-			gravity_scale = _downforce
+		if linear_velocity.y == 0:
+			_reset_jump()
+			#_vertical_speed = _jump_min_speed
 	elif _dropped:
 		if  linear_velocity.y == 0:
-			_dropped = false
-			gravity_scale = _downforce
+			_reset_drop()
 
 func _update_movement_speed():
 	if Input.is_action_just_pressed("sprint"):
@@ -142,6 +142,27 @@ func _update_ledge_collision() -> void:
 			#gravity_scale = _downforce
 			_dropped = true
 
+func _jump_update(delta : float) -> void:
+	if Input.is_action_pressed("move_up"):
+		if _vertical_speed < _jump_max_speed:
+			_vertical_speed += (_jump_wind_up_speed * delta)
+	if Input.is_action_just_released("move_up"):
+		_jump()
+
+func _jump() -> void:
+	_jump_start = global_position
+	gravity_scale = _upforce
+	apply_central_impulse(Vector2.UP * _vertical_speed)
+	_set_active_building_collision(true)
+	_jumped = true
+
+func _reset_jump() -> void:
+	_jumped = false
+	gravity_scale = _downforce
+
+func _reset_drop() -> void:
+	_dropped = false
+	gravity_scale = _downforce
 
 ################################################################################
 ## SIGNAL CALLBACKS
