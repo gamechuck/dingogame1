@@ -136,4 +136,3 @@ func _on_building_exited(_body : Node2D) -> void:
 
 func _set_active_building_collision(value : bool) -> void:
 		set_collision_mask_bit(4, value)
-		_buildingArea2D.set_collision_mask_bit(19, value)

@@ -8,12 +8,14 @@ onready var _sprite := $Sprite
 onready var _collision := $CollisionStaticBody
 onready var _collision_shape  := $CollisionStaticBody/CollisionShape2D
 onready var _side_detection := $SideDetectionArea
+onready var _side_detection_shape := $SideDetectionArea/CollisionShape2D
 
 
 ################################################################################
 ### GODOT CALLBACKS
 func _ready():
 	_collision_shape.shape = _collision_shape.shape.duplicate()
+	_side_detection_shape.shape = _side_detection_shape.shape.duplicate()
 	_side_detection.connect("body_entered", self, "_on_side_detect_area_body_entered")
 	_side_detection.connect("body_exited", self, "_on_side_detect_area_body_exited")
 
@@ -49,15 +51,29 @@ func _set_collision_shape(collidable : bool) -> void:
 		if _collision_shape.shape is SegmentShape2D:
 			_collision_shape.shape.a = Vector2(-collision_x, 0.0)
 			_collision_shape.shape.b = Vector2(collision_x, 0.0)
+
 		_collision_shape.one_way_collision = true
+		_side_detection_shape.one_way_collision = true
+		_side_detection_shape.position.x = 0
+		_side_detection_shape.position.y = _collision_shape.position.y + 10.0
+		_side_detection_shape.shape.extents.x = _collision_shape.shape.extents.x * 1.4
+		_side_detection_shape.shape.extents.y = _collision_shape.shape.extents.y * 0.8
 	else:
 		_collision_shape.set_deferred("disabled", true)
 		_collision_shape.hide()
 
+		_side_detection_shape.set_deferred("disabled", true)
+		_side_detection_shape.hide()
+
+
 func _on_side_detect_area_body_entered(_body : Node2D) -> void:
+	if _body.global_position.y < _side_detection_shape.global_position.y:
+		return
+	_collision.set_collision_layer_bit(4, false)
 	print("Entered: " + _body.name)
 
 func _on_side_detect_area_body_exited(_body : Node2D) -> void:
+	_collision.set_collision_layer_bit(4, true)
 	print("Exited: " + _body.name)
 
 
