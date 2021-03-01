@@ -59,6 +59,7 @@ func _ready():
 	_spawn_buildings()
 	_spawn_interactables()
 	_spawn_player()
+	_camera.global_position = Vector2(_player.global_position.x, _camera.global_position.y)
 
 func _process(delta):
 	if _player and _player.is_moving and _can_update_parallax:
@@ -204,10 +205,11 @@ func _on_game_finished() -> void:
 	_camera.zoom = Vector2.ONE
 	_camera.global_position = OS.get_real_window_size() / 2.0
 
+
 func _on_player_position_update(new_position : Vector2) -> void:
 	var threshold = OS.window_size.x * 0.01 * _camera.zoom.x
 	if new_position.x >= _player_spawn_point.global_position.x + threshold:
-		_camera.global_position = Vector2(new_position.x, _camera.global_position.y)
+		_camera.global_position = Vector2(new_position.x - threshold, _camera.global_position.y)
 
 func _on_player_direction_update(new_direction : Vector2) -> void:
 	if new_direction == Vector2.LEFT:
