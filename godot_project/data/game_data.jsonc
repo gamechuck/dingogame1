@@ -18,7 +18,7 @@
 		"run_speed": 133.0, 
 		"jump_speed": 255.0,
 		"jump_downforce": 6.0,
-		"max_jump_distance": 33.0
+		"max_jump_distance": 20.0
 	},
 	"layers": 
 	{
