@@ -37,6 +37,7 @@ func get_building_width() -> float:
 		return 0.0
 	return _sprite.texture.get_size().x * scale.x
 
+
 ################################################################################
 ## PRIVATE FUNCTIONS
 func _set_texture(sprite : Texture) -> void:
@@ -68,7 +69,6 @@ func _set_collision_shape(collidable : bool) -> void:
 
 		_side_detection_shape.set_deferred("disabled", true)
 		_side_detection_shape.hide()
-
 
 func _on_side_detect_area_body_entered(_body : Node2D) -> void:
 		if _body.global_position.x < _side_detection_shape.global_position.x - get_building_width() / 2.0:
