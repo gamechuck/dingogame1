@@ -8,6 +8,10 @@ func load_dataJSON() -> int:
 			"path": Flow.PATH_DATA,
 			"setter": funcref(self, "_set_game_data")
 		},
+		"player": {
+			"path": Flow.PATH_DATA,
+			"setter": funcref(self, "_set_player_data")
+		},
 		"layers": {
 			"path": Flow.PATH_DATA,
 			"setter": funcref(self, "_set_layers_data")
@@ -35,6 +39,9 @@ func load_dataJSON() -> int:
 
 func _set_game_data(data : Dictionary) -> void:
 	Flow.game_data = data.get("game")
+
+func _set_player_data(data : Dictionary) -> void:
+	Flow.player_data = data.get("player")
 
 func _set_layers_data(data : Dictionary) -> void:
 	Flow.layer_data = data.get("layers")

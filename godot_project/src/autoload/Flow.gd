@@ -15,7 +15,7 @@ const USER_CONTROLS_PATH := "user://user_controls.json"
 
 const SAVE_FOLDER := "user://saves"
 
-const DEFAULT_CONTEXT_PATH := "res://default_context.json"
+const DEFAULT_SAVE_PATH := "res://default_save.json"
 const USER_SAVE_PATH := SAVE_FOLDER + "/user_save.json"
 
 const PATH_DATA := "res://data/game_data.jsonc"
@@ -24,6 +24,7 @@ const PATH_DATA := "res://data/game_data.jsonc"
 ################################################################################
 ## PUBLIC VARIABLES
 var game_data := {}
+var player_data := {}
 var layer_data := {}
 
 

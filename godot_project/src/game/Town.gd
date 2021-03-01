@@ -205,7 +205,6 @@ func _on_game_finished() -> void:
 	_camera.zoom = Vector2.ONE
 	_camera.global_position = OS.get_real_window_size() / 2.0
 
-
 func _on_player_position_update(new_position : Vector2) -> void:
 	var threshold = OS.window_size.x * 0.01 * _camera.zoom.x
 	if new_position.x >= _player_spawn_point.global_position.x + threshold:

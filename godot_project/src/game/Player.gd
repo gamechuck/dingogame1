@@ -21,16 +21,16 @@ onready var _interactablesArea2D := $InteractablesArea2D
 onready var _buildingArea2D := $BuilidingArea2D
 
 # EXTERNAL DATA
-export var _walk_speed = 33
-export var _run_speed = 99
-export var _jump_speed = 255
-export var _downforce = 6.0
-export var _upforce = 2.0
-export var _max_jump_distance = 15.0
+var _walk_speed = 0.0
+var _run_speed = 0.0
+var _jump_speed = 0.0
+var _downforce = 0.0
+var _max_jump_distance = 0.0
 
 # INTERNAL CACHED VARS
-var _movement_speed = 0
+var _movement_speed = 0.0
 var _dropped := false
+var _upforce = 1.0
 var _jumped := false
 var _jump_start := Vector2.ZERO
 
@@ -44,7 +44,7 @@ var _overlapping_buildings := []
 ## GODOT CALLBACKS
 func _ready() -> void:
 	add_to_group("players")
-	setup_data()
+	setup_data(Flow.player_data)
 	_interactablesArea2D.connect("body_entered", self, "_on_body_entered")
 	_interactablesArea2D.connect("body_exited", self, "_on_body_exited")
 	_buildingArea2D.connect("body_entered", self, "_on_building_entered")
@@ -52,7 +52,6 @@ func _ready() -> void:
 	_animated_sprite.play("default")
 
 	controllable = true
-	gravity_scale = _downforce
 
 func _physics_process(_delta : float) -> void:
 	if controllable:
@@ -65,8 +64,14 @@ func _physics_process(_delta : float) -> void:
 
 ################################################################################
 ## PUBLIC FUNCTIONS
-func setup_data() -> void:
+func setup_data(data : Dictionary) -> void:
+	_walk_speed = data.get("walk_speed")
+	_run_speed = data.get("run_speed")
+	_jump_speed = data.get("jump_speed")
+	_downforce = data.get("jump_downforce")
+	_max_jump_distance = data.get("max_jump_distance")
 	_movement_speed = _walk_speed
+	gravity_scale = _downforce
 	set_collision_mask_bit(4, true)
 
 func disable() -> void:

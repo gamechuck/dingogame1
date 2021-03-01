@@ -14,9 +14,11 @@
 	},
 	"player": 
 	{
-		"walk_speed": 33.0,
-		"run_speed": 99.0, 
-		"jump_speed": 222.0
+		"walk_speed": 55.0,
+		"run_speed": 133.0, 
+		"jump_speed": 255.0,
+		"jump_downforce": 6.0,
+		"max_jump_distance": 33.0
 	},
 	"layers": 
 	{
