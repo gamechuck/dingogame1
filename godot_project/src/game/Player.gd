@@ -59,6 +59,8 @@ func disable() -> void:
 	controllable = false
 	linear_velocity = Vector2.ZERO
 
+func get_width() -> float:
+	return _animated_sprite.get_frame().get_width() * scale.x
 
 ################################################################################
 ## PRIVATE FUNCTIONS
