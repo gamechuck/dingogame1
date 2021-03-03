@@ -1,0 +1,764 @@
+{
+	"layouts": {
+		"hr": {
+			"key_height": 76,
+			"key_width": 76,
+			"horizontal_separation": 6,
+			"vertical_separation": 6,
+			"rows": [
+				{
+					"keys": [
+						{
+							"type": "char",
+							"main": "1",
+							"alt": "~",
+							"shift": "!"
+						},
+						{
+							"type": "char",
+							"main": "2",
+							"alt": "ˇ",
+							"shift": "\""
+						},
+						{
+							"type": "char",
+							"main": "3",
+							"alt": "^",
+							"shift": "#"
+						},
+						{
+							"type": "char",
+							"main": "4",
+							"alt": "˘",
+							"shift": "$"
+						},
+						{
+							"type": "char",
+							"main": "5",
+							"alt": "°",
+							"shift": "%"
+						},
+						{
+							"type": "char",
+							"main": "6",
+							"alt": "˛",
+							"shift": "&"
+						},
+						{
+							"type": "char",
+							"main": "7",
+							"alt": "`",
+							"shift": "/"
+						},
+						{
+							"type": "char",
+							"main": "8",
+							"alt": "˙",
+							"shift": "("
+						},
+						{
+							"type": "char",
+							"main": "9",
+							"alt": "´",
+							"shift": ")"
+						},
+						{
+							"type": "char",
+							"main": "0",
+							"alt": "˝",
+							"shift": "="
+						},
+						{
+							"type": "char",
+							"main": "'",
+							"alt": "¨",
+							"shift": "?"
+						},
+						{
+							"type": "char",
+							"main": "+",
+							"alt": "¸",
+							"shift": "*"
+						}
+					]
+				},
+				{
+					"keys": [
+						{
+							"type": "char",
+							"main": "q",
+							"alt": "\\",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "w",
+							"alt": "|",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "e",
+							"alt": "€",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "r",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "t",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "y",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "u",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "i",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "o",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "p",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "š",
+							"alt": "÷",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "đ",
+							"alt": "×",
+							"shift": ""
+						}
+					]
+				},
+				{
+					"keys": [
+						{
+							"type": "char",
+							"main": "a",
+							"alt": "¸",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "s",
+							"alt": "¨",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "d",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "f",
+							"alt": "[",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "g",
+							"alt": "]",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "h",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "j",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "k",
+							"alt": "ł",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "l",
+							"alt": "Ł",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "č",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "ć",
+							"alt": "ß",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "ž",
+							"alt": "¤",
+							"shift": ""
+						}
+					]
+				},
+				{
+					"keys": [
+						{
+							"type": "shift",
+							"main": "SH"
+						},
+						{
+							"type": "char",
+							"main": "z",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "x",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "c",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "v",
+							"alt": "@",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "b",
+							"alt": "{",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "n",
+							"alt": "}",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "m",
+							"alt": "§",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": ",",
+							"alt": "<",
+							"shift": ";"
+						},
+						{
+							"type": "char",
+							"main": ".",
+							"alt": ">",
+							"shift": ":"
+						},
+						{
+							"type": "char",
+							"main": "-",
+							"alt": "",
+							"shift": "_"
+						},
+						{
+							"type": "shift",
+							"main": "SH"
+						}
+					]
+				},
+				{
+					"keys": [
+						{
+							"type": "nothing",
+							"width_factor": 2
+						},
+						{
+							"type": "alt",
+							"main": "ALT",
+							"width_factor": 2
+						},
+						{
+							"type": "space",
+							"width_factor": 4
+						},
+						{
+							"type": "alt",
+							"main": "ALT",
+							"width_factor": 2
+						},
+						{
+							"type": "nothing",
+							"width_factor": 2
+						},
+						{
+							"type": "enter",
+							"main": "ENT"
+						}
+					]
+				}
+			]
+		},
+		"en": {
+			"key_height": 76,
+			"key_width": 76,
+			"horizontal_separation": 6,
+			"vertical_separation": 6,
+			"rows": [
+				{
+					"keys": [
+						{
+							"type": "char",
+							"main": "1",
+							"alt": "`",
+							"shift": "!"
+						},
+						{
+							"type": "char",
+							"main": "2",
+							"alt": "~",
+							"shift": "@"
+						},
+						{
+							"type": "char",
+							"main": "3",
+							"alt": "",
+							"shift": "#"
+						},
+						{
+							"type": "char",
+							"main": "4",
+							"alt": "",
+							"shift": "$"
+						},
+						{
+							"type": "char",
+							"main": "5",
+							"alt": "",
+							"shift": "%"
+						},
+						{
+							"type": "char",
+							"main": "6",
+							"alt": "",
+							"shift": "^"
+						},
+						{
+							"type": "char",
+							"main": "7",
+							"alt": "",
+							"shift": "&"
+						},
+						{
+							"type": "char",
+							"main": "8",
+							"alt": "",
+							"shift": "*"
+						},
+						{
+							"type": "char",
+							"main": "9",
+							"alt": "",
+							"shift": "("
+						},
+						{
+							"type": "char",
+							"main": "0",
+							"alt": "",
+							"shift": ")"
+						},
+						{
+							"type": "char",
+							"main": "-",
+							"alt": "",
+							"shift": "_"
+						},
+						{
+							"type": "char",
+							"main": "=",
+							"alt": "",
+							"shift": "+"
+						}
+					]
+				},
+				{
+					"keys": [
+						{
+							"type": "char",
+							"main": "q",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "w",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "e",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "r",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "t",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "y",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "u",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "i",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "o",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "p",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "[",
+							"alt": "",
+							"shift": "{"
+						},
+						{
+							"type": "char",
+							"main": "]",
+							"alt": "",
+							"shift": "}"
+						}
+					]
+				},
+				{
+					"keys": [
+						{
+							"type": "char",
+							"main": "a",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "s",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "d",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "f",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "g",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "h",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "j",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "k",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "l",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": ";",
+							"alt": "",
+							"shift": ":"
+						},
+						{
+							"type": "char",
+							"main": "'",
+							"alt": "",
+							"shift": "\""
+						},
+						{
+							"type": "char",
+							"main": "\\",
+							"alt": "",
+							"shift": "|"
+						}
+					]
+				},
+				{
+					"keys": [
+						{
+							"type": "shift",
+							"main": "SH"
+						},
+						{
+							"type": "char",
+							"main": "z",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "x",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "c",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "v",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "b",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "n",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "m",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": ",",
+							"alt": "",
+							"shift": "<"
+						},
+						{
+							"type": "char",
+							"main": ".",
+							"alt": "",
+							"shift": ">"
+						},
+						{
+							"type": "char",
+							"main": "/",
+							"alt": "",
+							"shift": "?"
+						},
+						{
+							"type": "shift",
+							"main": "SH"
+						}
+					]
+				},
+				{
+					"keys": [
+						{
+							"type": "nothing",
+							"width_factor": 2
+						},
+						{
+							"type": "alt",
+							"main": "ALT",
+							"width_factor": 2
+						},
+						{
+							"type": "space",
+							"width_factor": 4
+						},
+						{
+							"type": "alt",
+							"main": "ALT",
+							"width_factor": 2
+						},
+						{
+							"type": "nothing",
+							"width_factor": 2
+						},
+						{
+							"type": "enter",
+							"main": "ENT"
+						}
+					]
+				}
+			]
+		},
+		".empty": {
+			"key_height": 76,
+			"key_width": 76,
+			"horizontal_separation": 6,
+			"vertical_separation": 6,
+			"rows": [
+				{
+					"keys": [
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						},
+						{
+							"type": "char",
+							"main": "",
+							"alt": "",
+							"shift": ""
+						}
+					]
+				}
+			]
+		}
+	}
+}

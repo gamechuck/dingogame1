@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/game/Town.gd" type="Script" id=1]
 [ext_resource path="res://assets/Graphics/Map/sky.png" type="Texture" id=2]
 [ext_resource path="res://assets/Graphics/Map/platform_top.png" type="Texture" id=3]
-[ext_resource path="res://assets/materials/night_shader.tres" type="Material" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11, 1111 )
@@ -12,7 +11,6 @@ extents = Vector2( 11, 1111 )
 extents = Vector2( 1.11111e+07, 11 )
 
 [node name="Town" type="Node2D"]
-material = ExtResource( 5 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
