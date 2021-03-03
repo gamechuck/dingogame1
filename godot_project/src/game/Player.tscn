@@ -2094,6 +2094,8 @@ position = Vector2( 0.0707893, 1.02732 )
 shape = SubResource( 4 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+visible = false
+position = Vector2( -402.595, -978.942 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="KinematicBody2D"]
 __meta__ = {
