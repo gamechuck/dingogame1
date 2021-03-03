@@ -52,11 +52,10 @@ var _overlapping_buildings := []
 func _ready() -> void:
 	add_to_group("players")
 	setup_data(Flow.player_data)
-	_interactablesArea2D.connect("body_entered", self, "_on_body_entered")
-	_interactablesArea2D.connect("body_exited", self, "_on_body_exited")
-	_buildingArea2D.connect("body_entered", self, "_on_building_entered")
-	_buildingArea2D.connect("body_exited", self, "_on_building_exited")
-
+	_interactablesArea2D.connect("body_entered", self, "_on_interactable_body_entered")
+	_interactablesArea2D.connect("body_exited", self, "_on_interactable_body_exited")
+	_buildingArea2D.connect("body_entered", self, "_on_building_ledge_entered")
+	_buildingArea2D.connect("body_exited", self, "_on_building_ledge_exited")
 	controllable = true
 
 func _physics_process(_delta : float) -> void:
@@ -114,8 +113,8 @@ func _interact():
 func _update_jump_and_drop(delta : float) -> void:
 	if Input.is_action_pressed("move_down"):
 		_update_ledge_collision()
-	if not _falling_down and not _dropped:
-		if Input.is_action_just_pressed("jump"):
+	if not _falling_down and not _dropped and linear_velocity.y <= 0:
+		if not _jumped and Input.is_action_pressed("jump"):
 			_jump_start.y = global_position.y
 		if Input.is_action_pressed("jump"):
 			_vertical_speed += (_jump_wind_up_speed * delta)
@@ -129,9 +128,9 @@ func _update_jump_and_drop(delta : float) -> void:
 			_set_active_building_collision(true)
 			gravity_scale = _downforce
 			_falling_down = true
-		if _falling_down and linear_velocity.y == 0:
-			_reset_jump()
-	elif _dropped:
+	if _falling_down and linear_velocity.y == 0:
+		_reset_jump()
+	if _dropped:
 		if  linear_velocity.y == 0:
 			_reset_drop()
 
@@ -192,19 +191,19 @@ func _reset_drop() -> void:
 
 ################################################################################
 ## SIGNAL CALLBACKS
-func _on_body_entered(_body : Node2D) -> void:
+func _on_interactable_body_entered(_body : Node2D) -> void:
 	_overlapping_bodies = _interactablesArea2D.get_overlapping_bodies()
 
-func _on_body_exited(_body : Node2D) -> void:
+func _on_interactable_body_exited(_body : Node2D) -> void:
 	if _overlapping_bodies.has(_body):
 		_overlapping_bodies.erase(_body)
 
-func _on_building_entered(_body : Node2D) -> void:
+func _on_building_ledge_entered(_body : Node2D) -> void:
 	_overlapping_buildings = _buildingArea2D.get_overlapping_bodies()
 	if Input.is_action_pressed("move_down"):
 		set_deferred("_set_active_building_collision", false)
 
-func _on_building_exited(_body : Node2D) -> void:
+func _on_building_ledge_exited(_body : Node2D) -> void:
 	if _overlapping_buildings.has(_body):
 		_overlapping_buildings.erase(_body)
 		_set_active_building_collision(true)

@@ -106,66 +106,6 @@
                 }
             ]
         }
-    ],
-    "editor": [
-        {
-            "action": "zoom_camera_in",
-            "events": [
-                {
-                    "scancode": "O"
-                }
-            ]
-        },
-        {
-            "action": "zoom_camera_out",
-            "events": [
-                {
-                    "scancode": "P"
-                }
-            ]
-        }
-    ],
-    "game": [
-    /*    {
-            "action": "attack_default",
-            "events": [
-                {
-                    "scancode": "E"
-                },                
-                {                    
-                    "button_index": 1,
-                    "is_joypad" : true
-                }
-            ]
-        },*/
-        {
-            "action": "attack_with_mouse",
-            "events": [
-                {
-                    "button_index": 1
-                }
-            ]
-        },
-        {
-            "action": "move_with_mouse",
-            "events": [
-                {
-                    "button_index": 2
-                }
-            ]
-        }/*,
-        {
-            "action": "sprint",
-            "events": [
-                {
-                    "scancode": "Shift"
-                },
-                {                    
-                    "button_index": 9,
-                    "is_joypad" : true
-                }
-            ]
-        }*/
     ]
 }
 
