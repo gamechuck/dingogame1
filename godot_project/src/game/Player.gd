@@ -16,9 +16,12 @@ var is_moving = false
 
 ################################################################################
 ## PRIVATE VARIABLES
-onready var _animated_sprite := $AnimatedSprite
+onready var _ground_collision_shape := $CollisionShape2D
 onready var _interactablesArea2D := $InteractablesArea2D
 onready var _buildingArea2D := $BuilidingArea2D
+onready var _body_root := $BodyRoot
+onready var _animator := $BodyRoot/AnimationPlayer
+
 
 # EXTERNAL DATA
 var _walk_speed = 0.0
@@ -32,6 +35,7 @@ var _max_jump_distance = 0.0
 # INTERNAL CACHED VARS
 var _movement_speed = 0.0
 var _dropped := false
+var _falling_down := false
 var _upforce = 1.0
 var _vertical_speed = 0.0
 var _jumped := false
@@ -52,13 +56,13 @@ func _ready() -> void:
 	_interactablesArea2D.connect("body_exited", self, "_on_body_exited")
 	_buildingArea2D.connect("body_entered", self, "_on_building_entered")
 	_buildingArea2D.connect("body_exited", self, "_on_building_exited")
-	_animated_sprite.play("default")
 
 	controllable = true
 
 func _physics_process(_delta : float) -> void:
 	if controllable:
 		_update_is_moving()
+		_update_look_direction()
 		_update_movement_speed()
 		_move()
 		_update_jump_and_drop(_delta)
@@ -71,7 +75,7 @@ func setup_data(data : Dictionary) -> void:
 	_walk_speed = data.get("walk_speed")
 	_run_speed = data.get("run_speed")
 	_jump_min_speed = data.get("jump_min_speed")
-	_jump_max_speed = data.get("jump_max_speed")
+	_jump_max_speed = _jump_min_speed + data.get("jump_max_speed_offset")
 	_jump_wind_up_speed = data.get("jump_wind_up_speed") * 10.0 # Just so that we don't have too huge number in json
 	_downforce = data.get("jump_downforce")
 	_max_jump_distance = data.get("max_jump_distance")
@@ -85,7 +89,7 @@ func disable() -> void:
 	linear_velocity = Vector2.ZERO
 
 func get_width() -> float:
-	return _animated_sprite.get_frame().get_width() * scale.x
+	return _ground_collision_shape.shape.extents.x * scale.x
 
 
 ################################################################################
@@ -105,20 +109,27 @@ func _interact():
 		for body in _overlapping_bodies:
 			if body.owner.interactable:
 				body.owner.interact(self)
+				_animator.play("Bark")
 
 func _update_jump_and_drop(delta : float) -> void:
 	if Input.is_action_pressed("move_down"):
 		_update_ledge_collision()
-	if not _jumped and not _dropped and linear_velocity.y == 0:
-		if Input.is_action_pressed("move_up"):
+	if not _falling_down and not _dropped:
+		if Input.is_action_just_pressed("jump"):
+			_jump_start.y = global_position.y
+		if Input.is_action_pressed("jump"):
 			_vertical_speed += (_jump_wind_up_speed * delta)
-			_jump()
-	elif _jumped:
-		if Input.is_action_just_released("move_up") or global_position.y < _jump_start.y - _max_jump_distance:
-			gravity_scale = _downforce
-			_vertical_speed = 0
+			if not _vertical_speed > _jump_max_speed:
+				_jump(delta)
+			else:
+				_falling_down = true
+				gravity_scale = _downforce
+	if _jumped:
+		if Input.is_action_just_released("jump") or global_position.y < _jump_start.y - _max_jump_distance:
 			_set_active_building_collision(true)
-		if linear_velocity.y == 0:
+			gravity_scale = _downforce
+			_falling_down = true
+		if _falling_down and linear_velocity.y == 0:
 			_reset_jump()
 	elif _dropped:
 		if  linear_velocity.y == 0:
@@ -133,31 +144,49 @@ func _update_movement_speed():
 func _update_is_moving():
 	if linear_velocity.x == 0.0:
 		is_moving = false
+		if not _jumped and not _falling_down:
+			_animator.play("Idle")
 	else:
 		is_moving = true
+		if not _jumped and not _falling_down:
+			_animator.play("Run")
 		emit_signal("position_update", global_position)
 
 func _update_ledge_collision() -> void:
-		if _overlapping_buildings.size() > 0:
-			_set_active_building_collision(false)
-			#gravity_scale = _downforce
-			_dropped = true
+	if _overlapping_buildings.size() > 0:
+		_set_active_building_collision(false)
+		gravity_scale = _downforce
+		_dropped = true
+		_falling_down = true
+		_animator.play("Jump")
 
-func _jump() -> void:
-	_vertical_speed = _jump_max_speed
-	_jump_start = global_position
+func _update_look_direction() -> void:
+	if not is_moving:
+		return
+	if linear_velocity.x < 0.0 and _body_root.scale.x > 0:
+		_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
+	elif linear_velocity.x > 0.0 and _body_root.scale.x < 0:
+		_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
+
+func _jump(delta : float) -> void:
+	_animator.play("Jump")
 	gravity_scale = _upforce
-	apply_central_impulse(Vector2.UP * _vertical_speed)
+	apply_central_impulse(Vector2.UP * _vertical_speed * delta)
 	_set_active_building_collision(true)
 	_jumped = true
 
 func _reset_jump() -> void:
 	_jumped = false
 	_vertical_speed = _jump_min_speed
+	_falling_down = false
+	_jump_start.y = global_position.y
 	gravity_scale = _downforce
 
 func _reset_drop() -> void:
 	_dropped = false
+	_falling_down = false
+	_vertical_speed = _jump_min_speed
+	_jump_start.y = global_position.y
 	gravity_scale = _downforce
 
 
