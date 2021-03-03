@@ -33,6 +33,7 @@ var _downforce = 0.0
 var _max_jump_distance = 0.0
 
 # INTERNAL CACHED VARS
+var _interacting := false
 var _movement_speed = 0.0
 var _dropped := false
 var _falling_down := false
@@ -56,16 +57,17 @@ func _ready() -> void:
 	_interactablesArea2D.connect("body_exited", self, "_on_interactable_body_exited")
 	_buildingArea2D.connect("body_entered", self, "_on_building_ledge_entered")
 	_buildingArea2D.connect("body_exited", self, "_on_building_ledge_exited")
+	_animator.connect("animation_finished", self, "_on_animation_finished")
 	controllable = true
 
 func _physics_process(_delta : float) -> void:
 	if controllable:
+		_interact()
 		_update_is_moving()
 		_update_look_direction()
 		_update_movement_speed()
 		_move()
 		_update_jump_and_drop(_delta)
-		_interact()
 
 
 ################################################################################
@@ -94,6 +96,8 @@ func get_width() -> float:
 ################################################################################
 ## PRIVATE FUNCTIONS
 func _move() -> void:
+	if _interacting:
+		return
 	if Input.is_action_pressed("move_left"):
 		linear_velocity.x = 0
 		apply_central_impulse(Vector2.LEFT * _movement_speed)
@@ -104,13 +108,17 @@ func _move() -> void:
 		emit_signal("direction_update", Vector2.RIGHT)
 
 func _interact():
-	if Input.is_action_just_pressed("interact"):
-		for body in _overlapping_bodies:
-			if body.owner.interactable:
-				body.owner.interact(self)
-				_animator.play("Bark")
+	if not _jumped and not _dropped and not _falling_down:
+		if not _interacting and Input.is_action_just_pressed("interact"):
+			for body in _overlapping_bodies:
+				if body.owner.interactable:
+					body.owner.interact(self)
+					_animator.play("Bark")
+					_interacting = true
 
 func _update_jump_and_drop(delta : float) -> void:
+	if _interacting:
+		return
 	if Input.is_action_pressed("move_down"):
 		_update_ledge_collision()
 	if not _falling_down and not _dropped and linear_velocity.y <= 0:
@@ -141,6 +149,8 @@ func _update_movement_speed():
 		_movement_speed = _walk_speed
 
 func _update_is_moving():
+	if _interacting:
+		return
 	if linear_velocity.x == 0.0:
 		is_moving = false
 		if not _jumped and not _falling_down:
@@ -210,3 +220,7 @@ func _on_building_ledge_exited(_body : Node2D) -> void:
 
 func _set_active_building_collision(value : bool) -> void:
 		set_collision_mask_bit(4, value)
+
+func _on_animation_finished(value : String) -> void:
+	if value == "Bark":
+		_interacting = false
