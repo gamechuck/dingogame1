@@ -1,9 +1,9 @@
 {
 	"game":
 	{
-		"duration": 120,
-		"camera_zoom": [0.3, 0.3],
-		"camera_offset_y": -70,
+		"duration": 50,
+		"camera_zoom": [0.2, 0.2],
+		"camera_offset_y": -90,
 		"building_batch_amount": 111,
 		"building_starting_x": 0,
 		"building_offset_random_delta": [22, 55],
@@ -13,14 +13,14 @@
 		}
 	},
 	"player": 
-	{
+	 {
 		"walk_speed": 111.0, // No need to explain
 		"run_speed": 111.0,  // As well
 		"jump_min_speed": 2000.0, // Jump speed which player has when first time starting to wind up jump speed
 		"jump_wind_up_speed": 0.25, // Speed value at which player winds up jump speed
 		"jump_max_speed_offset": 22.0, // Maximum value to wound up jump speed
 		"jump_downforce": 7.0, // Force which is added to player in down direction when jumps, drops or falls from platform
-		"max_jump_distance": 17.0 // Distance player can jump before applying above mentioned force
+		 "max_jump_distance": 17.0 // Distance player can jump before applying above mentioned force
 	},
 	"layers": 
 	{

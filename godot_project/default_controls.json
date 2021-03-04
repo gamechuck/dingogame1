@@ -6,7 +6,8 @@
             "events": [
                 {
                     "scancode": "D",
-                    "control": true                    
+                    "control": true,
+                    "alt": true                    
                 }
             ]
         },
@@ -78,21 +79,6 @@
             ]
         },
         {
-            "action": "jump",
-            "events": [
-                {
-                    "scancode": "W"
-                },
-                {
-                    "scancode": "Up"
-                },
-                {                    
-                    "button_index": 0,
-                    "is_joypad" : true
-                }
-            ]
-        },
-        {
             "action": "move_down",
             "events": [
                 {
@@ -104,6 +90,21 @@
                 {
                     "axis": "Left Stick Y",
                     "axis_value": 1
+                }
+            ]
+        },
+        {
+            "action": "jump",
+            "events": [
+                {
+                    "scancode": "W"
+                },
+                {
+                    "scancode": "Up"
+                },
+                {                    
+                    "button_index": 0,
+                    "is_joypad" : true
                 }
             ]
         }

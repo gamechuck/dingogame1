@@ -52,6 +52,7 @@ func build_from_layout_data(layout_data : Dictionary) -> void:
 		row.set("custom_constants/separation", horizontal_separation)
 		row.size_flags_horizontal = row.SIZE_EXPAND_FILL
 		row.size_flags_vertical = row.SIZE_EXPAND_FILL
+		row.alignment = BoxContainer.ALIGN_CENTER
 		_rows_container.add_child(row)
 
 		# add keys
