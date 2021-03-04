@@ -148,6 +148,7 @@ func _update_movement_speed():
 
 func _update_is_moving():
 	if _interacting:
+		is_moving = false
 		return
 	if linear_velocity.x == 0.0:
 		is_moving = false

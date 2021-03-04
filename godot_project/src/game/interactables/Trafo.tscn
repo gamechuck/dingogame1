@@ -18,7 +18,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 190.671, 32.1903 )
+extents = Vector2( 177.774, 133.387 )
 
 [node name="Trafo" type="Node2D"]
 scale = Vector2( 0.1, 0.1 )
@@ -33,5 +33,5 @@ collision_layer = 64
 collision_mask = 2147483648
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 13.8897, -103.811 )
+position = Vector2( 15.8739, -56.1891 )
 shape = SubResource( 2 )

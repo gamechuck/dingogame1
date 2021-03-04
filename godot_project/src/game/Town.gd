@@ -20,6 +20,7 @@ onready var _props_root  := $Objects/Props
 onready var _player_spawn_point := $Misc/PlayerSpawnPoint
 onready var _camera := $PlayerCamera2D
 onready var _terrain := $Terrain
+onready var _tween := $Tween
 
 # EXTERNAL DATA
 var _game_data := {}
@@ -205,9 +206,12 @@ func _on_game_finished() -> void:
 	_camera.global_position = OS.get_real_window_size() / 2.0
 
 func _on_player_position_update(new_position : Vector2) -> void:
-	var threshold = OS.window_size.x * 0.01 * _camera.zoom.x
-	if new_position.x >= _player_spawn_point.global_position.x + threshold:
-		_camera.global_position = Vector2(new_position.x - threshold, _camera.global_position.y)
+	if new_position.x >= _player_spawn_point.global_position.x:
+		_can_update_parallax = true
+		_tween.interpolate_property(_camera, "global_position", _camera.global_position, Vector2(new_position.x, _camera.global_position.y), 0.1, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+		_tween.start()
+	else:
+		_can_update_parallax = false
 
 func _on_player_direction_update(new_direction : Vector2) -> void:
 	if new_direction == Vector2.LEFT:
