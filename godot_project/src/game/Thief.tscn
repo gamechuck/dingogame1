@@ -4,9 +4,6 @@
 [ext_resource path="res://assets/Graphics/Thief/thief.png" type="Texture" id=3]
 [ext_resource path="res://assets/Graphics/Thief/thief_death.png" type="Texture" id=4]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 607.376, 539.813 )
-
 [sub_resource type="Animation" id=3]
 resource_name = "Death"
 length = 0.3
@@ -1791,6 +1788,9 @@ tracks/83/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 607.376, 539.813 )
+
 [node name="Thief" type="Node2D"]
 scale = Vector2( 0.03, 0.03 )
 script = ExtResource( 2 )
@@ -1798,11 +1798,15 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 visible = false
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = SubResource( 3 )
+anims/Idle = SubResource( 4 )
+
+[node name="KinematicBody2D_Player" type="KinematicBody2D" parent="."]
 collision_layer = 64
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D_Player"]
 position = Vector2( -23.3598, -517.378 )
 shape = SubResource( 2 )
 
@@ -2079,10 +2083,6 @@ rest = Transform2D( 0.973629, 0.228143, -0.228143, 0.973629, 443.79, 51.7062 )
 position = Vector2( 415.051, 190.253 )
 rotation = 1.4376
 rest = Transform2D( 0.132807, 0.991143, -0.991143, 0.132807, 462.356, 112.842 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Death = SubResource( 3 )
-anims/Idle = SubResource( 4 )
 
 [node name="KinematicBody2D_death" type="KinematicBody2D" parent="."]
 

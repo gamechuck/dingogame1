@@ -2,11 +2,6 @@ class_name classTrafo
 extends classInteractable
 
 
-################################################################################
-## PUBLIC VARIABLES
-var is_being_fixed := false
-var is_fixed := false
-
 
 ################################################################################
 ## SIGNALS
@@ -14,10 +9,19 @@ signal trafo_fixed
 
 
 ################################################################################
+## PUBLIC VARIABLES
+var is_being_fixed := false
+var is_fixed := false
+
+################################################################################
+## PUBLIC VARIABLES
+onready var _animator = $AnimationPlayer
+
+################################################################################
 ## GODOT CALLBACKS
 func _ready():
 	add_to_group("trafos")
-	_animated_sprite.play("broken")
+	_animator.play("Broken")
 	is_being_fixed = false
 	is_fixed = false
 
@@ -36,7 +40,7 @@ func _set_data() -> void:
 func _fix(_interactor : classPlayer) -> void:
 	is_being_fixed = true
 	interactable = false
-	_animated_sprite.play("default")
+	_animator.play("Idle")
 	emit_signal("trafo_fixed")
 
 

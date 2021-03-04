@@ -1,27 +1,19 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/game/interactables/Trafo.gd" type="Script" id=1]
 [ext_resource path="res://assets/Graphics/Map/power_station.png" type="Texture" id=2]
 [ext_resource path="res://assets/Graphics/Map/power_station_broken.png" type="Texture" id=3]
 [ext_resource path="res://assets/Graphics/Map/lightning_bolt.png" type="Texture" id=4]
 
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0, 0.17037, 0.711111, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
-
-[sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 1 )
-
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=1]
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 400.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-color_ramp = SubResource( 2 )
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
@@ -34,10 +26,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 177.774, 133.387 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=4]
 length = 0.5
 loop = true
 step = 0.05
@@ -102,7 +94,7 @@ tracks/4/keys = {
 "values": [ "broken" ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=5]
 resource_name = "Idle"
 loop = true
 tracks/0/type = "value"
@@ -166,11 +158,11 @@ scale = Vector2( 0.2, 0.2 )
 amount = 12
 lifetime = 3.0
 speed_scale = 5.0
-process_material = SubResource( 3 )
+process_material = SubResource( 1 )
 texture = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 4 )
+frames = SubResource( 2 )
 offset = Vector2( 0, -113 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -180,9 +172,9 @@ collision_mask = 2147483648
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 15.8739, -56.1891 )
-shape = SubResource( 5 )
+shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Broken"
-anims/Broken = SubResource( 6 )
-anims/Idle = SubResource( 7 )
+anims/Broken = SubResource( 4 )
+anims/Idle = SubResource( 5 )
