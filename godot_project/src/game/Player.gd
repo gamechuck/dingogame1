@@ -115,6 +115,7 @@ func _interact():
 					body.owner.interact(self)
 					_animator.play("Bark")
 					_interacting = true
+					_jump_start = global_position
 					break
 
 func _update_jump_and_drop(delta : float) -> void:

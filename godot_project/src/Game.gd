@@ -92,7 +92,9 @@ func _update_highscore_list() -> void:
 		highscore_label.hide()
 
 	var highscores : Array = State.get_highscores()
-	for i in highscores.size():
+	for i in _highscore_labels.size():
+		if i >= highscores.size():
+			break
 		_highscore_labels[i].get_node("PlayerName").text = str(highscores[i].get("name"))
 		_highscore_labels[i].get_node("PlayerScore").text = str(highscores[i].get("score"))
 		_highscore_labels[i].show()

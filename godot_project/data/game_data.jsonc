@@ -14,8 +14,8 @@
 	},
 	"player": 
 	 {
-		"walk_speed": 111.0, // No need to explain
-		"run_speed": 111.0,  // As well
+		"walk_speed": 77.0, // No need to explain
+		"run_speed": 77.0,  // As well
 		"jump_min_speed": 2000.0, // Jump speed which player has when first time starting to wind up jump speed
 		"jump_wind_up_speed": 0.25, // Speed value at which player winds up jump speed
 		"jump_max_speed_offset": 22.0, // Maximum value to wound up jump speed
@@ -26,54 +26,21 @@
 	{
 		"negative": [
 			{
-				"name": "background_skycrapers_5",
-				"should_spawn": false,
+				"name": "background_skycrapers_3",
+				"should_spawn": true,
 				"collidable": false,
-				"z_index": -5,
-				"y_offset": -100,						
+				"z_index": -3,
+				"y_offset": -55,						
 				"batch_amount": 44,
-				"starting_x":-333,
-				"offset_random_delta": [5, 15],
+				"starting_x": -222,
+				"offset_random_delta": [0, 0],
 				"parallax_speed": 12.0,
 				"interactable_delta_random": [],
 				"thieves_delta_random": [],
 				"textures": [
 					"far_buildings"
 				]
-			},
-			{
-				"name": "middle_buildings_4",
-				"should_spawn": false,
-				"collidable": true,
-				"z_index": -4,
-				"y_offset": 0,
-				"parallax_speed": 18.0,		
-				"batch_amount": 222,
-				"starting_x":-280,
-				"offset_random_delta": [5, 15],		
-				"interactable_delta_random": [3, 4 ,5],
-				"thieves_delta_random": [6, 7, 8],
-				"textures": [
-				]
-			},
-			{
-				"name": "middle_buildings_3",
-				"should_spawn": false,
-				"collidable": true,
-				"z_index": -3,
-				"y_offset": 0,
-				"parallax_speed": 24.0,
-				"batch_amount": 222,
-				"starting_x":-20,
-				"offset_random_delta": [5, 15],
-				"interactable_delta_random": [3, 4 ,5],
-				"thieves_delta_random": [6, 7, 8],
-				"textures": [
-					"back_building_2",					
-					"back_building_1",					
-					"building_2"
-				]
-			},
+			}, 
 			{
 				"name": "middle_buildings_2",
 				"should_spawn": true,
@@ -83,13 +50,16 @@
 				"parallax_speed": 38.0,	
 				"batch_amount": 222,
 				"starting_x":-70,
-				"offset_random_delta": [5, 15],		
+				"offset_random_delta": [5, 5],		
 				"interactable_delta_random": [3, 4 ,5],
 				"thieves_delta_random": [6, 7, 8],
-				"textures": [
+				"textures": [	
+					"back_building_1",
 					"back_building_2",					
-					"back_building_1",					
-					"building_2"
+					"back_building_1",
+					"back_building_2",
+					"back_building_1",
+					"back_building_2"
 				]
 			},
 			{
@@ -101,13 +71,18 @@
 				"parallax_speed": 45.0,
 				"batch_amount": 222,
 				"starting_x":-20,
-				"offset_random_delta": [15, 50],
+				"offset_random_delta": [5, 5],
 				"interactable_delta_random": [4],
 				"thieves_delta_random": [2],
 				"textures": [
 					"building_1",
+					"building_2",
 					"building_3",
-					"building_4"
+					"building_4",
+					"building_1",
+					"building_2",
+					"building_3",
+					"building_4"		
 				]		
 			}
 		]
