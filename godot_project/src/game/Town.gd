@@ -22,15 +22,13 @@ onready var _camera := $PlayerCamera2D
 onready var _terrain := $Terrain
 
 # EXTERNAL DATA
-var _game_data := {
-
-}
+var _game_data := {}
 var _building_layers_data := []
 # BUILDING LAYERS AND SPAWN STUFF
 var _building_layers := []
 var _building_batch_amount := 2
 var _building_start_spawn_position_x = -100
-var _building_offset_random_delta := Vector2(0, 50)
+var _building_offset_random_delta := [0, 50]
 var _building_parallax_direction = 0
 var _buildings_with_trafos := []
 var _can_update_parallax := true
@@ -76,7 +74,7 @@ func _set_data() -> void:
 	_camera.zoom = Vector2(camera_zoom[0], camera_zoom[1])
 	_camera.offset.y = _game_data.get("camera_offset_y")
 	var random_offset = _game_data.get("building_offset_random_delta", [0, 50])
-	_building_offset_random_delta = Vector2(random_offset[0], random_offset[1])
+	_building_offset_random_delta = random_offset
 	_building_batch_amount = _game_data.get("building_batch_amount", 100)
 	_building_start_spawn_position_x = _game_data.get("building_starting_x", 100)
 
@@ -91,8 +89,9 @@ func _spawn_buildings() -> void:
 	var layer_index = -1
 	for layer_data in _building_layers_data:
 		layer_index += 1
-
-		var last_spawn_position = _building_start_spawn_position_x
+		_building_batch_amount = layer_data.get("batch_amount", 0)
+		_building_offset_random_delta = layer_data.get("offset_random_delta")
+		var last_spawn_position = layer_data.get("starting_x", -100.0)
 		var z_order = layer_data.get("z_index", 0)
 		var layer_node = Node2D.new()
 		layer_node.name = "BuildingLayer=" + str(z_order)
@@ -108,7 +107,7 @@ func _spawn_buildings() -> void:
 			var collidable : bool = layer_data.get("collidable", true)
 			var textures = layer_data.get("textures", [])
 			var random_texture : Texture = load("res://assets/Graphics/Map/" + textures[rand_range(0, textures.size())] + ".png")
-			var offset := Vector2(rand_range(_building_offset_random_delta.x, _building_offset_random_delta.y), y_offset)
+			var offset := Vector2(rand_range(_building_offset_random_delta[0], _building_offset_random_delta[1]), y_offset)
 			var building := SCENE_BUILDING.instance()
 			var spawn_position := Vector2(last_spawn_position, 0) + offset + Vector2(random_texture.get_width() * building.scale.x, 0)
 			_building_layers[layer_index].add_child(building)

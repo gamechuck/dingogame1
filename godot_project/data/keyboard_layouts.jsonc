@@ -1,10 +1,10 @@
 {
 	"layouts": {
 		"hr": {
-			"key_height": 76,
-			"key_width": 76,
-			"horizontal_separation": 6,
-			"vertical_separation": 6,
+			"key_height": 44,
+			"key_width": 44,
+			"horizontal_separation": 3,
+			"vertical_separation": 3,
 			"rows": [
 				{
 					"keys": [
@@ -339,10 +339,10 @@
 			]
 		},
 		"en": {
-			"key_height": 76,
-			"key_width": 76,
-			"horizontal_separation": 6,
-			"vertical_separation": 6,
+			"key_height": 44,
+			"key_width": 44,
+			"horizontal_separation": 3,
+			"vertical_separation": 3,
 			"rows": [
 				{
 					"keys": [

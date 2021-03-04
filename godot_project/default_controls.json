@@ -2,6 +2,15 @@
     "version": 0,
     "common": [
         {
+            "action": "keyboard_toggle",
+            "events": [
+                {
+                    "scancode": "D",
+                    "control": true                    
+                }
+            ]
+        },
+        {
             "action": "toggle_paused",
             "events": [
                 {
@@ -22,16 +31,6 @@
             "events": [
                 {
                     "scancode": "R",
-                    "control": true,
-                    "alt": true
-                }
-            ]
-        },
-        {
-            "action": "toggle_editor_mode",
-            "events": [
-                {
-                    "scancode": "E",
                     "control": true,
                     "alt": true
                 }
@@ -65,10 +64,12 @@
             "action": "move_right",
             "events": [
                 {
-                    "scancode": "D"
+                    "scancode": "D",
+                    "control": false   
                 },
                 {
-                    "scancode": "Right"
+                    "scancode": "Right",
+                    "control": false
                 },
                 {
                     "axis": "Left Stick X",

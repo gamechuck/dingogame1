@@ -11,7 +11,7 @@ const LOCALE_NAMES := {
 var current_locale := DEFAULT_LOCALE
 
 # warning-ignore:unused_argument
-func _input(event : InputEvent) -> void:
+func _physics_process(_delta) -> void:
 	if Input.is_action_just_pressed("debug_cycle_locale"):
 		var current_locale_idx := SUPPORTED_LOCALES.find(current_locale)
 		var next_locale_idx := wrapi(current_locale_idx + 1, 0, SUPPORTED_LOCALES.size())

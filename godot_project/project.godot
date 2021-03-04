@@ -92,6 +92,7 @@ Flow="*res://src/autoload/Flow.tscn"
 State="*res://src/autoload/State.tscn"
 AudioEngine="*res://src/autoload/AudioEngine.tscn"
 Logger="*res://src/autoload/Logger.gd"
+KeyboardBackend="*res://src/autoload/KeyboardBackend.tscn"
 
 [debug]
 
@@ -152,9 +153,10 @@ sprint={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":7,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
-debug_toggle_keyboard={
+keyboard_toggle={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777238,"unicode":0,"echo":false,"script":null)
  ]
 }
 

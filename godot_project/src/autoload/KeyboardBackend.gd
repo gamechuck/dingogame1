@@ -43,17 +43,15 @@ var _keyboard_layouts_data := {}
 ################################################################################
 ## GODOT CALLBACKS
 # warning-ignore:unused_argument
-func _input(event : InputEvent) -> void:
-#	if Input.is_action_just_pressed("b1") and visible:
-#		Controller.block_frame = true
-#		set_visible(false)
-	if Input.is_action_just_pressed("debug_toggle_keyboard"):
+func _physics_process(_delta) -> void:
+	if Input.is_action_just_pressed("keyboard_toggle"):
 		toggle_visible()
 
 func _ready() -> void:
 	# load keyboard layouts json
-	_keyboard_layouts_data = Flow.load_json(PATH_KEYBOARD_LAYOUTS)
+	_keyboard_layouts_data = Flow.load_JSON(PATH_KEYBOARD_LAYOUTS)
 	build_keyboard_for_locale("en")
+
 	set_visible(false)
 
 

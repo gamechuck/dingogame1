@@ -128,11 +128,9 @@ func _update_jump_and_drop(delta : float) -> void:
 			_vertical_speed += (_jump_wind_up_speed * delta)
 			if not _vertical_speed > _jump_max_speed:
 				_jump(delta)
-			else:
-				_falling_down = true
-				gravity_scale = _downforce
+				print("Speeding jump!")
 	if _jumped:
-		if Input.is_action_just_released("jump") or global_position.y < _jump_start.y - _max_jump_distance:
+		if (not Input.is_action_pressed("jump") and global_position.y < _jump_start.y - _max_jump_distance * 0.9) or global_position.y < _jump_start.y - _max_jump_distance:
 			_set_active_building_collision(true)
 			gravity_scale = _downforce
 			_falling_down = true

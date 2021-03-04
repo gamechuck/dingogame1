@@ -1,4 +1,4 @@
-extends PanelContainer
+extends Control
 
 ################################################################################
 ## SIGNALS
@@ -7,7 +7,7 @@ signal key_pressed #(key)
 
 ################################################################################
 ## CONSTANTS
-const SCENE_KEYBOARD_KEY := preload("res://src/keyboard/KeyboardKey.tscn")
+var SCENE_KEYBOARD_KEY := preload("res://src/keyboard/KeyboardKey.tscn")
 
 
 ################################################################################
@@ -23,7 +23,7 @@ var first_key : KeyboardKey
 
 ################################################################################
 ## PRIVATE VARIABLES
-onready var _rows_container := $RowsContainer
+onready var _rows_container := $KeyboardRoot/RowsContainer
 
 
 ################################################################################
@@ -41,6 +41,7 @@ func focus() -> void:
 func build_from_layout_data(layout_data : Dictionary) -> void:
 	var row_count : int = layout_data["rows"].size()
 	var horizontal_separation : int = layout_data.get("horizontal_separation", 0)
+# warning-ignore:unused_variable
 	var vertical_separation : int = layout_data.get("vertical_separation", 0)
 	var key_width : int = layout_data.get("key_width", 60)
 	var key_height : int = layout_data.get("key_height", 60)

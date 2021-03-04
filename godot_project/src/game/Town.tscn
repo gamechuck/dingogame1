@@ -12,13 +12,10 @@ extents = Vector2( 1.11111e+07, 11 )
 
 [node name="Town" type="Node2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Terrain" type="Node2D" parent="."]
 use_parent_material = true
-position = Vector2( 0, 720 )
+position = Vector2( -15.711, 731.774 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -40,17 +37,18 @@ position = Vector2( 1.11111e+07, 0 )
 shape = SubResource( 2 )
 
 [node name="GroundSprite" type="Sprite" parent="Terrain"]
-position = Vector2( 11111, 0 )
+position = Vector2( 10864.9, 7.07111 )
 scale = Vector2( 44, 4 )
 z_index = -19
 texture = ExtResource( 3 )
 
 [node name="Sky" type="Node2D" parent="Terrain"]
+position = Vector2( 25.4713, -202.272 )
+z_index = -18
 
 [node name="SkySprite1" type="Sprite" parent="Terrain/Sky"]
-position = Vector2( 50063.9, -331.3 )
+position = Vector2( 49409.6, -428.625 )
 scale = Vector2( 55, 1 )
-z_index = -20
 texture = ExtResource( 2 )
 
 [node name="Objects" type="Node2D" parent="."]
@@ -93,11 +91,11 @@ __meta__ = {
 [node name="Misc" type="Node2D" parent="."]
 
 [node name="PlayerSpawnPoint" type="Position2D" parent="Misc"]
-position = Vector2( 122, 680 )
+position = Vector2( 156.003, 689.281 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="PlayerCamera2D" type="Camera2D" parent="."]
-position = Vector2( 122, 680 )
+position = Vector2( 156.003, 690.962 )
 current = true
 zoom = Vector2( 0.25, 0.25 )
