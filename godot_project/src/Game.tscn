@@ -11,25 +11,22 @@ layer = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 3.0
+margin_bottom = 162.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Spacer1" type="VBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 26.0
-margin_right = 1920.0
-margin_bottom = 295.0
+margin_top = 153.0
+margin_right = 1923.0
+margin_bottom = 337.0
 
 [node name="Label" type="Label" parent="UI/VBoxContainer/Spacer1"]
-margin_right = 1920.0
-margin_bottom = 269.0
+margin_right = 1923.0
+margin_bottom = 184.0
 text = "
-
-
-
-
-
 
 
 
@@ -42,12 +39,12 @@ text = "
 "
 
 [node name="Highscore" type="VBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 299.0
-margin_right = 1920.0
-margin_bottom = 348.0
+margin_top = 341.0
+margin_right = 1923.0
+margin_bottom = 390.0
 
 [node name="ScoreTitle" type="Label" parent="UI/VBoxContainer/Highscore"]
-margin_right = 1920.0
+margin_right = 1923.0
 margin_bottom = 31.0
 text = "GAME WON
 YOU SAVED:"
@@ -56,33 +53,270 @@ valign = 1
 
 [node name="ScoreValue" type="Label" parent="UI/VBoxContainer/Highscore"]
 margin_top = 35.0
-margin_right = 1920.0
+margin_right = 1923.0
 margin_bottom = 49.0
 text = "0"
 align = 1
 valign = 1
 
 [node name="Spacer2" type="VBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 352.0
-margin_right = 1920.0
-margin_bottom = 468.0
+margin_top = 394.0
+margin_right = 1923.0
+margin_bottom = 476.0
 
 [node name="Label" type="Label" parent="UI/VBoxContainer/Spacer2"]
-margin_right = 1920.0
-margin_bottom = 116.0
+margin_right = 1923.0
+margin_bottom = 82.0
 text = "
-
-
 
 
 
 "
 
+[node name="HighscoreList" type="VBoxContainer" parent="UI/VBoxContainer"]
+margin_left = 873.0
+margin_top = 480.0
+margin_right = 1049.0
+margin_bottom = 656.0
+size_flags_horizontal = 4
+
+[node name="HBoxContainer01" type="HBoxContainer" parent="UI/VBoxContainer/HighscoreList"]
+margin_right = 176.0
+margin_bottom = 14.0
+
+[node name="PlayerName" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer01"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer01"]
+margin_left = 112.0
+margin_right = 132.0
+margin_bottom = 14.0
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer01"]
+margin_left = 136.0
+margin_right = 176.0
+margin_bottom = 14.0
+text = "10000"
+
+[node name="HBoxContainer02" type="HBoxContainer" parent="UI/VBoxContainer/HighscoreList"]
+margin_top = 18.0
+margin_right = 176.0
+margin_bottom = 32.0
+
+[node name="PlayerName" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer02"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer02"]
+margin_left = 112.0
+margin_right = 132.0
+margin_bottom = 14.0
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer02"]
+margin_left = 136.0
+margin_right = 176.0
+margin_bottom = 14.0
+text = "10000"
+
+[node name="HBoxContainer03" type="HBoxContainer" parent="UI/VBoxContainer/HighscoreList"]
+margin_top = 36.0
+margin_right = 176.0
+margin_bottom = 50.0
+
+[node name="PlayerName" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer03"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer03"]
+margin_left = 112.0
+margin_right = 132.0
+margin_bottom = 14.0
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer03"]
+margin_left = 136.0
+margin_right = 176.0
+margin_bottom = 14.0
+text = "10000"
+
+[node name="HBoxContainer04" type="HBoxContainer" parent="UI/VBoxContainer/HighscoreList"]
+margin_top = 54.0
+margin_right = 176.0
+margin_bottom = 68.0
+
+[node name="PlayerName" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer04"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer04"]
+margin_left = 112.0
+margin_right = 132.0
+margin_bottom = 14.0
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer04"]
+margin_left = 136.0
+margin_right = 176.0
+margin_bottom = 14.0
+text = "10000"
+
+[node name="HBoxContainer05" type="HBoxContainer" parent="UI/VBoxContainer/HighscoreList"]
+margin_top = 72.0
+margin_right = 176.0
+margin_bottom = 86.0
+
+[node name="PlayerName" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer05"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer05"]
+margin_left = 112.0
+margin_right = 132.0
+margin_bottom = 14.0
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer05"]
+margin_left = 136.0
+margin_right = 176.0
+margin_bottom = 14.0
+text = "10000"
+
+[node name="HBoxContainer06" type="HBoxContainer" parent="UI/VBoxContainer/HighscoreList"]
+margin_top = 90.0
+margin_right = 176.0
+margin_bottom = 104.0
+
+[node name="PlayerName" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer06"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer06"]
+margin_left = 112.0
+margin_right = 132.0
+margin_bottom = 14.0
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer06"]
+margin_left = 136.0
+margin_right = 176.0
+margin_bottom = 14.0
+text = "10000"
+
+[node name="HBoxContainer07" type="HBoxContainer" parent="UI/VBoxContainer/HighscoreList"]
+margin_top = 108.0
+margin_right = 176.0
+margin_bottom = 122.0
+
+[node name="PlayerName" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer07"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer07"]
+margin_left = 112.0
+margin_right = 132.0
+margin_bottom = 14.0
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer07"]
+margin_left = 136.0
+margin_right = 176.0
+margin_bottom = 14.0
+text = "10000"
+
+[node name="HBoxContainer08" type="HBoxContainer" parent="UI/VBoxContainer/HighscoreList"]
+margin_top = 126.0
+margin_right = 176.0
+margin_bottom = 140.0
+
+[node name="PlayerName" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer08"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer08"]
+margin_left = 112.0
+margin_right = 132.0
+margin_bottom = 14.0
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer08"]
+margin_left = 136.0
+margin_right = 176.0
+margin_bottom = 14.0
+text = "10000"
+
+[node name="HBoxContainer09" type="HBoxContainer" parent="UI/VBoxContainer/HighscoreList"]
+margin_top = 144.0
+margin_right = 176.0
+margin_bottom = 158.0
+
+[node name="PlayerName" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer09"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer09"]
+margin_left = 112.0
+margin_right = 132.0
+margin_bottom = 14.0
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer09"]
+margin_left = 136.0
+margin_right = 176.0
+margin_bottom = 14.0
+text = "10000"
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="UI/VBoxContainer/HighscoreList"]
+margin_top = 162.0
+margin_right = 176.0
+margin_bottom = 176.0
+
+[node name="PlayerName" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer10"]
+margin_right = 108.0
+margin_bottom = 14.0
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer10"]
+margin_left = 112.0
+margin_right = 132.0
+margin_bottom = 14.0
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/VBoxContainer/HighscoreList/HBoxContainer10"]
+margin_left = 136.0
+margin_right = 176.0
+margin_bottom = 14.0
+text = "10000"
+
+[node name="Spacer3" type="VBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 660.0
+margin_right = 1923.0
+margin_bottom = 725.0
+
+[node name="Label" type="Label" parent="UI/VBoxContainer/Spacer3"]
+margin_right = 1923.0
+margin_bottom = 65.0
+text = "
+
+
+"
+
 [node name="HighscoreInput" type="VBoxContainer" parent="UI/VBoxContainer"]
-margin_left = 867.0
-margin_top = 472.0
-margin_right = 1052.0
-margin_bottom = 598.0
+margin_left = 869.0
+margin_top = 729.0
+margin_right = 1054.0
+margin_bottom = 855.0
 size_flags_horizontal = 4
 
 [node name="InputTitleLabel" type="Label" parent="UI/VBoxContainer/HighscoreInput"]
@@ -131,13 +365,13 @@ margin_right = 185.0
 margin_bottom = 126.0
 text = "SUBMIT"
 
-[node name="Spacer3" type="VBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 602.0
-margin_right = 1920.0
-margin_bottom = 718.0
+[node name="Spacer4" type="VBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 859.0
+margin_right = 1923.0
+margin_bottom = 975.0
 
-[node name="Label" type="Label" parent="UI/VBoxContainer/Spacer3"]
-margin_right = 1920.0
+[node name="Label" type="Label" parent="UI/VBoxContainer/Spacer4"]
+margin_right = 1923.0
 margin_bottom = 116.0
 text = "
 
@@ -148,48 +382,35 @@ text = "
 "
 
 [node name="Buttons" type="HBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 722.0
-margin_right = 1920.0
-margin_bottom = 742.0
+margin_top = 979.0
+margin_right = 1923.0
+margin_bottom = 999.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ButtonRestart" type="Button" parent="UI/VBoxContainer/Buttons"]
-margin_left = 880.0
-margin_right = 945.0
+margin_left = 881.0
+margin_right = 946.0
 margin_bottom = 20.0
 text = "RESTART"
 
 [node name="ButtonMainMenu" type="Button" parent="UI/VBoxContainer/Buttons"]
-margin_left = 949.0
-margin_right = 1040.0
+margin_left = 950.0
+margin_right = 1041.0
 margin_bottom = 20.0
 text = "MAIN MENU"
 
-[node name="Spacer4" type="VBoxContainer" parent="UI/VBoxContainer"]
-margin_top = 746.0
-margin_right = 1920.0
-margin_bottom = 1253.0
+[node name="Spacer5" type="VBoxContainer" parent="UI/VBoxContainer"]
+margin_top = 1003.0
+margin_right = 1923.0
+margin_bottom = 1289.0
 
-[node name="Label" type="Label" parent="UI/VBoxContainer/Spacer4"]
-margin_right = 1920.0
-margin_bottom = 507.0
+[node name="Label" type="Label" parent="UI/VBoxContainer/Spacer5"]
+margin_right = 1923.0
+margin_bottom = 286.0
 text = "
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
