@@ -14,13 +14,13 @@
 	},
 	"player": 
 	{
-		"walk_speed": 55.0, // No need to explain
-		"run_speed": 133.0,  // As well
-		"jump_min_speed": 1700.0, // Jump speed which player has when first time starting to wind up jump speed
-		"jump_wind_up_speed": 0.5, // Speed value at which player winds up jump speed
+		"walk_speed": 111.0, // No need to explain
+		"run_speed": 111.0,  // As well
+		"jump_min_speed": 2000.0, // Jump speed which player has when first time starting to wind up jump speed
+		"jump_wind_up_speed": 0.25, // Speed value at which player winds up jump speed
 		"jump_max_speed_offset": 22.0, // Maximum value to wound up jump speed
 		"jump_downforce": 7.0, // Force which is added to player in down direction when jumps, drops or falls from platform
-		"max_jump_distance": 24.0 // Distance player can jump before applying above mentioned force
+		"max_jump_distance": 17.0 // Distance player can jump before applying above mentioned force
 	},
 	"layers": 
 	{
@@ -30,7 +30,7 @@
 				"should_spawn": true,
 				"collidable": false,
 				"z_index": -5,
-				"y_offset": -70,						
+				"y_offset": 0,						
 				"batch_amount": 44,
 				"starting_x":-333,
 				"offset_random_delta": [5, 15],
@@ -46,7 +46,7 @@
 				"should_spawn": true,
 				"collidable": true,
 				"z_index": -4,
-				"y_offset": -33,
+				"y_offset": 0,
 				"parallax_speed": 18.0,		
 				"batch_amount": 222,
 				"starting_x":-380,
@@ -62,7 +62,7 @@
 				"should_spawn": true,
 				"collidable": true,
 				"z_index": -3,
-				"y_offset": -22,
+				"y_offset": 0,
 				"parallax_speed": 24.0,
 				"batch_amount": 222,
 				"starting_x":-270,
@@ -78,7 +78,7 @@
 				"should_spawn": true,
 				"collidable": true,
 				"z_index": -2,
-				"y_offset": -5,
+				"y_offset": 0,
 				"parallax_speed": 30.0,	
 				"batch_amount": 222,
 				"starting_x":-220,
@@ -86,7 +86,7 @@
 				"interactable_delta_random": [3, 4 ,5],
 				"thieves_delta_random": [6, 7, 8],
 				"textures": [
-					"building_2",
+					"building_2"
 				]
 			},
 			{
@@ -98,7 +98,7 @@
 				"parallax_speed": 35.0,
 				"batch_amount": 222,
 				"starting_x":-170,
-				"offset_random_delta": [5, 15],
+				"offset_random_delta": [15, 50],
 				"interactable_delta_random": [4],
 				"thieves_delta_random": [2],
 				"textures": [
