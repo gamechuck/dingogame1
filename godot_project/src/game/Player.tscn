@@ -4,13 +4,13 @@
 [ext_resource path="res://assets/Graphics/Player/dingo_run.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4, 1 )
+extents = Vector2( 5, 1 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10.3355, 6.25373 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 6.86149, 5.454 )
+extents = Vector2( 10.3005, 4.32302 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "Bark"
@@ -2076,8 +2076,7 @@ collision_layer = 0
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuilidingArea2D"]
-visible = false
-position = Vector2( 0.0707893, 1.02732 )
+position = Vector2( 0.442417, -3.13492 )
 shape = SubResource( 3 )
 
 [node name="BodyRoot" type="Node2D" parent="."]

@@ -62,7 +62,7 @@ func _set_collision_shape(collidable : bool) -> void:
 		_side_detection_shape.position.x = 0
 		_side_detection_shape.position.y = _collision_shape.position.y
 		_side_detection_shape.shape.extents.x = _collision_shape.shape.extents.x * 1.1
-		_side_detection_shape.shape.extents.y = _collision_shape.shape.extents.y * 0.99
+		_side_detection_shape.shape.extents.y = _collision_shape.shape.extents.y * 0.9
 	else:
 		_collision_shape.set_deferred("disabled", true)
 		_collision_shape.hide()
