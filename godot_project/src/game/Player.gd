@@ -76,8 +76,8 @@ func setup_data(data : Dictionary) -> void:
 	_walk_speed = data.get("walk_speed")
 	_run_speed = data.get("run_speed")
 	_jump_speed = data.get("jump_speed")
-	_jump_min_distance = data.get("max_jump_distance")
-	_jump_max_distance = data.get("max_jump_distance")
+	_jump_min_distance = data.get("jump_min_distance")
+	_jump_max_distance = data.get("jump_max_distance")
 	_downforce = data.get("jump_downforce")
 	_movement_speed = _walk_speed
 	_vertical_speed = _jump_speed
@@ -107,7 +107,7 @@ func _move() -> void:
 		emit_signal("direction_update", Vector2.RIGHT)
 
 func _interact():
-	if not _jumped and not _dropped and not _falling_down:
+	if not _jumped and not _falling_down:# and not _falling_down:
 		if not _interacting and Input.is_action_just_pressed("interact"):
 			for body in _overlapping_bodies:
 				if body.owner.interactable:
@@ -122,7 +122,8 @@ func _update_jump_and_drop(delta : float) -> void:
 		return
 	if Input.is_action_pressed("move_down"):
 		_update_ledge_collision()
-	if not _falling_down and not _dropped and linear_velocity.y <= 0:
+#	if not _falling_down and
+	if not _falling_down and linear_velocity.y <= 0:
 		#if Input.is_action_pressed("jump"):
 		if not _jumped and Input.is_action_pressed("jump"):
 			_jump_start.y = global_position.y
@@ -135,7 +136,7 @@ func _update_jump_and_drop(delta : float) -> void:
 			_falling_down = true
 	if _falling_down and linear_velocity.y == 0:
 		_reset_jump()
-	if _dropped:
+	if _falling_down:
 		if  linear_velocity.y == 0:
 			_reset_drop()
 
@@ -163,7 +164,7 @@ func _update_ledge_collision() -> void:
 	if _overlapping_buildings.size() > 0:
 		_set_active_building_collision(false)
 		gravity_scale = _downforce
-		_dropped = true
+		_falling_down = true
 		_falling_down = true
 		_animator.play("Jump")
 
@@ -189,7 +190,7 @@ func _reset_jump() -> void:
 	gravity_scale = _downforce
 
 func _reset_drop() -> void:
-	_dropped = false
+	_falling_down = false
 	_falling_down = false
 	_jump_start.y = global_position.y
 	gravity_scale = _downforce
