@@ -6,19 +6,13 @@ extends Node
 
 enum STATE { STARTUP, MENU, GAME }
 
-const DEFAULT_OPTIONS_PATH := "res://default_options.cfg"
-# Settings are a subset of options that can be modified by the user.
-const USER_SETTINGS_PATH := "user://user_settings.cfg"
-
 const DEFAULT_CONTROLS_PATH := "res://default_controls.json"
 const USER_CONTROLS_PATH := "user://user_controls.json"
 
 const SAVE_FOLDER := "user://saves"
-
-const DEFAULT_SAVE_PATH := "res://default_save.json"
 const USER_SAVE_PATH := SAVE_FOLDER + "/user_save.json"
 
-const PATH_DATA := "res://data/game_data.jsonc"
+const DATA_PATH := "res://data/game_data.jsonc"
 
 
 ################################################################################

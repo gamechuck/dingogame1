@@ -12,12 +12,19 @@ var current_highscores := []
 
 
 ################################################################################
+## GODOT CALLBACKS
+func _ready():
+	_load_stateJSON()
+
+
+################################################################################
 ## PUBLIC FUNCTIONS
 func set_highscore(score : int, player_name : String) -> void:
 	if player_name == "":
 		return
 	current_highscores.append({"name": player_name, "score": score})
 	current_highscores.sort_custom(self, "_sort_highscore")
+	_save_stateJSON()
 	emit_signal("state_changed")
 
 func get_highscores() -> Array:
@@ -31,6 +38,20 @@ func is_highscore_set(score : int) -> bool:
 			return true
 	return false
 
+
+################################################################################
+## PRIVATE FUNCTIONS
+func _load_stateJSON(path : String = Flow.USER_SAVE_PATH) -> void:
+	var context : Dictionary = Flow.load_JSON(path)
+	if context.empty():
+		pass
+	current_highscores = context.get("highscores", [])
+
+func _save_stateJSON(path : String = Flow.USER_SAVE_PATH) -> void:
+	# Save the current State to the user://saves-folder.
+	var context := {}
+	context["highscores"] = current_highscores
+	Flow.save_JSON(path, context)
 
 func _sort_highscore(value_a : Dictionary, value_b : Dictionary) -> bool:
 	if value_a.get("score") > value_b.get("score"):

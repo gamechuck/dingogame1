@@ -5,15 +5,15 @@ func load_dataJSON() -> int:
 	## Load all report_templates, clues, etc... from their relevant data JSON.
 	var data_dict := {
 		"game": {
-			"path": Flow.PATH_DATA,
+			"path": Flow.DATA_PATH,
 			"setter": funcref(self, "_set_game_data")
 		},
 		"player": {
-			"path": Flow.PATH_DATA,
+			"path": Flow.DATA_PATH,
 			"setter": funcref(self, "_set_player_data")
 		},
 		"layers": {
-			"path": Flow.PATH_DATA,
+			"path": Flow.DATA_PATH,
 			"setter": funcref(self, "_set_layers_data")
 		}
 	}
