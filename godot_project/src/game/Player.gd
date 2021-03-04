@@ -124,14 +124,15 @@ func _update_jump_and_drop(delta : float) -> void:
 	if Input.is_action_pressed("move_down"):
 		_update_ledge_collision()
 	if not _falling_down and not _dropped and linear_velocity.y <= 0:
+		#if Input.is_action_pressed("jump"):
 		if not _jumped and Input.is_action_pressed("jump"):
 			_jump_start.y = global_position.y
-		if Input.is_action_pressed("jump"):
 			_vertical_speed += (_jump_wind_up_speed * delta)
-			if not _vertical_speed > _jump_max_speed:
-				_jump(delta)
+			_vertical_speed = _jump_max_speed
+		#	if not _vertical_speed > _jump_max_speed:
+			_jump(delta)
 	if _jumped:
-		if (not Input.is_action_pressed("jump") and global_position.y < _jump_start.y - _max_jump_distance * 0.9) or global_position.y < _jump_start.y - _max_jump_distance:
+		if (not Input.is_action_pressed("jump") and global_position.y < _jump_start.y - _max_jump_distance * 0.2) or global_position.y < _jump_start.y - _max_jump_distance:
 			_set_active_building_collision(true)
 			gravity_scale = _downforce
 			_falling_down = true
@@ -177,11 +178,10 @@ func _update_look_direction() -> void:
 	elif linear_velocity.x > 0.1 and _body_root.scale.x < 0:
 		_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
 
-
 func _jump(delta : float) -> void:
 	_animator.play("Jump")
 	gravity_scale = _upforce
-	apply_central_impulse(Vector2.UP * _vertical_speed * delta)
+	apply_central_impulse(Vector2.UP * _vertical_speed) # * delta)
 	_set_active_building_collision(true)
 	_jumped = true
 
