@@ -2172,45 +2172,45 @@ bones = [ NodePath("Hip"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 internal_vertex_count = 9
 
 [node name="Skeleton2D" type="Skeleton2D" parent="BodyRoot"]
-position = Vector2( -494.381, -1006.54 )
+position = Vector2( -523.252, -1001.88 )
 
 [node name="Root" type="Bone2D" parent="BodyRoot/Skeleton2D"]
 scale = Vector2( 1e-05, 1e-05 )
 
 [node name="Hip" type="Bone2D" parent="BodyRoot/Skeleton2D"]
-position = Vector2( 474.128, 634.123 )
+position = Vector2( 481.277, 650.366 )
 rest = Transform2D( 1, 0, 0, 1, 482.612, 614.325 )
 __meta__ = {
 "_edit_ik_": true
 }
 
 [node name="Chest" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip"]
-position = Vector2( 80.2032, -106.412 )
-rotation = 0.313081
+position = Vector2( 31.2631, -41.7235 )
+rotation = 0.0450262
 rest = Transform2D( 1, 0, 0, 1, 42.9229, -73.3818 )
 
 [node name="Arm front" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest"]
-position = Vector2( -11.5349, -109.026 )
-rotation = -1.17301
+position = Vector2( -52.7545, -141.814 )
+rotation = 1.23082
 rest = Transform2D( 1, 0, 0, 1, -60.1182, -116.661 )
 __meta__ = {
 "_edit_ik_": true
 }
 
 [node name="Elbow front" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest/Arm front"]
-position = Vector2( -58.6864, 132.771 )
-rotation = -0.956164
+position = Vector2( -37.1337, 136.31 )
+rotation = -0.832728
 rest = Transform2D( 1, 0, 0, 1, -37.1337, 136.31 )
 
 [node name="Hand frnt" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest/Arm front/Elbow front"]
 position = Vector2( 21.061, 148.177 )
-rotation = 0.775657
+rotation = 0.525955
 scale = Vector2( 0.999999, 0.999999 )
 rest = Transform2D( 0.356675, 0.934228, -0.934228, 0.356675, 21.061, 148.177 )
 
 [node name="Arm back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest"]
-position = Vector2( -98.2995, -106.316 )
-rotation = 1.2161
+position = Vector2( 38.5635, -102.308 )
+rotation = 0.562375
 rest = Transform2D( 1, 0, 0, 1, 38.5635, -102.308 )
 __meta__ = {
 "_edit_ik_": true
@@ -2218,60 +2218,60 @@ __meta__ = {
 
 [node name="Elbow back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest/Arm back"]
 position = Vector2( 30.868, 146.781 )
-rotation = -0.491036
+rotation = -0.747313
 rest = Transform2D( 1, 0, 0, 1, 30.868, 146.781 )
 
 [node name="Hand back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest/Arm back/Elbow back"]
 position = Vector2( 59.8463, 69.2957 )
-rotation = 0.212028
+rotation = 0.802848
 rest = Transform2D( 0.694661, 0.719337, -0.719337, 0.694661, 59.8463, 69.2957 )
 
 [node name="Bandana" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest"]
-position = Vector2( -53.4074, -161.691 )
-rotation = -0.00965841
+position = Vector2( -54.0647, -147.819 )
+rotation = 0.190255
 rest = Transform2D( 0.981956, 0.189109, -0.189109, 0.981956, -34.0872, -170.195 )
 
 [node name="Neck" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest"]
-position = Vector2( 6.27231, -177.981 )
-rotation = -0.181584
+position = Vector2( 51.5283, -137.901 )
+rotation = -0.324994
 rest = Transform2D( 1, 0, 0, 1, 29.5752, -177.27 )
 
 [node name="Thigh front" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip"]
-position = Vector2( -75.5515, 46.0492 )
-rotation = 0.851526
+position = Vector2( -63.7544, 63.4168 )
+rotation = -0.154645
 rest = Transform2D( 1, 0, 0, 1, -63.7544, 54.0729 )
 __meta__ = {
 "_edit_ik_": true
 }
 
 [node name="Shin front" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Thigh front"]
-position = Vector2( 27.7663, 145.783 )
-rotation = 0.01474
+position = Vector2( -4.64224, 117.052 )
+rotation = 0.368434
 rest = Transform2D( 1, 0, 0, 1, 17.7618, 142.129 )
 
 [node name="Foot front" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Thigh front/Shin front"]
-position = Vector2( -50.8074, 129.523 )
-rotation = 0.634058
+position = Vector2( -47.912, 146.547 )
+rotation = -0.0311096
 rest = Transform2D( 0.984457, 0.175626, -0.175626, 0.984457, -48.8218, 147.961 )
 
 [node name="Thigh back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip"]
-position = Vector2( 80.286, 34.0788 )
-rotation = -0.710042
+position = Vector2( 50.5104, 63.3388 )
+rotation = -0.351183
 rest = Transform2D( 1, 0, 0, 1, 50.74, 53.5339 )
 
 [node name="Shin back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Thigh back"]
-position = Vector2( 50.3437, 129.743 )
-rotation = 0.580978
+position = Vector2( 7.43106, 109.673 )
+rotation = 0.951594
 rest = Transform2D( 0.784514, 0.620111, -0.620111, 0.784514, 34.1247, 126.439 )
 
 [node name="Foot back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Thigh back/Shin back"]
-position = Vector2( 71.4263, 129.73 )
-rotation = -0.46183
+position = Vector2( 61.657, 133.996 )
+rotation = -0.355743
 rest = Transform2D( 0.922206, -0.3867, 0.3867, 0.922206, 78.804, 145.875 )
 
 [node name="Tail root" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip"]
-position = Vector2( -91.413, -23.7436 )
-rotation = 0.561636
+position = Vector2( -75.2711, 4.26479 )
+rotation = 0.410093
 rest = Transform2D( 1, 0, 0, 1, -60.5878, -15.7578 )
 __meta__ = {
 "_edit_ik_": true
@@ -2279,12 +2279,11 @@ __meta__ = {
 
 [node name="Tail middle" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Tail root"]
 position = Vector2( -139.677, 106.687 )
-rotation = -1.29462
 rest = Transform2D( 1, 0, 0, 1, -139.677, 106.687 )
 
 [node name="Tail top" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Tail root/Tail middle"]
 position = Vector2( -136.841, -31.9336 )
-rotation = 3.65198
+rotation = 3.18078
 rest = Transform2D( -0.742322, 0.670044, -0.670044, -0.742322, -136.841, -31.9336 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BodyRoot"]

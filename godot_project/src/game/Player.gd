@@ -24,13 +24,13 @@ onready var _animator := $BodyRoot/AnimationPlayer
 
 
 # EXTERNAL DATA
+var _downforce = 0.0
+
 var _walk_speed = 0.0
 var _run_speed = 0.0
-var _jump_min_speed = 0.0
-var _jump_max_speed = 0.0
-var _jump_wind_up_speed = 0.0
-var _downforce = 0.0
-var _max_jump_distance = 0.0
+var _jump_speed = 0.0
+var _jump_min_distance = 0.0
+var _jump_max_distance = 0.0
 
 # INTERNAL CACHED VARS
 var _interacting := false
@@ -75,13 +75,12 @@ func _physics_process(_delta : float) -> void:
 func setup_data(data : Dictionary) -> void:
 	_walk_speed = data.get("walk_speed")
 	_run_speed = data.get("run_speed")
-	_jump_min_speed = data.get("jump_min_speed")
-	_jump_max_speed = _jump_min_speed + data.get("jump_max_speed_offset")
-	_jump_wind_up_speed = data.get("jump_wind_up_speed") * 10.0 # Just so that we don't have too huge number in json
+	_jump_speed = data.get("jump_speed")
+	_jump_min_distance = data.get("max_jump_distance")
+	_jump_max_distance = data.get("max_jump_distance")
 	_downforce = data.get("jump_downforce")
-	_max_jump_distance = data.get("max_jump_distance")
 	_movement_speed = _walk_speed
-	_vertical_speed = _jump_min_speed
+	_vertical_speed = _jump_speed
 	gravity_scale = _downforce
 	set_collision_mask_bit(4, true)
 
@@ -127,12 +126,10 @@ func _update_jump_and_drop(delta : float) -> void:
 		#if Input.is_action_pressed("jump"):
 		if not _jumped and Input.is_action_pressed("jump"):
 			_jump_start.y = global_position.y
-			_vertical_speed += (_jump_wind_up_speed * delta)
-			_vertical_speed = _jump_max_speed
-		#	if not _vertical_speed > _jump_max_speed:
+			_vertical_speed = _jump_speed
 			_jump(delta)
 	if _jumped:
-		if (not Input.is_action_pressed("jump") and global_position.y < _jump_start.y - _max_jump_distance * 0.2) or global_position.y < _jump_start.y - _max_jump_distance:
+		if (not Input.is_action_pressed("jump") and global_position.y < _jump_start.y - _jump_min_distance) or global_position.y < _jump_start.y - _jump_max_distance:
 			_set_active_building_collision(true)
 			gravity_scale = _downforce
 			_falling_down = true
@@ -187,7 +184,6 @@ func _jump(delta : float) -> void:
 
 func _reset_jump() -> void:
 	_jumped = false
-	_vertical_speed = _jump_min_speed
 	_falling_down = false
 	_jump_start.y = global_position.y
 	gravity_scale = _downforce
@@ -195,7 +191,6 @@ func _reset_jump() -> void:
 func _reset_drop() -> void:
 	_dropped = false
 	_falling_down = false
-	_vertical_speed = _jump_min_speed
 	_jump_start.y = global_position.y
 	gravity_scale = _downforce
 
