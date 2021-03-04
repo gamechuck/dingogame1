@@ -1,7 +1,7 @@
 {
 	"game":
 	{
-		"duration": 33,
+		"duration": 1133,
 		"camera_zoom": [0.2, 0.2],
 		"camera_offset_y": -90,
 		"building_batch_amount": 111,
@@ -49,8 +49,8 @@
 				"y_offset": 0,
 				"parallax_speed": 38.0,	
 				"batch_amount": 222,
-				"starting_x":-70,
-				"offset_random_delta": [5, 5],		
+				"starting_x":-90,
+				"offset_random_delta": [17, 25],		
 				"interactable_delta_random": [3, 4 ,5],
 				"thieves_delta_random": [6, 7, 8],
 				"textures": [	
@@ -71,7 +71,7 @@
 				"parallax_speed": 45.0,
 				"batch_amount": 222,
 				"starting_x":-20,
-				"offset_random_delta": [5, 5],
+				"offset_random_delta": [17, 25],
 				"interactable_delta_random": [4],
 				"thieves_delta_random": [2],
 				"textures": [

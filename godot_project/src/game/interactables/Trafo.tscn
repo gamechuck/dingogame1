@@ -171,7 +171,7 @@ collision_layer = 64
 collision_mask = 2147483648
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 28.2754, -57.4293 )
+position = Vector2( 28.2754, -58.6694 )
 shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
