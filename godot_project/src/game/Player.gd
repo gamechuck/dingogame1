@@ -152,13 +152,13 @@ func _update_is_moving():
 		is_moving = false
 		return
 	if linear_velocity.x == 0.0:
-		is_moving = false
 		if not _jumped and not _falling_down:
 			_animator.play("Idle")
+		is_moving = false
 	else:
-		is_moving = true
 		if not _jumped and not _falling_down:
 			_animator.play("Run")
+		is_moving = true
 		emit_signal("position_update", global_position)
 
 func _update_ledge_collision() -> void:
@@ -172,10 +172,11 @@ func _update_ledge_collision() -> void:
 func _update_look_direction() -> void:
 	if not is_moving:
 		return
-	if linear_velocity.x < 0.0 and _body_root.scale.x > 0:
+	if linear_velocity.x < -0.1 and _body_root.scale.x > 0:
 		_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
-	elif linear_velocity.x > 0.0 and _body_root.scale.x < 0:
+	elif linear_velocity.x > 0.1 and _body_root.scale.x < 0:
 		_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
+
 
 func _jump(delta : float) -> void:
 	_animator.play("Jump")
@@ -198,6 +199,8 @@ func _reset_drop() -> void:
 	_jump_start.y = global_position.y
 	gravity_scale = _downforce
 
+func _set_active_building_collision(value : bool) -> void:
+	set_collision_mask_bit(4, value)
 
 ################################################################################
 ## SIGNAL CALLBACKS
@@ -211,15 +214,14 @@ func _on_interactable_body_exited(_body : Node2D) -> void:
 func _on_building_ledge_entered(_body : Node2D) -> void:
 	_overlapping_buildings = _buildingArea2D.get_overlapping_bodies()
 	if Input.is_action_pressed("move_down"):
-		set_deferred("_set_active_building_collision", false)
+		_set_active_building_collision(false)
 
 func _on_building_ledge_exited(_body : Node2D) -> void:
 	if _overlapping_buildings.has(_body):
 		_overlapping_buildings.erase(_body)
+	#if _overlapping_buildings.size() == 0:
 		_set_active_building_collision(true)
-
-func _set_active_building_collision(value : bool) -> void:
-		set_collision_mask_bit(4, value)
+		#_animator.play("Jump")
 
 func _on_animation_finished(value : String) -> void:
 	if value == "Bark":

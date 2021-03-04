@@ -60,9 +60,9 @@ func _set_collision_shape(collidable : bool) -> void:
 		_collision_shape.one_way_collision = true
 		_side_detection_shape.one_way_collision = true
 		_side_detection_shape.position.x = 0
-		_side_detection_shape.position.y = _collision_shape.position.y + 10.0
-		_side_detection_shape.shape.extents.x = _collision_shape.shape.extents.x * 1.4
-		_side_detection_shape.shape.extents.y = _collision_shape.shape.extents.y * 0.8
+		_side_detection_shape.position.y = _collision_shape.position.y
+		_side_detection_shape.shape.extents.x = _collision_shape.shape.extents.x * 1.1
+		_side_detection_shape.shape.extents.y = _collision_shape.shape.extents.y * 0.99
 	else:
 		_collision_shape.set_deferred("disabled", true)
 		_collision_shape.hide()
@@ -71,10 +71,10 @@ func _set_collision_shape(collidable : bool) -> void:
 		_side_detection_shape.hide()
 
 func _on_side_detect_area_body_entered(_body : Node2D) -> void:
-		if _body.global_position.x < _side_detection_shape.global_position.x - get_building_width() / 2.0:
-			_collision.set_collision_layer_bit(4, false)
-		if _body.global_position.x > _side_detection_shape.global_position.x + get_building_width() / 2.0:
-			_collision.set_collision_layer_bit(4, false)
+	if _body.global_position.x < _side_detection_shape.global_position.x - get_building_width() / 2.0:
+		_collision.set_collision_layer_bit(4, false)
+	if _body.global_position.x > _side_detection_shape.global_position.x + get_building_width() / 2.0:
+		_collision.set_collision_layer_bit(4, false)
 
 func _on_side_detect_area_body_exited(_body : Node2D) -> void:
 	_collision.set_collision_layer_bit(4, true)

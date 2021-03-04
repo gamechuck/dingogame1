@@ -4,13 +4,13 @@
 [ext_resource path="res://assets/Graphics/Player/dingo_run.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5, 1 )
+extents = Vector2( 4, 1 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10.3355, 6.25373 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 9.71046, 2.50373 )
+extents = Vector2( 6.86149, 5.454 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "Bark"
@@ -2053,7 +2053,7 @@ input_pickable = true
 collision_layer = 4
 collision_mask = 2147484696
 mode = 2
-continuous_cd = 2
+continuous_cd = 1
 contact_monitor = true
 can_sleep = false
 script = ExtResource( 1 )
