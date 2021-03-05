@@ -14,8 +14,8 @@
 	},
 	"player": 
 	 {
-		"walk_speed": 77.0, // No need to explain
-		"run_speed": 155.0,  // As well
+		"walk_speed": 66.0, // No need to explain
+		"run_speed": 122.0,  // As well
 		"speed_boost_duration": 5.0,
 		"jump_speed": 155.0, // Jump speed which player has when first time starting to wind up jump speed
 		"jump_downforce": 7.0, // Force which is added to player in down direction when jumps, drops or falls from platform
@@ -73,11 +73,11 @@
 				"starting_x":-90,
 				"offset_random_delta": [17, 25],		
 				"interactable_delta_random": [2, 3, 4],
-				"thieves_delta_random": [1, 2, 3],
+				"thieves_delta_random": [2, 3],
 				"power_ups_delta_random": [12],
 				"props_data": {
-					"prop_scenes": ["solar_panel"],				
-					"prop_delta_random": [2, 3],
+					"prop_scenes": ["solar_panel", "billboard"],				
+					"prop_delta_random": [1, 2, 3],
 					"is_on_ground": false
 			   },
 				"building_textures": [	

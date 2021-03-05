@@ -111,6 +111,8 @@ func _interact():
 	if not _jumped and not _falling_down:# and not _falling_down:
 		if not _interacting and Input.is_action_just_pressed("interact"):
 			for body in _overlapping_bodies:
+				if body is classPowerUp or body.owner is classPowerUp:
+					continue
 				if body.owner.interactable:
 					body.owner.interact(self)
 					_animator.play("Bark")

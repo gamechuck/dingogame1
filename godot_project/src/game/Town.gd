@@ -12,7 +12,9 @@ const SCENE_THIEF := preload("res://src/game/Thief.tscn")
 const SCENE_LIGHT_POLE := preload("res://src/game/props/LightPole.tscn")
 const SCENE_WINDMILL  := preload("res://src/game/props/Windmill.tscn")
 const SCENE_SOLAR_PANEL := preload("res://src/game/props/SolarPanel.tscn")
+const SCENE_BILLBOARD :=  preload("res://src/game/props/Billboard.tscn")
 const SCENE_POWER_UP := preload("res://src/game/PowerUp.tscn")
+
 
 ################################################################################
 ## PRIVATE VARIABLES
@@ -48,7 +50,8 @@ var _prop_layers := []
 var _props_dict := {
 	"light_pole": SCENE_LIGHT_POLE,
 	"windmill": SCENE_WINDMILL,
-	"solar_panel": SCENE_SOLAR_PANEL
+	"solar_panel": SCENE_SOLAR_PANEL,
+	"billboard": SCENE_BILLBOARD
 }
 
 var _player : classPlayer
