@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/game/interactables/Trafo.gd" type="Script" id=1]
 [ext_resource path="res://assets/Graphics/Map/power_station.png" type="Texture" id=2]
 [ext_resource path="res://assets/Graphics/Map/power_station_broken.png" type="Texture" id=3]
 [ext_resource path="res://assets/Graphics/Map/lightning_bolt.png" type="Texture" id=4]
+[ext_resource path="res://assets/Graphics/Map/cloud.png" type="Texture" id=5]
 
 [sub_resource type="ParticlesMaterial" id=1]
 flag_disable_z = true
@@ -27,7 +28,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 194.121, 133.387 )
+extents = Vector2( 170.073, 83.6448 )
 
 [sub_resource type="Animation" id=4]
 length = 0.5
@@ -146,13 +147,44 @@ tracks/3/keys = {
 "values": [ "default" ]
 }
 
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.0444444, 0.740741, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
+
+[sub_resource type="Curve" id=8]
+min_value = 0.3
+max_value = 1.2
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.658228, 0.795 ), -0.948, -0.948, 0, 0, Vector2( 0.85443, 0.484091 ), 0.364615, 0.364615, 0, 0, Vector2( 1, 0.360341 ), -1.66208, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+lifetime_randomness = 0.33
+emission_shape = 1
+emission_sphere_radius = 100.0
+flag_disable_z = true
+direction = Vector3( 1, 1, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 80.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_random = 1.0
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 7 )
+hue_variation = -0.05
+hue_variation_random = 0.44
+
 [node name="Trafo" type="Node2D"]
 position = Vector2( -0.944939, 0.31498 )
 scale = Vector2( 0.08, 0.08 )
 script = ExtResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
-visible = false
 position = Vector2( 10.0231, -157.504 )
 scale = Vector2( 0.2, 0.2 )
 amount = 12
@@ -163,6 +195,7 @@ texture = ExtResource( 4 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
+animation = "broken"
 offset = Vector2( 0, -113 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
@@ -171,10 +204,26 @@ collision_layer = 64
 collision_mask = 2147483648
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 28.2754, -58.6694 )
+position = Vector2( 23.3148, -36.3466 )
+scale = Vector2( 1.10494, 0.94194 )
 shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Broken"
 anims/Broken = SubResource( 4 )
 anims/Idle = SubResource( 5 )
+
+[node name="FixParticles2D" type="Particles2D" parent="."]
+position = Vector2( 22.7731, -145.804 )
+scale = Vector2( 1.6, 1.6 )
+z_index = 2
+z_as_relative = false
+emitting = false
+amount = 64
+lifetime = 2.0
+one_shot = true
+speed_scale = 2.0
+randomness = 1.0
+draw_order = 1
+process_material = SubResource( 10 )
+texture = ExtResource( 5 )

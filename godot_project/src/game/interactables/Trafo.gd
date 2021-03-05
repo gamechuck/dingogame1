@@ -14,8 +14,9 @@ var is_being_fixed := false
 var is_fixed := false
 
 ################################################################################
-## PUBLIC VARIABLES
+## PRIVATE VARIABLES
 onready var _animator = $AnimationPlayer
+onready var _fixing_particle = $FixParticles2D
 
 ################################################################################
 ## GODOT CALLBACKS
@@ -29,7 +30,7 @@ func _ready():
 ################################################################################
 ## PUBLIC FUNCTIONS
 func interact(_interactor : Node2D) -> void:
-	_fix(_interactor)
+	_fix()
 
 
 ################################################################################
@@ -37,10 +38,11 @@ func interact(_interactor : Node2D) -> void:
 func _set_data() -> void:
 	pass
 
-func _fix(_interactor : classPlayer) -> void:
+func _fix() -> void:
 	is_being_fixed = true
 	interactable = false
 	_animator.play("Idle")
+	_fixing_particle.restart()
 	emit_signal("trafo_fixed")
 
 

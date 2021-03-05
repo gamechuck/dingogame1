@@ -114,8 +114,11 @@ func _interact():
 				if body is classPowerUp or body.owner is classPowerUp:
 					continue
 				if body.owner.interactable:
+					if body is classTrafo:
+						_animator.play("Idle")
+					else:
+						_animator.play("Bark")
 					body.owner.interact(self)
-					_animator.play("Bark")
 					_interacting = true
 					_jump_start = global_position
 
@@ -223,7 +226,7 @@ func _on_building_ledge_exited(_body : Node2D) -> void:
 		#_animator.play("Jump")
 
 func _on_animation_finished(value : String) -> void:
-	if value == "Bark":
+	if value == "Bark" or value == "Idle":
 		_interacting = false
 
 func _on_speed_booster_timer_timeout() -> void:
