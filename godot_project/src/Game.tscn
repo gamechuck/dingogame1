@@ -148,6 +148,231 @@ margin_bottom = 31.0
 custom_fonts/font = SubResource( 7 )
 text = "PLAYER NAME 01"
 
+[node name="HBoxContainer02" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
+margin_right = 367.0
+margin_bottom = 31.0
+
+[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer02"]
+margin_right = 177.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer02"]
+margin_left = 181.0
+margin_top = 15.0
+margin_right = 186.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 8 )
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer02"]
+margin_left = 190.0
+margin_right = 367.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HBoxContainer03" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
+margin_right = 367.0
+margin_bottom = 31.0
+
+[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer03"]
+margin_right = 177.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer03"]
+margin_left = 181.0
+margin_top = 15.0
+margin_right = 186.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 8 )
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer03"]
+margin_left = 190.0
+margin_right = 367.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HBoxContainer04" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
+margin_right = 367.0
+margin_bottom = 31.0
+
+[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer04"]
+margin_right = 177.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer04"]
+margin_left = 181.0
+margin_top = 15.0
+margin_right = 186.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 8 )
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer04"]
+margin_left = 190.0
+margin_right = 367.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HBoxContainer05" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
+margin_right = 367.0
+margin_bottom = 31.0
+
+[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer05"]
+margin_right = 177.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer05"]
+margin_left = 181.0
+margin_top = 15.0
+margin_right = 186.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 8 )
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer05"]
+margin_left = 190.0
+margin_right = 367.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HBoxContainer06" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
+margin_right = 367.0
+margin_bottom = 31.0
+
+[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer06"]
+margin_right = 177.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer06"]
+margin_left = 181.0
+margin_top = 15.0
+margin_right = 186.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 8 )
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer06"]
+margin_left = 190.0
+margin_right = 367.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HBoxContainer07" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
+margin_right = 367.0
+margin_bottom = 31.0
+
+[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer07"]
+margin_right = 177.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer07"]
+margin_left = 181.0
+margin_top = 15.0
+margin_right = 186.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 8 )
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer07"]
+margin_left = 190.0
+margin_right = 367.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HBoxContainer08" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
+margin_right = 367.0
+margin_bottom = 31.0
+
+[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer08"]
+margin_right = 177.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer08"]
+margin_left = 181.0
+margin_top = 15.0
+margin_right = 186.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 8 )
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer08"]
+margin_left = 190.0
+margin_right = 367.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HBoxContainer09" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
+margin_right = 367.0
+margin_bottom = 31.0
+
+[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer09"]
+margin_right = 177.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer09"]
+margin_left = 181.0
+margin_top = 15.0
+margin_right = 186.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 8 )
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer09"]
+margin_left = 190.0
+margin_right = 367.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
+margin_right = 367.0
+margin_bottom = 31.0
+
+[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer10"]
+margin_right = 177.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
+[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer10"]
+margin_left = 181.0
+margin_top = 15.0
+margin_right = 186.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 8 )
+text = "  :  "
+
+[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer10"]
+margin_left = 190.0
+margin_right = 367.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 7 )
+text = "PLAYER NAME 01"
+
 [node name="Spacer3" type="VBoxContainer" parent="UI/EndGamePanel"]
 margin_top = 798.0
 margin_right = 1923.0

@@ -88,7 +88,6 @@ _global_script_class_icons={
 
 config/name="Dingo"
 run/main_scene="res://src/Menu.tscn"
-config/icon="res://assets/textures/ndh_icon.png"
 
 [autoload]
 
