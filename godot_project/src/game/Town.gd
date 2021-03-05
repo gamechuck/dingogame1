@@ -12,7 +12,7 @@ const SCENE_THIEF := preload("res://src/game/Thief.tscn")
 const SCENE_LIGHT_POLE := preload("res://src/game/props/LightPole.tscn")
 const SCENE_WINDMILL  := preload("res://src/game/props/Windmill.tscn")
 const SCENE_SOLAR_PANEL := preload("res://src/game/props/SolarPanel.tscn")
-
+const SCENE_POWER_UP := preload("res://src/game/PowerUp.tscn")
 
 ################################################################################
 ## PRIVATE VARIABLES
@@ -20,6 +20,7 @@ onready var _buildings_root := $Objects/Buildings
 onready var _players_root := $Objects/Players
 onready var _npcs_root := $Objects/NPCs
 onready var _interactables_root := $Objects/Interactables
+onready var _power_ups_root := $Objects/PowerUps
 onready var _props_root  := $Objects/Props
 onready var _player_spawn_point := $Misc/PlayerSpawnPoint
 onready var _camera := $PlayerCamera2D
@@ -41,6 +42,7 @@ var _can_update_parallax := true
 var _interactables_layers := []
 # NPCS STUFF
 var _npc_layers := []
+var _power_ups_layers := []
 # PROP STUFF
 var _prop_layers := []
 var _props_dict := {
@@ -78,6 +80,7 @@ func _process(delta):
 		_move_interactable_layers(delta)
 		_move_npcs_layers(delta)
 		_move_props_layers(delta)
+		_move_power_ups_layers(delta)
 
 
 ################################################################################
@@ -138,6 +141,11 @@ func _spawn_player() -> void:
 	_player.connect("direction_update", self, "_on_player_direction_update")
 
 func _spawn_interactables() -> void:
+	_spawn_trafos()
+	_spawn_thieves()
+	_spawn_power_ups()
+
+func _spawn_trafos() -> void:
 	# Go through each bulding layer and get each building from it
 	for j in _building_layers.size():
 		# Create new layer node as parent for interactables of this layer
@@ -165,6 +173,7 @@ func _spawn_interactables() -> void:
 				trafo.connect("trafo_fixed", self, "_on_trafo_fixed")
 				_buildings_with_trafos.append(building)
 
+func _spawn_thieves() -> void:
 	for j in _building_layers.size():
 		# Create new layer node as parent for interactables of this layer
 		var npc_layer = Node2D.new()
@@ -192,6 +201,34 @@ func _spawn_interactables() -> void:
 				npc_layer.add_child(thief)
 				thief.global_position = building.global_position + Vector2(-10.0, -building.get_building_height())
 				thief.connect("thief_handled", self, "_on_thief_handled")
+
+func _spawn_power_ups() -> void:
+	for j in _building_layers.size():
+		# Create new layer node as parent for interactables of this layer
+		var power_up_layer = Node2D.new()
+		# Set name, z_index and add it to interactables root parent
+		_power_ups_root.add_child(power_up_layer)
+		power_up_layer.z_index = _building_layers[j].z_index
+		power_up_layer.name = "PowerUpLayer=" + str(power_up_layer.z_index)
+		# Here we get data from about offsets for interactable spawning
+		_power_ups_layers.append(power_up_layer)
+		# Get data from json about spawning frequency for interactables
+		var offsets_array = _building_layers_data[j].get("power_ups_delta_random", [])
+		# If it is empty, it means we don't want interactables to be spawned in this layer
+		if not offsets_array or offsets_array.size() == 0:
+			continue
+		# We get random offset from array
+		var spawn_offset : int = offsets_array[rand_range(0, offsets_array.size())]
+		for i in _building_layers[j].get_children().size():
+			# If i divided by offset is divisible, we spawn interactable
+			if i > 0 and i % spawn_offset == 0:
+				var building = _building_layers[j].get_child(i)
+				# Check if we already spawned trafo on this building, if not thief can't be spawned
+				if not _buildings_with_trafos.has(building):
+					continue
+				var power_up = SCENE_POWER_UP.instance()
+				power_up_layer.add_child(power_up)
+				power_up.global_position = building.global_position + Vector2(-10.0, -building.get_building_height() + rand_range(-50, 0))
 
 func _spawn_props() -> void:
 	for j in _building_layers.size():
@@ -233,7 +270,6 @@ func _spawn_props() -> void:
 				else:
 					prop.global_position = building.global_position + Vector2(0, -building.get_building_height())
 
-
 #PARALLAX STUFF
 func _move_building_layers(delta : float) -> void:
 	for i in _building_layers.size():
@@ -245,16 +281,20 @@ func _move_interactable_layers(delta : float) -> void:
 		var layer_parallax_speed = _building_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta
 		_interactables_layers[i].global_position.x += layer_parallax_speed
 
-func _move_props_layers(delta : float) -> void:
-	for i in _prop_layers.size():
-		var layer_parallax_speed = _building_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta
-		_prop_layers[i].global_position.x += layer_parallax_speed
-
 func _move_npcs_layers(delta : float) -> void:
 	for i in _npc_layers.size():
 		var layer_parallax_speed = _building_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta
 		_npc_layers[i].global_position.x += layer_parallax_speed
 
+func _move_props_layers(delta : float) -> void:
+	for i in _prop_layers.size():
+		var layer_parallax_speed = _building_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta
+		_prop_layers[i].global_position.x += layer_parallax_speed
+
+func _move_power_ups_layers(delta : float) -> void:
+	for i in _power_ups_layers.size():
+		var layer_parallax_speed = _building_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta
+		_power_ups_layers[i].global_position.x += layer_parallax_speed
 
 ################################################################################
 ## SIGNAL CALLBACKS

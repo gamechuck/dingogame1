@@ -81,6 +81,13 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="PowerUps" type="Node2D" parent="Objects"]
+use_parent_material = true
+z_index = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="Props" type="Node2D" parent="Objects"]
 use_parent_material = true
 __meta__ = {
