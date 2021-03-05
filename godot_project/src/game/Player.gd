@@ -35,7 +35,6 @@ var _jump_max_distance = 0.0
 # INTERNAL CACHED VARS
 var _interacting := false
 var _movement_speed = 0.0
-var _dropped := false
 var _falling_down := false
 var _jumped := false
 var _jump_start := Vector2.ZERO
@@ -98,13 +97,17 @@ func get_width() -> float:
 func _move() -> void:
 	if _interacting:
 		return
+	var speed = _movement_speed
+	if _falling_down or _jumped:
+			speed *= 0.8
 	if Input.is_action_pressed("move_left"):
 		linear_velocity.x = 0
-		apply_central_impulse(Vector2.LEFT * _movement_speed)
+
+		apply_central_impulse(Vector2.LEFT * speed)
 		emit_signal("direction_update", Vector2.LEFT)
 	if Input.is_action_pressed("move_right"):
 		linear_velocity.x = 0
-		apply_central_impulse(Vector2.RIGHT * _movement_speed)
+		apply_central_impulse(Vector2.RIGHT * speed)
 		emit_signal("direction_update", Vector2.RIGHT)
 
 func _interact():
