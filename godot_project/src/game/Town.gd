@@ -8,6 +8,7 @@ const SCENE_PLAYER := preload("res://src/game/Player.tscn")
 const SCENE_BUILDING := preload("res://src/game/Building.tscn")
 const SCENE_TRAFO := preload("res://src/game/interactables/Trafo.tscn")
 const SCENE_THIEF := preload("res://src/game/Thief.tscn")
+# PROPS SCENES
 
 
 ################################################################################
