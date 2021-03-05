@@ -5,6 +5,7 @@ extends Button
 const TEXTURE_ENTER := preload("res://assets/textures/keyboard/GCA_UI_key_return.png")
 const TEXTURE_SHIFT := preload("res://assets/textures/keyboard/GCA_UI_key_shift.png")
 const TEXTURE_SPACE := preload("res://assets/textures/keyboard/GCA_UI_key_spacebar.png")
+const TEXTURE_BACKSPACE = TEXTURE_ENTER
 
 const TEXT_COLOR_NORMAL := Color.black
 const TEXT_COLOR_PRESSED := Color(0.25098, 0.25098, 0.25098)
@@ -46,6 +47,9 @@ func set_type(v : int) -> void:
 			TYPE.SPACE:
 				_text.visible = false
 				_texture.texture = TEXTURE_SPACE
+			TYPE.BACKSPACE:
+				_text.visible = false
+				_texture.texture = TEXTURE_BACKSPACE
 
 var mode : int = MODE.MAIN setget set_mode
 func set_mode(v : int) -> void:

@@ -417,6 +417,12 @@
 							"main": "=",
 							"alt": "",
 							"shift": "+"
+						},						
+						{
+							"type": "backspace",
+							"main": "",
+							"alt": "",
+							"shift": ""
 						}
 					]
 				},

@@ -84,6 +84,9 @@ func build_from_layout_data(layout_data : Dictionary) -> void:
 				"enter":
 					key.type = KeyboardKey.TYPE.ENTER
 					key.set_main(key_data["main"])
+				"backspace":
+					key.type = KeyboardKey.TYPE.BACKSPACE
+					key.set_main(key_data["main"])
 
 			# key size
 			var width_factor : int = key_data.get("width_factor", 1)
