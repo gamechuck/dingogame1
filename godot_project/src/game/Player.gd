@@ -21,7 +21,7 @@ onready var _interactablesArea2D := $InteractablesArea2D
 onready var _buildingArea2D := $BuilidingArea2D
 onready var _body_root := $BodyRoot
 onready var _animator := $BodyRoot/AnimationPlayer
-
+onready var _speed_boost_timer = $SpeedBostTimer
 
 # EXTERNAL DATA
 var _downforce = 0.0
@@ -37,10 +37,10 @@ var _interacting := false
 var _movement_speed = 0.0
 var _dropped := false
 var _falling_down := false
-var _upforce = 1.0
-var _vertical_speed = 0.0
 var _jumped := false
 var _jump_start := Vector2.ZERO
+var _vertical_speed = 0.0
+var _upforce = 1.0
 
 # COLLIDED INTERACTABLES
 var _overlapping_bodies := []
@@ -58,6 +58,7 @@ func _ready() -> void:
 	_buildingArea2D.connect("body_entered", self, "_on_building_ledge_entered")
 	_buildingArea2D.connect("body_exited", self, "_on_building_ledge_exited")
 	_animator.connect("animation_finished", self, "_on_animation_finished")
+	_speed_boost_timer.connect("timeout", self, "_on_speed_booster_timer_timeout")
 	controllable = true
 
 func _physics_process(_delta : float) -> void:
@@ -65,7 +66,6 @@ func _physics_process(_delta : float) -> void:
 		_interact()
 		_update_is_moving()
 		_update_look_direction()
-		_update_movement_speed()
 		_move()
 		_update_jump_and_drop()
 
@@ -81,6 +81,7 @@ func setup_data(data : Dictionary) -> void:
 	_downforce = data.get("jump_downforce")
 	_movement_speed = _walk_speed
 	_vertical_speed = _jump_speed
+	_speed_boost_timer.wait_time = data.get("speed_boost_duration")
 	gravity_scale = _downforce
 	set_collision_mask_bit(4, true)
 
@@ -116,7 +117,6 @@ func _interact():
 					_interacting = true
 					_jump_start = global_position
 
-
 func _update_jump_and_drop() -> void:
 	if _interacting:
 		return
@@ -139,12 +139,6 @@ func _update_jump_and_drop() -> void:
 	if _falling_down:
 		if  linear_velocity.y == 0:
 			_reset_drop()
-
-func _update_movement_speed():
-	if Input.is_action_just_pressed("sprint"):
-		_movement_speed = _run_speed
-	if Input.is_action_just_released("sprint"):
-		_movement_speed = _walk_speed
 
 func _update_is_moving():
 	if _interacting:
@@ -201,9 +195,16 @@ func _set_active_building_collision(value : bool) -> void:
 ################################################################################
 ## SIGNAL CALLBACKS
 func _on_interactable_body_entered(_body : Node2D) -> void:
+	if _body is classPowerUp:
+		_movement_speed = _run_speed
+		_speed_boost_timer.start()
+		_body.hide()
+		return
 	_overlapping_bodies = _interactablesArea2D.get_overlapping_bodies()
 
 func _on_interactable_body_exited(_body : Node2D) -> void:
+	if _body is classPowerUp:
+		return
 	if _overlapping_bodies.has(_body):
 		_overlapping_bodies.erase(_body)
 
@@ -222,3 +223,6 @@ func _on_building_ledge_exited(_body : Node2D) -> void:
 func _on_animation_finished(value : String) -> void:
 	if value == "Bark":
 		_interacting = false
+
+func _on_speed_booster_timer_timeout() -> void:
+	_movement_speed = _walk_speed

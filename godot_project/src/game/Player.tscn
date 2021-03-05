@@ -2291,3 +2291,7 @@ anims/Bark = SubResource( 4 )
 anims/Idle = SubResource( 5 )
 anims/Jump = SubResource( 6 )
 anims/Run = SubResource( 7 )
+
+[node name="SpeedBostTimer" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true

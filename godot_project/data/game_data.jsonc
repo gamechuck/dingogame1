@@ -15,7 +15,8 @@
 	"player": 
 	 {
 		"walk_speed": 77.0, // No need to explain
-		"run_speed": 77.0,  // As well
+		"run_speed": 155.0,  // As well
+		"speed_boost_duration": 5.0,
 		"jump_speed": 155.0, // Jump speed which player has when first time starting to wind up jump speed
 		"jump_downforce": 7.0, // Force which is added to player in down direction when jumps, drops or falls from platform
 		"jump_min_distance": 11.0,
