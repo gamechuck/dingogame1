@@ -231,7 +231,7 @@ func _spawn_power_ups() -> void:
 					continue
 				var power_up = SCENE_POWER_UP.instance()
 				power_up_layer.add_child(power_up)
-				power_up.global_position = building.global_position + Vector2(-10.0, -building.get_building_height() + rand_range(-50, 0))
+				power_up.global_position = building.global_position + Vector2(-10.0, -building.get_building_height() + rand_range(-60, -30))
 
 func _spawn_props() -> void:
 	for j in _building_layers.size():
