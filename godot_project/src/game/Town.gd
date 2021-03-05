@@ -172,8 +172,8 @@ func _spawn_interactables() -> void:
 			# If i divided by offset is divisible, we spawn interactable
 			if i > 0 and i % spawn_offset == 0:
 				var building = _building_layers[j].get_child(i)
-				# Check if we already spawned trafo on this building
-				if _buildings_with_trafos.has(building):
+				# Check if we already spawned trafo on this building, if not thief can't be spawned
+				if not _buildings_with_trafos.has(building):
 					continue
 				var thief = SCENE_THIEF.instance()
 				npc_layer.add_child(thief)
