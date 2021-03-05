@@ -50,8 +50,8 @@
 				"batch_amount": 222,
 				"starting_x":-90,
 				"offset_random_delta": [17, 25],		
-				"interactable_delta_random": [3, 4 ,5],
-				"thieves_delta_random": [6, 7, 8],
+				"interactable_delta_random": [1, 2, 3, 4],
+				"thieves_delta_random": [1, 2, 3],
 				"textures": [	
 					"back_building_1",
 					"back_building_2",					
@@ -71,8 +71,8 @@
 				"batch_amount": 222,
 				"starting_x":-20,
 				"offset_random_delta": [17, 25],
-				"interactable_delta_random": [4],
-				"thieves_delta_random": [2],
+				"interactable_delta_random": [1, 2, 3, 4],
+				"thieves_delta_random": [1, 2, 3],
 				"textures": [
 					"building_1",
 					"building_2",
