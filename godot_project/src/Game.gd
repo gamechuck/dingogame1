@@ -15,7 +15,8 @@ const SCENE_TOWN := preload("res://src/game/Town.tscn")
 ## PRIVATE VARIABLES
 onready var _game_timer := $Timer
 # UI STUFF
-onready var _ui_root := $UI/EndGamePanel
+onready var _end_game_panel := $UI/EndGamePanel
+onready var _background := $UI/Background
 onready var _viewport := $ViewportContainer
 
 onready var _score_value := $UI/EndGamePanel/Highscore/ScoreValue
@@ -41,7 +42,8 @@ func _ready():
 	_spawn_town()
 	_game_timer.wait_time = Flow.game_data.get("duration", 60.0)
 	_game_timer.start()
-	_ui_root.hide()
+	_end_game_panel.hide()
+	_background.hide()
 	_game_timer.connect("timeout", self, "_on_game_timer_timeout")
 	_button_submit.connect("pressed", self, "_on_highscore_input_submit_button_pressed")
 	_button_restart.connect("pressed", self, "_on_restart_button_pressed")
@@ -86,8 +88,8 @@ func _finish_game() -> void:
 		_highscore_list.show()
 		_buttons.show()
 
-	# Display end game UI
-	_ui_root.show()
+	_background.show()
+	_end_game_panel.show()
 	_viewport.hide()
 
 func _update_highscore_list() -> void:

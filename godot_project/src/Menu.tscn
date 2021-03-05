@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Menu.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://assets/Graphics/MainMenu/Main_menu.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 22
+font_data = SubResource( 1 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -12,7 +20,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Background" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="StartButton" type="Button" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -29,6 +47,7 @@ __meta__ = {
 }
 
 [node name="QuitButton" type="Button" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -44,38 +63,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HighscorePanel" type="Panel" parent="."]
-visible = false
-anchor_left = 0.5
+[node name="Label" type="Label" parent="."]
 anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -89.0
-margin_top = -314.0
-margin_right = 83.0
-margin_bottom = -244.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HighscorePanel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+margin_top = -53.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 2 )
+text = "Press anz key to continue!
+"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Title" type="Label" parent="HighscorePanel/HBoxContainer"]
-margin_top = 28.0
-margin_right = 88.0
-margin_bottom = 42.0
-text = "  HIGHSCORE:"
-
-[node name="Value" type="Label" parent="HighscorePanel/HBoxContainer"]
-margin_left = 92.0
-margin_top = 28.0
-margin_right = 108.0
-margin_bottom = 42.0
-text = "50"

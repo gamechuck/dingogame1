@@ -20,6 +20,15 @@
             ]
         },
         {
+            "action": "exit_game",
+            "events": [
+                {
+                    "scancode": "Q",
+                    "control": true
+                }
+            ]
+        },
+        {
             "action": "reload_scene",
             "events": [
                 {
