@@ -15,20 +15,20 @@ const SCENE_TOWN := preload("res://src/game/Town.tscn")
 ## PRIVATE VARIABLES
 onready var _game_timer := $Timer
 # UI STUFF
-onready var _ui_root := $UI/VBoxContainer
+onready var _ui_root := $UI/EndGamePanel
 onready var _viewport := $ViewportContainer
 
-onready var _score_value := $UI/VBoxContainer/Highscore/ScoreValue
-onready var _buttons := $UI/VBoxContainer/Buttons
-onready var _button_restart := $UI/VBoxContainer/Buttons/ButtonRestart
-onready var _button_main_menu := $UI/VBoxContainer/Buttons/ButtonMainMenu
+onready var _score_value := $UI/EndGamePanel/Highscore/ScoreValue
+onready var _buttons := $UI/EndGamePanel/Buttons
+onready var _button_restart := $UI/EndGamePanel/Buttons/ButtonRestart
+onready var _button_main_menu := $UI/EndGamePanel/Buttons/ButtonMainMenu
 
-onready var _highscore_list := $UI/VBoxContainer/HighscoreList
+onready var _highscore_list := $UI/EndGamePanel/HighscoreList
 onready var _highscore_labels := _highscore_list.get_children()
 
-onready var _highscore_input_UI := $UI/VBoxContainer/HighscoreInput
-onready var _name_input_label := $UI/VBoxContainer/HighscoreInput/NameInputLabel
-onready var _button_submit := $UI/VBoxContainer/HighscoreInput/ButtonSubmit
+onready var _highscore_input_UI := $UI/EndGamePanel/HighscoreInput
+onready var _name_input_label := $UI/EndGamePanel/HighscoreInput/NameInputLabel
+onready var _button_submit := $UI/EndGamePanel/HighscoreInput/ButtonSubmit
 
 
 
