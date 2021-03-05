@@ -29,7 +29,7 @@
 				"should_spawn": true,
 				"collidable": false,
 				"z_index": -4,
-				"y_offset": -88,						
+				"y_offset": -0,						
 				"parallax_speed": 12.0,
 				"batch_amount": 44,
 				"starting_x": -222,
@@ -54,6 +54,7 @@
 				"thieves_delta_random": [],				
 				"props_data": {
 					 "prop_scenes": ["windmill"],
+					 "prop_delta_random": [5, 6, 7],
 					 "is_on_ground": false
 				},
 				"building_textures": [
@@ -74,7 +75,8 @@
 				"interactable_delta_random": [2, 3, 4],
 				"thieves_delta_random": [1, 2, 3],
 				"props_data": {
-					"prop_scenes": ["solar_panel"],
+					"prop_scenes": ["solar_panel"],				
+					"prop_delta_random": [2, 3],
 					"is_on_ground": false
 			   },
 				"building_textures": [	
@@ -100,6 +102,7 @@
 				"thieves_delta_random": [1, 2, 3],				
 				"props_data": {
 					 "prop_scenes": ["light_pole"],
+					 "prop_delta_random": [2],
 					 "is_on_ground": true
 				},
 				"building_textures": [

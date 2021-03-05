@@ -215,19 +215,23 @@ func _spawn_props() -> void:
 			continue
 
 		var is_on_ground = props_data.get("is_on_ground", false)
-
+		var prop_deltas = props_data.get("prop_delta_random", [])
+		var prop_delta : int = 1
 
 		for i in _building_layers[j].get_children().size():
 			var building = _building_layers[j].get_child(i)
-			if _buildings_with_trafos.has(building):
+			if not is_on_ground and _buildings_with_trafos.has(building):
 				continue
-			var prop_scene = _props_dict[prop_scenes_keys[rand_range(0, prop_scenes_keys.size())]]
-			var prop = prop_scene.instance()
-			prop_layer.add_child(prop)
-			if is_on_ground:
-				prop.global_position = building.global_position + Vector2(building.get_building_width () / 2.0 + prop.get_width() / 2.0, 0)
-			else:
-				prop.global_position = building.global_position + Vector2(0, -building.get_building_height())
+			if prop_deltas and prop_deltas.size() > 0:
+				prop_delta = prop_deltas[rand_range(0, prop_deltas.size())]
+			if i % prop_delta == 0:
+				var prop_scene = _props_dict[prop_scenes_keys[rand_range(0, prop_scenes_keys.size())]]
+				var prop = prop_scene.instance()
+				prop_layer.add_child(prop)
+				if is_on_ground:
+					prop.global_position = building.global_position + Vector2(building.get_building_width () / 2.0 + prop.get_width() / 2.0, 0)
+				else:
+					prop.global_position = building.global_position + Vector2(0, -building.get_building_height())
 
 
 #PARALLAX STUFF
