@@ -9,6 +9,9 @@ const SCENE_BUILDING := preload("res://src/game/Building.tscn")
 const SCENE_TRAFO := preload("res://src/game/interactables/Trafo.tscn")
 const SCENE_THIEF := preload("res://src/game/Thief.tscn")
 # PROPS SCENES
+const SCENE_LIGHT_POLE := preload("res://src/game/props/LightPole.tscn")
+const SCENE_WINDMILL  := preload("res://src/game/props/Windmill.tscn")
+const SCENE_SOLAR_PANEL := preload("res://src/game/props/SolarPanel.tscn")
 
 
 ################################################################################
@@ -38,8 +41,15 @@ var _can_update_parallax := true
 var _interactables_layers := []
 # NPCS STUFF
 var _npc_layers := []
-var _player : classPlayer
+# PROP STUFF
+var _prop_layers := []
+var _props_dict := {
+	"light_pole": SCENE_LIGHT_POLE,
+	"windmill": SCENE_WINDMILL,
+	"solar_panel": SCENE_SOLAR_PANEL,
+}
 
+var _player : classPlayer
 
 ################################################################################
 ## PROPERTY VARIABLES
@@ -107,7 +117,7 @@ func _spawn_buildings() -> void:
 
 		for j in _building_batch_amount:
 			var collidable : bool = layer_data.get("collidable", true)
-			var textures = layer_data.get("textures", [])
+			var textures = layer_data.get("building_textures", [])
 			var random_texture : Texture = load("res://assets/Graphics/Map/" + textures[rand_range(0, textures.size())] + ".png")
 			var offset := Vector2(rand_range(_building_offset_random_delta[0], _building_offset_random_delta[1]), y_offset)
 			var building := SCENE_BUILDING.instance()
@@ -182,7 +192,42 @@ func _spawn_interactables() -> void:
 				thief.connect("thief_handled", self, "_on_thief_handled")
 
 func _spawn_props() -> void:
-	pass
+
+	for j in _building_layers.size():
+		# Create new layer node as parent for interactables of this layer
+		var prop_layer = Node2D.new()
+		var props_data = _building_layers_data[j].get("props_data", {})
+
+		if not props_data or props_data.empty():
+			continue
+
+		var prop_scenes_keys = props_data.get("prop_scenes")
+
+		if not prop_scenes_keys or prop_scenes_keys.empty():
+			continue
+
+		var is_on_ground = props_data.get("is_on_ground", false)
+
+		# Set name, z_index and add it to interactables root parent
+		_props_root.add_child(prop_layer)
+		prop_layer.z_index = _building_layers[j].z_index
+		prop_layer.name = "PropLayer=" + str(prop_layer.z_index)
+		# Here we get data from about offsets for interactable spawning
+		_prop_layers.append(prop_layer)
+
+		for i in _building_layers[j].get_children().size():
+			var building = _building_layers[j].get_child(i)
+			var prop_scene = _props_dict[prop_scenes_keys[rand_range(0, prop_scenes_keys.size())]]
+			var prop = prop_scene.instance()
+			prop_layer.add_child(prop)
+			if is_on_ground:
+				prop.global_position = building.global_position + Vector2(building.get_width() / 2.0 + prop.get_width() / 2.0, building.global_position.y)
+			else:
+				if _buildings_with_trafos.has(building):
+					continue
+				else:
+					prop.global_position = building.global_position + Vector2(0, -building.get_building_height())
+
 
 #PARALLAX STUFF
 func _move_building_layers(delta : float) -> void:

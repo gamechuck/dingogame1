@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/Graphics/Map/wind_turbone_pole.png" type="Texture" id=1]
 [ext_resource path="res://assets/Graphics/Map/wind_turbone_fan.png" type="Texture" id=2]
+[ext_resource path="res://src/game/props/Prop.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 22.8739, 41.988 )
 
 [node name="Windmill" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="Pole" type="Sprite" parent="."]
 position = Vector2( 0, -30.3248 )
@@ -14,3 +19,7 @@ texture = ExtResource( 1 )
 position = Vector2( 3.86493, -62.2847 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 2.94315, -43.3062 )
+shape = SubResource( 1 )

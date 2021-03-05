@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/game/Player.gd"
 }, {
+"base": "Node2D",
+"class": "classProp",
+"language": "GDScript",
+"path": "res://src/game/props/Prop.gd"
+}, {
 "base": "classInteractable",
 "class": "classThief",
 "language": "GDScript",
@@ -73,6 +78,7 @@ _global_script_class_icons={
 "classInteractable": "",
 "classItem": "",
 "classPlayer": "",
+"classProp": "",
 "classThief": "",
 "classTown": "",
 "classTrafo": ""
@@ -91,7 +97,6 @@ ConfigData="*res://src/autoload/ConfigData.tscn"
 Flow="*res://src/autoload/Flow.tscn"
 State="*res://src/autoload/State.tscn"
 AudioEngine="*res://src/autoload/AudioEngine.tscn"
-Logger="*res://src/autoload/Logger.gd"
 KeyboardBackend="*res://src/autoload/KeyboardBackend.tscn"
 
 [debug]

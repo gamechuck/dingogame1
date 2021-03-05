@@ -69,12 +69,6 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Players" type="Node2D" parent="Objects"]
-use_parent_material = true
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="NPCs" type="Node2D" parent="Objects"]
 use_parent_material = true
 __meta__ = {
@@ -89,6 +83,13 @@ __meta__ = {
 
 [node name="Props" type="Node2D" parent="Objects"]
 use_parent_material = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Players" type="Node2D" parent="Objects"]
+use_parent_material = true
+z_index = 1
 __meta__ = {
 "_edit_lock_": true
 }

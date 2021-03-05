@@ -115,7 +115,7 @@ func _interact():
 					_animator.play("Bark")
 					_interacting = true
 					_jump_start = global_position
-					break
+
 
 func _update_jump_and_drop(delta : float) -> void:
 	if _interacting:
@@ -128,7 +128,7 @@ func _update_jump_and_drop(delta : float) -> void:
 		if not _jumped and Input.is_action_pressed("jump"):
 			_jump_start.y = global_position.y
 			_vertical_speed = _jump_speed
-			_jump(delta)
+			_jump()
 	if _jumped:
 		if (not Input.is_action_pressed("jump") and global_position.y < _jump_start.y - _jump_min_distance) or global_position.y < _jump_start.y - _jump_max_distance:
 			_set_active_building_collision(true)
@@ -176,7 +176,7 @@ func _update_look_direction() -> void:
 	elif linear_velocity.x > 0.1 and _body_root.scale.x < 0:
 		_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
 
-func _jump(delta : float) -> void:
+func _jump() -> void:
 	_animator.play("Jump")
 	gravity_scale = _upforce
 	apply_central_impulse(Vector2.UP * _vertical_speed) # * delta)
