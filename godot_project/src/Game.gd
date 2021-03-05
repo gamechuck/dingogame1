@@ -49,7 +49,7 @@ func _ready():
 	KeyboardBackend.connect("input_buffer_changed", self, "_on_keyboard_input_buffer_changed")
 	_game_finished = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not _game_finished and Input.is_action_just_pressed("toggle_paused"):
 		_buttons.visible = not _buttons.visible
 		_town._player.controllable = not _buttons.visible
