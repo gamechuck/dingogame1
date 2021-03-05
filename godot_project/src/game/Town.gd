@@ -180,6 +180,9 @@ func _spawn_interactables() -> void:
 				thief.global_position = building.global_position + Vector2(-10.0, -building.get_building_height())
 				thief.connect("thief_handled", self, "_on_thief_handled")
 
+func _spawn_props() -> void:
+	pass
+
 #PARALLAX STUFF
 func _move_building_layers(delta : float) -> void:
 	for i in _building_layers.size():
