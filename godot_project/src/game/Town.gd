@@ -38,7 +38,7 @@ var _building_batch_amount := 2
 var _building_start_spawn_position_x = -100
 var _building_offset_random_delta := [0, 50]
 var _building_parallax_direction = 0
-var _buildings_with_trafos := []
+var _buildings_with_trafos := {}
 var _can_update_parallax := true
 # INTERACTABLES STUFF
 var _interactables_layers := []
@@ -172,9 +172,9 @@ func _spawn_trafos() -> void:
 				var building = _building_layers[j].get_child(i)
 				var trafo = SCENE_TRAFO.instance()
 				interactable_layer.add_child(trafo)
-				trafo.global_position = building.global_position + Vector2(10.0, -building.get_building_height())
+				trafo.global_position = building.global_position + Vector2(0, -building.get_building_height())
 				trafo.connect("trafo_fixed", self, "_on_trafo_fixed")
-				_buildings_with_trafos.append(building)
+				_buildings_with_trafos[building] = trafo
 
 func _spawn_thieves() -> void:
 	for j in _building_layers.size():
@@ -200,6 +200,8 @@ func _spawn_thieves() -> void:
 				# Check if we already spawned trafo on this building, if not thief can't be spawned
 				if not _buildings_with_trafos.has(building):
 					continue
+				_buildings_with_trafos[building].make_fixed()
+				_buildings_with_trafos[building].global_position.x += 10.0
 				var thief = SCENE_THIEF.instance()
 				npc_layer.add_child(thief)
 				thief.global_position = building.global_position + Vector2(-10.0, -building.get_building_height())

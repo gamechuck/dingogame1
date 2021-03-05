@@ -32,12 +32,13 @@ func _ready():
 func interact(_interactor : Node2D) -> void:
 	_fix()
 
+func make_fixed() -> void:
+	is_being_fixed = true
+	interactable = false
+	_animator.play("Idle")
 
 ################################################################################
 ## PRIVATE FUNCTIONS
-func _set_data() -> void:
-	pass
-
 func _fix() -> void:
 	is_being_fixed = true
 	interactable = false
