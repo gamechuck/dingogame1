@@ -3,5 +3,5 @@
 [ext_resource path="res://fonts/raw/OpenSans-Regular.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 32
+size = 22
 font_data = ExtResource( 1 )
