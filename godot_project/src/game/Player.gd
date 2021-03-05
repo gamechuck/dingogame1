@@ -67,7 +67,7 @@ func _physics_process(_delta : float) -> void:
 		_update_look_direction()
 		_update_movement_speed()
 		_move()
-		_update_jump_and_drop(_delta)
+		_update_jump_and_drop()
 
 
 ################################################################################
@@ -117,7 +117,7 @@ func _interact():
 					_jump_start = global_position
 
 
-func _update_jump_and_drop(delta : float) -> void:
+func _update_jump_and_drop() -> void:
 	if _interacting:
 		return
 	if Input.is_action_pressed("move_down"):

@@ -46,7 +46,7 @@ var _prop_layers := []
 var _props_dict := {
 	"light_pole": SCENE_LIGHT_POLE,
 	"windmill": SCENE_WINDMILL,
-	"solar_panel": SCENE_SOLAR_PANEL,
+	"solar_panel": SCENE_SOLAR_PANEL
 }
 
 var _player : classPlayer
@@ -69,6 +69,7 @@ func _ready():
 	_spawn_buildings()
 	_spawn_interactables()
 	_spawn_player()
+	_spawn_props()
 	_camera.global_position = Vector2(_player.global_position.x, _camera.global_position.y)
 
 func _process(delta):
@@ -76,6 +77,7 @@ func _process(delta):
 		_move_building_layers(delta)
 		_move_interactable_layers(delta)
 		_move_npcs_layers(delta)
+		_move_props_layers(delta)
 
 
 ################################################################################
@@ -192,11 +194,17 @@ func _spawn_interactables() -> void:
 				thief.connect("thief_handled", self, "_on_thief_handled")
 
 func _spawn_props() -> void:
-
 	for j in _building_layers.size():
 		# Create new layer node as parent for interactables of this layer
 		var prop_layer = Node2D.new()
 		var props_data = _building_layers_data[j].get("props_data", {})
+
+		# Set name, z_index and add it to interactables root parent
+		_props_root.add_child(prop_layer)
+		prop_layer.z_index = _building_layers[j].z_index
+		prop_layer.name = "PropLayer=" + str(prop_layer.z_index)
+		# Here we get data from about offsets for interactable spawning
+		_prop_layers.append(prop_layer)
 
 		if not props_data or props_data.empty():
 			continue
@@ -208,25 +216,18 @@ func _spawn_props() -> void:
 
 		var is_on_ground = props_data.get("is_on_ground", false)
 
-		# Set name, z_index and add it to interactables root parent
-		_props_root.add_child(prop_layer)
-		prop_layer.z_index = _building_layers[j].z_index
-		prop_layer.name = "PropLayer=" + str(prop_layer.z_index)
-		# Here we get data from about offsets for interactable spawning
-		_prop_layers.append(prop_layer)
 
 		for i in _building_layers[j].get_children().size():
 			var building = _building_layers[j].get_child(i)
+			if _buildings_with_trafos.has(building):
+				continue
 			var prop_scene = _props_dict[prop_scenes_keys[rand_range(0, prop_scenes_keys.size())]]
 			var prop = prop_scene.instance()
 			prop_layer.add_child(prop)
 			if is_on_ground:
-				prop.global_position = building.global_position + Vector2(building.get_width() / 2.0 + prop.get_width() / 2.0, building.global_position.y)
+				prop.global_position = building.global_position + Vector2(building.get_building_width () / 2.0 + prop.get_width() / 2.0, 0)
 			else:
-				if _buildings_with_trafos.has(building):
-					continue
-				else:
-					prop.global_position = building.global_position + Vector2(0, -building.get_building_height())
+				prop.global_position = building.global_position + Vector2(0, -building.get_building_height())
 
 
 #PARALLAX STUFF
@@ -239,6 +240,11 @@ func _move_interactable_layers(delta : float) -> void:
 	for i in _interactables_layers.size():
 		var layer_parallax_speed = _building_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta
 		_interactables_layers[i].global_position.x += layer_parallax_speed
+
+func _move_props_layers(delta : float) -> void:
+	for i in _prop_layers.size():
+		var layer_parallax_speed = _building_layers_data[i].get("parallax_speed", 0.0) * _building_parallax_direction * delta
+		_prop_layers[i].global_position.x += layer_parallax_speed
 
 func _move_npcs_layers(delta : float) -> void:
 	for i in _npc_layers.size():

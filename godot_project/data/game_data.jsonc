@@ -25,21 +25,42 @@
 	{
 		"negative": [
 			{
-				"name": "background_skycrapers_3",
+				"name": "background_skycrapers_4",
 				"should_spawn": true,
 				"collidable": false,
-				"z_index": -3,
-				"y_offset": -55,						
+				"z_index": -4,
+				"y_offset": -88,						
+				"parallax_speed": 12.0,
 				"batch_amount": 44,
 				"starting_x": -222,
 				"offset_random_delta": [0, 0],
-				"parallax_speed": 12.0,
 				"interactable_delta_random": [],
 				"thieves_delta_random": [], 
 				"building_textures": [
 					"far_buildings"
 				]
-			}, 
+			},			
+			{
+				"name": "background_buildings_3",
+				"should_spawn": true,
+				"collidable": false,
+				"z_index": -3,
+				"y_offset": 0,
+				"parallax_speed": 24.0,
+				"batch_amount": 222,
+				"starting_x":-120,
+				"offset_random_delta": [5, 11],
+				"interactable_delta_random": [],
+				"thieves_delta_random": [],				
+				"props_data": {
+					 "prop_scenes": ["windmill"],
+					 "is_on_ground": false
+				},
+				"building_textures": [
+					"back_building_1",
+					"back_building_2"
+				]		
+			},
 			{
 				"name": "middle_buildings_2",
 				"should_spawn": true,
@@ -52,6 +73,10 @@
 				"offset_random_delta": [17, 25],		
 				"interactable_delta_random": [2, 3, 4],
 				"thieves_delta_random": [1, 2, 3],
+				"props_data": {
+					"prop_scenes": ["solar_panel"],
+					"is_on_ground": false
+			   },
 				"building_textures": [	
 					"back_building_1",
 					"back_building_2",					
