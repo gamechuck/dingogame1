@@ -148,7 +148,7 @@ func _spawn_interactables() -> void:
 				var building = _building_layers[j].get_child(i)
 				var trafo = SCENE_TRAFO.instance()
 				interactable_layer.add_child(trafo)
-				trafo.global_position = building.global_position - Vector2(0, building.get_building_height())
+				trafo.global_position = building.global_position + Vector2(10.0, -building.get_building_height())
 				trafo.connect("trafo_fixed", self, "_on_trafo_fixed")
 				_buildings_with_trafos.append(building)
 
@@ -177,7 +177,7 @@ func _spawn_interactables() -> void:
 					continue
 				var thief = SCENE_THIEF.instance()
 				npc_layer.add_child(thief)
-				thief.global_position = building.global_position - Vector2(0, building.get_building_height())
+				thief.global_position = building.global_position + Vector2(-10.0, -building.get_building_height())
 				thief.connect("thief_handled", self, "_on_thief_handled")
 
 #PARALLAX STUFF
