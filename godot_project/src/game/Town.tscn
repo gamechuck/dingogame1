@@ -104,11 +104,11 @@ __meta__ = {
 [node name="Misc" type="Node2D" parent="."]
 
 [node name="PlayerSpawnPoint" type="Position2D" parent="Misc"]
-position = Vector2( 156.003, 689.281 )
+position = Vector2( 158.248, 706.088 )
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="PlayerCamera2D" type="Camera2D" parent="."]
-position = Vector2( 156.003, 690.962 )
+position = Vector2( 158.248, 707.768 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
