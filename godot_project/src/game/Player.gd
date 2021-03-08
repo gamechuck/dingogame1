@@ -165,13 +165,17 @@ func _update_is_moving():
 		is_moving = true
 		emit_signal("position_update", global_position)
 
-	if _speed_up:
-		_animator.play("Run powerup")
-	elif not _jumped and not _falling_down:
-		if not is_moving:
-			_animator.play("Idle")
+	if not _jumped and not _falling_down:
+		if _speed_up:
+			if not is_moving:
+				_animator.play("Idle powerup")
+			else:
+				_animator.play("Run powerup")
 		else:
-			_animator.play("Run")
+			if not is_moving:
+				_animator.play("Idle")
+			else:
+				_animator.play("Run")
 
 func _update_ledge_collision() -> void:
 	if _overlapping_buildings.size() > 0:
@@ -179,7 +183,10 @@ func _update_ledge_collision() -> void:
 		gravity_scale = _downforce
 		_falling_down = true
 		_falling_down = true
-		_animator.play("Jump")
+		if not _speed_up:
+			_animator.play("Jump")
+		else:
+			_animator.play("Jump powerup")
 
 func _update_look_direction() -> void:
 	if not is_moving:
@@ -190,7 +197,10 @@ func _update_look_direction() -> void:
 		_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
 
 func _jump() -> void:
-	_animator.play("Jump")
+	if not _speed_up:
+		_animator.play("Jump")
+	else:
+		_animator.play("Jump powerup")
 	gravity_scale = _upforce
 	apply_central_impulse(Vector2.UP * _vertical_speed) # * delta)
 	_set_active_building_collision(true)
@@ -220,6 +230,8 @@ func _on_interactable_body_entered(_body : Node2D) -> void:
 		_speed_boost_timer.start()
 		_body.hide()
 		_speed_up = true
+		if _falling_down or _jumped:
+			_animator.play("Jump powerup")
 		return
 	_overlapping_bodies = _interactablesArea2D.get_overlapping_bodies()
 
