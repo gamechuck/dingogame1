@@ -36,7 +36,7 @@
 				"starting_x": -222,
 				"offset_random_delta": [0, 0],
 				"interactable_delta_random": [],
-				"thieves_delta_random": [], 
+				"thieves_delta_random": [],
 				"building_textures": [
 					"far_buildings"
 				]
@@ -54,7 +54,7 @@
 				"interactable_delta_random": [],
 				"thieves_delta_random": [],				
 				"props_data": {
-					 "prop_scenes": ["windmill"],
+					 "prop_scenes": ["windmill", "billboard"],
 					 "prop_delta_random": [3, 4],
 					 "is_on_ground": false
 				},
@@ -107,7 +107,7 @@
 					"building_2",
 					"building_3",
 					"building_4",
-					"platform"
+					"platform_wide"
 				]		
 			}
 		]

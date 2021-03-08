@@ -33,6 +33,7 @@ var _jump_min_distance = 0.0
 var _jump_max_distance = 0.0
 
 # INTERNAL CACHED VARS
+var _speed_up = false
 var _interacting := false
 var _movement_speed = 0.0
 var _falling_down := false
@@ -153,14 +154,18 @@ func _update_is_moving():
 		is_moving = false
 		return
 	if linear_velocity.x == 0.0:
-		if not _jumped and not _falling_down:
-			_animator.play("Idle")
 		is_moving = false
 	else:
-		if not _jumped and not _falling_down:
-			_animator.play("Run")
 		is_moving = true
 		emit_signal("position_update", global_position)
+
+	if _speed_up:
+		_animator.play("Run powerup")
+	elif not _jumped and not _falling_down:
+		if not is_moving:
+			_animator.play("Idle")
+		else:
+			_animator.play("Run")
 
 func _update_ledge_collision() -> void:
 	if _overlapping_buildings.size() > 0:
@@ -200,6 +205,7 @@ func _reset_drop() -> void:
 func _set_active_building_collision(value : bool) -> void:
 	set_collision_mask_bit(4, value)
 
+
 ################################################################################
 ## SIGNAL CALLBACKS
 func _on_interactable_body_entered(_body : Node2D) -> void:
@@ -207,6 +213,7 @@ func _on_interactable_body_entered(_body : Node2D) -> void:
 		_movement_speed = _run_speed
 		_speed_boost_timer.start()
 		_body.hide()
+		_speed_up = true
 		return
 	_overlapping_bodies = _interactablesArea2D.get_overlapping_bodies()
 
@@ -226,7 +233,6 @@ func _on_building_ledge_exited(_body : Node2D) -> void:
 		_overlapping_buildings.erase(_body)
 	#if _overlapping_buildings.size() == 0:
 		_set_active_building_collision(true)
-		#_animator.play("Jump")
 
 func _on_animation_finished(value : String) -> void:
 	if value == "Bark" or value == "Idle":
@@ -234,3 +240,4 @@ func _on_animation_finished(value : String) -> void:
 
 func _on_speed_booster_timer_timeout() -> void:
 	_movement_speed = _walk_speed
+	_speed_up = false

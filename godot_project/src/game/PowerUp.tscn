@@ -1,10 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/game/PowerUp.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 36.7739, 31.3526 )
+[ext_resource path="res://assets/Graphics/Map/power_up.png" type="Texture" id=2]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -14,18 +11,21 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 36.7739, 31.3526 )
+
 [node name="PowerUp" type="StaticBody2D"]
 input_pickable = true
 collision_layer = 64
 collision_mask = 0
 script = ExtResource( 1 )
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -0.413021, -6.75768 )
+scale = Vector2( 0.053511, 0.0486379 )
+frames = SubResource( 2 )
+
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2( -0.176785, -6.54074 )
 scale = Vector2( 0.2, 0.2 )
 shape = SubResource( 1 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( -0.176785, -6.36396 )
-scale = Vector2( 0.2, 0.2 )
-frames = SubResource( 2 )
