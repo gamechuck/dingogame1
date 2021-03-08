@@ -55,7 +55,7 @@
 				"thieves_delta_random": [],				
 				"props_data": {
 					 "prop_scenes": ["windmill", "billboard"],
-					 "prop_delta_random": [3, 4],
+					 "prop_delta_random": [1, 2, 3],
 					 "is_on_ground": false
 				},
 				"building_textures": [
@@ -72,7 +72,7 @@
 				"batch_amount": 222,
 				"starting_x":-90,
 				"offset_random_delta": [17, 25],		
-				"interactable_delta_random": [2, 3, 4],
+				"interactable_delta_random": [2, 3],
 				"thieves_delta_random": [2, 3],
 				"power_ups_delta_random": [12],
 				"props_data": {
