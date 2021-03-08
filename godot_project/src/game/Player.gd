@@ -123,6 +123,12 @@ func _interact():
 					else:
 						_animator.play("Bark")
 					body.owner.interact(self)
+					if body.global_position.x < global_position.x and _body_root.scale.x > 0:
+						_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
+					elif body.global_position.x > global_position.x and _body_root.scale.x < 0:
+						_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
+
+
 					_interacting = true
 					_jump_start = global_position
 

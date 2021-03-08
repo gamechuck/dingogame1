@@ -1,7 +1,7 @@
 {
 	"game":
 	{
-		"duration": 4,
+		"duration": 60,
 		"camera_zoom": [0.2, 0.2],
 		"camera_offset_y": -90,
 		"building_batch_amount": 111,
