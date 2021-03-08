@@ -30,6 +30,10 @@ script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+main = ""
+alt = ""
+shift = ""
+type = 0
 
 [node name="Text" type="Label" parent="."]
 anchor_right = 1.0

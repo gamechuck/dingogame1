@@ -1,9 +1,14 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://fonts/dynamic/df_keyboard_key.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/Graphics/MainMenu/high_score.png" type="Texture" id=2]
 [ext_resource path="res://assets/Graphics/MainMenu/ethnocentric rg.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/Game.gd" type="Script" id=4]
+[ext_resource path="res://assets/Graphics/MainMenu/high_score_background.png" type="Texture" id=5]
+
+[sub_resource type="StyleBoxTexture" id=18]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 730, 978 )
 
 [sub_resource type="DynamicFontData" id=11]
 font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
@@ -12,11 +17,9 @@ font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
 size = 32
 font_data = SubResource( 11 )
 
-[sub_resource type="DynamicFont" id=5]
-size = 22
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="StyleBoxTexture" id=19]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 730, 978 )
 
 [sub_resource type="DynamicFontData" id=9]
 font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
@@ -24,6 +27,18 @@ font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
 [sub_resource type="DynamicFont" id=10]
 size = 22
 font_data = SubResource( 9 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 22
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxTexture" id=16]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 730, 978 )
+
+[sub_resource type="StyleBoxTexture" id=17]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 730, 978 )
 
 [sub_resource type="DynamicFontData" id=7]
 font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
@@ -58,30 +73,33 @@ __meta__ = {
 [node name="EndGamePanel" type="VBoxContainer" parent="UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 1.0
 margin_top = 1.0
-margin_right = 3.0
+margin_right = 4.0
 margin_bottom = -439.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Highscore" type="VBoxContainer" parent="UI/EndGamePanel"]
+[node name="EndGameMessage" type="VBoxContainer" parent="UI/EndGamePanel"]
 margin_right = 1923.0
 margin_bottom = 84.0
 
-[node name="ScoreTitle" type="Label" parent="UI/EndGamePanel/Highscore"]
+[node name="ScoreTitle" type="Label" parent="UI/EndGamePanel/EndGameMessage"]
 margin_right = 1923.0
 margin_bottom = 40.0
 size_flags_vertical = 0
+custom_styles/normal = SubResource( 18 )
 custom_fonts/font = SubResource( 12 )
 text = "GAME ENDED! YOU SAVED:"
 align = 1
 valign = 1
 
-[node name="ScoreValue" type="Label" parent="UI/EndGamePanel/Highscore"]
+[node name="ScoreValue" type="Label" parent="UI/EndGamePanel/EndGameMessage"]
 margin_top = 44.0
 margin_right = 1923.0
 margin_bottom = 84.0
+custom_styles/normal = SubResource( 18 )
 custom_fonts/font = SubResource( 12 )
 text = "0 GwH of electricity!"
 align = 1
@@ -91,13 +109,12 @@ autowrap = true
 [node name="Spacer2" type="VBoxContainer" parent="UI/EndGamePanel"]
 margin_top = 88.0
 margin_right = 1923.0
-margin_bottom = 255.0
+margin_bottom = 238.0
 
 [node name="Label" type="Label" parent="UI/EndGamePanel/Spacer2"]
 margin_right = 1923.0
-margin_bottom = 167.0
+margin_bottom = 150.0
 text = "
-
 
 
 
@@ -107,276 +124,130 @@ text = "
 
 "
 
-[node name="HighscoreList" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_left = 687.0
-margin_top = 259.0
-margin_right = 1236.0
-margin_bottom = 565.0
+[node name="HighscorePanel" type="PanelContainer" parent="UI/EndGamePanel"]
+margin_left = 811.0
+margin_top = 242.0
+margin_right = 1111.0
+margin_bottom = 639.0
 size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 19 )
 
-[node name="HBoxContainer01" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
-margin_right = 549.0
-margin_bottom = 27.0
+[node name="HighscoreList" type="VBoxContainer" parent="UI/EndGamePanel/HighscorePanel"]
+margin_right = 300.0
+margin_bottom = 397.0
+size_flags_vertical = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer01"]
-margin_right = 268.0
-margin_bottom = 27.0
+[node name="HighscorePanelTitleLabel" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
+margin_right = 300.0
+margin_bottom = 87.0
+custom_fonts/font = SubResource( 10 )
+text = "
+HIGHSCORE LIST
+"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerName1" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
+margin_top = 91.0
+margin_right = 300.0
+margin_bottom = 118.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
+text = "  PLAYER NAME 01  "
 
-[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer01"]
-margin_left = 272.0
-margin_top = 13.0
-margin_right = 277.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 6 )
-text = "  :  "
-
-[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer01"]
-margin_left = 281.0
-margin_right = 549.0
-margin_bottom = 27.0
+[node name="PlayerName2" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
+margin_top = 122.0
+margin_right = 300.0
+margin_bottom = 149.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
+text = "  PLAYER "
 
-[node name="HBoxContainer02" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
-margin_top = 31.0
-margin_right = 549.0
-margin_bottom = 58.0
-
-[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer02"]
-margin_right = 268.0
-margin_bottom = 27.0
+[node name="PlayerName3" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
+margin_top = 153.0
+margin_right = 300.0
+margin_bottom = 180.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
+text = "  PLAYER "
 
-[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer02"]
-margin_left = 272.0
-margin_top = 13.0
-margin_right = 277.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 6 )
-text = "  :  "
-
-[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer02"]
-margin_left = 281.0
-margin_right = 549.0
-margin_bottom = 27.0
+[node name="PlayerName4" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
+margin_top = 184.0
+margin_right = 300.0
+margin_bottom = 211.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
+text = "  PLAYER "
 
-[node name="HBoxContainer03" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
-margin_top = 62.0
-margin_right = 549.0
-margin_bottom = 89.0
-
-[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer03"]
-margin_right = 268.0
-margin_bottom = 27.0
+[node name="PlayerName5" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
+margin_top = 215.0
+margin_right = 300.0
+margin_bottom = 242.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
+text = "  PLAYER "
 
-[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer03"]
-margin_left = 272.0
-margin_top = 13.0
-margin_right = 277.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 6 )
-text = "  :  "
-
-[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer03"]
-margin_left = 281.0
-margin_right = 549.0
-margin_bottom = 27.0
+[node name="PlayerName6" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
+margin_top = 246.0
+margin_right = 300.0
+margin_bottom = 273.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
+text = "  PLAYER "
 
-[node name="HBoxContainer04" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
-margin_top = 93.0
-margin_right = 549.0
-margin_bottom = 120.0
-
-[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer04"]
-margin_right = 268.0
-margin_bottom = 27.0
+[node name="PlayerName7" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
+margin_top = 277.0
+margin_right = 300.0
+margin_bottom = 304.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
+text = "  PLAYER "
 
-[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer04"]
-margin_left = 272.0
-margin_top = 13.0
-margin_right = 277.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 6 )
-text = "  :  "
-
-[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer04"]
-margin_left = 281.0
-margin_right = 549.0
-margin_bottom = 27.0
+[node name="PlayerName8" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
+margin_top = 308.0
+margin_right = 300.0
+margin_bottom = 335.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
+text = "  PLAYER "
 
-[node name="HBoxContainer05" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
-margin_top = 124.0
-margin_right = 549.0
-margin_bottom = 151.0
-
-[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer05"]
-margin_right = 268.0
-margin_bottom = 27.0
+[node name="PlayerName9" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
+margin_top = 339.0
+margin_right = 300.0
+margin_bottom = 366.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
+text = "  PLAYER "
 
-[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer05"]
-margin_left = 272.0
-margin_top = 13.0
-margin_right = 277.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 6 )
-text = "  :  "
-
-[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer05"]
-margin_left = 281.0
-margin_right = 549.0
-margin_bottom = 27.0
+[node name="PlayerName10" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
+margin_top = 370.0
+margin_right = 300.0
+margin_bottom = 397.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
 custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
-
-[node name="HBoxContainer06" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
-margin_top = 155.0
-margin_right = 549.0
-margin_bottom = 182.0
-
-[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer06"]
-margin_right = 268.0
-margin_bottom = 27.0
-custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
-
-[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer06"]
-margin_left = 272.0
-margin_top = 13.0
-margin_right = 277.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 6 )
-text = "  :  "
-
-[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer06"]
-margin_left = 281.0
-margin_right = 549.0
-margin_bottom = 27.0
-custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
-
-[node name="HBoxContainer07" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
-margin_top = 186.0
-margin_right = 549.0
-margin_bottom = 213.0
-
-[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer07"]
-margin_right = 268.0
-margin_bottom = 27.0
-custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
-
-[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer07"]
-margin_left = 272.0
-margin_top = 13.0
-margin_right = 277.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 6 )
-text = "  :  "
-
-[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer07"]
-margin_left = 281.0
-margin_right = 549.0
-margin_bottom = 27.0
-custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
-
-[node name="HBoxContainer08" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
-margin_top = 217.0
-margin_right = 549.0
-margin_bottom = 244.0
-
-[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer08"]
-margin_right = 268.0
-margin_bottom = 27.0
-custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
-
-[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer08"]
-margin_left = 272.0
-margin_top = 13.0
-margin_right = 277.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 6 )
-text = "  :  "
-
-[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer08"]
-margin_left = 281.0
-margin_right = 549.0
-margin_bottom = 27.0
-custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
-
-[node name="HBoxContainer09" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
-margin_top = 248.0
-margin_right = 549.0
-margin_bottom = 275.0
-
-[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer09"]
-margin_right = 268.0
-margin_bottom = 27.0
-custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
-
-[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer09"]
-margin_left = 272.0
-margin_top = 13.0
-margin_right = 277.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 6 )
-text = "  :  "
-
-[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer09"]
-margin_left = 281.0
-margin_right = 549.0
-margin_bottom = 27.0
-custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
-
-[node name="HBoxContainer10" type="HBoxContainer" parent="UI/EndGamePanel/HighscoreList"]
-margin_top = 279.0
-margin_right = 549.0
-margin_bottom = 306.0
-
-[node name="PlayerName" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer10"]
-margin_right = 268.0
-margin_bottom = 27.0
-custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
-
-[node name="HorzSeparator" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer10"]
-margin_left = 272.0
-margin_top = 13.0
-margin_right = 277.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 6 )
-text = "  :  "
-
-[node name="PlayerScore" type="Label" parent="UI/EndGamePanel/HighscoreList/HBoxContainer10"]
-margin_left = 281.0
-margin_right = 549.0
-margin_bottom = 27.0
-custom_fonts/font = SubResource( 5 )
-text = "PLAYER NAME 01"
+text = "  PLAYER "
 
 [node name="Spacer3" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_top = 569.0
+margin_top = 643.0
 margin_right = 1923.0
-margin_bottom = 634.0
+margin_bottom = 708.0
 
 [node name="Label" type="Label" parent="UI/EndGamePanel/Spacer3"]
 margin_right = 1923.0
@@ -386,62 +257,63 @@ text = "
 
 "
 
-[node name="HighscoreInput" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_left = 747.0
-margin_top = 638.0
-margin_right = 1175.0
-margin_bottom = 825.0
+[node name="HighscoreInput" type="Panel" parent="UI/EndGamePanel"]
+margin_left = 961.0
+margin_top = 712.0
+margin_right = 961.0
+margin_bottom = 712.0
 size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="InputTitleLabel" type="Label" parent="UI/EndGamePanel/HighscoreInput"]
-margin_right = 428.0
-margin_bottom = 87.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -409.012
+margin_top = -43.5
+margin_right = 414.988
+margin_bottom = 43.5
+custom_styles/normal = SubResource( 16 )
 custom_fonts/font = SubResource( 10 )
-text = "NEW HIGHSCORE REACHED!!!
-
-ENTER YOUR NAME"
+text = " NEW HIGHSCORE REACHED!!! ENTER YOUR NAME            "
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Spacer" type="VBoxContainer" parent="UI/EndGamePanel/HighscoreInput"]
-margin_top = 91.0
-margin_right = 428.0
-margin_bottom = 105.0
-
-[node name="Label" type="Label" parent="UI/EndGamePanel/HighscoreInput/Spacer"]
-margin_right = 428.0
-margin_bottom = 14.0
 
 [node name="NameInputLabel" type="Label" parent="UI/EndGamePanel/HighscoreInput"]
-margin_top = 109.0
-margin_right = 428.0
-margin_bottom = 136.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -213.0
+margin_top = 58.0
+margin_right = 215.0
+margin_bottom = 113.0
+custom_styles/normal = SubResource( 17 )
 custom_fonts/font = SubResource( 10 )
-text = "Write your name  here"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer2" type="VBoxContainer" parent="UI/EndGamePanel/HighscoreInput"]
-margin_top = 140.0
-margin_right = 428.0
-margin_bottom = 154.0
-
-[node name="Label" type="Label" parent="UI/EndGamePanel/HighscoreInput/Spacer2"]
-margin_right = 428.0
-margin_bottom = 14.0
-
 [node name="ButtonSubmit" type="Button" parent="UI/EndGamePanel/HighscoreInput"]
-margin_top = 158.0
-margin_right = 428.0
-margin_bottom = 187.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -215.0
+margin_top = 112.0
+margin_right = 213.0
+margin_bottom = 165.0
 custom_fonts/font = SubResource( 8 )
 text = "SUBMIT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Buttons" type="HBoxContainer" parent="UI"]
 visible = false

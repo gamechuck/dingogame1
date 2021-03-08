@@ -19,12 +19,12 @@ onready var _end_game_panel := $UI/EndGamePanel
 onready var _background := $UI/Background
 onready var _viewport := $ViewportContainer
 
-onready var _score_value := $UI/EndGamePanel/Highscore/ScoreValue
+onready var _score_value := $UI/EndGamePanel/EndGameMessage/ScoreValue
 onready var _buttons := $UI/Buttons
 onready var _button_restart := $UI/Buttons/ButtonRestart
 onready var _button_main_menu := $UI/Buttons/ButtonMainMenu
 
-onready var _highscore_list := $UI/EndGamePanel/HighscoreList
+onready var _highscore_list := $UI/EndGamePanel/HighscorePanel/HighscoreList
 onready var _highscore_labels := _highscore_list.get_children()
 
 onready var _highscore_input_UI := $UI/EndGamePanel/HighscoreInput
@@ -49,6 +49,7 @@ func _ready():
 	_button_restart.connect("pressed", self, "_on_restart_button_pressed")
 	_button_main_menu.connect("pressed", self, "_on_main_menu_button_pressed")
 	KeyboardBackend.connect("input_buffer_changed", self, "_on_keyboard_input_buffer_changed")
+	_highscore_labels.remove(0) # Just remove first child since that is title label
 	_game_finished = false
 
 func _physics_process(_delta):
@@ -94,16 +95,16 @@ func _finish_game() -> void:
 
 func _update_highscore_list() -> void:
 	for highscore_label in _highscore_labels:
-		highscore_label.get_node("PlayerName").text = ""
-		highscore_label.get_node("PlayerScore").text = ""
+		highscore_label.text = ""
 		highscore_label.hide()
 
 	var highscores : Array = State.get_highscores()
 	for i in _highscore_labels.size():
 		if i >= highscores.size():
 			break
-		_highscore_labels[i].get_node("PlayerName").text = str(highscores[i].get("name"))
-		_highscore_labels[i].get_node("PlayerScore").text = str(highscores[i].get("score"))
+		var highscore_value = "     " + str(highscores[i].get("name"))
+		highscore_value += "  :  " +  str(highscores[i].get("score")) + "       "
+		_highscore_labels[i].text = highscore_value
 		_highscore_labels[i].show()
 
 
