@@ -59,6 +59,7 @@ func _ready() -> void:
 	_buildingArea2D.connect("body_exited", self, "_on_building_ledge_exited")
 	_animator.connect("animation_finished", self, "_on_animation_finished")
 	_speed_boost_timer.connect("timeout", self, "_on_speed_booster_timer_timeout")
+	$InteractTimer.connect("timeout", self, "_on_interact_timer_timeout")
 	controllable = true
 
 func _physics_process(_delta : float) -> void:
@@ -118,7 +119,7 @@ func _interact():
 				if body is classPowerUp or body.owner is classPowerUp:
 					continue
 				if body.owner.interactable:
-					if body is classTrafo:
+					if body is classTrafo or body.owner is classTrafo:
 						_animator.play("Idle")
 					else:
 						_animator.play("Bark")
@@ -127,10 +128,9 @@ func _interact():
 						_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
 					elif body.global_position.x > global_position.x and _body_root.scale.x < 0:
 						_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
-
-
 					_interacting = true
 					_jump_start = global_position
+					$InteractTimer.start()
 
 func _update_jump_and_drop() -> void:
 	if _interacting:
@@ -252,9 +252,8 @@ func _on_building_ledge_exited(_body : Node2D) -> void:
 	#if _overlapping_buildings.size() == 0:
 		_set_active_building_collision(true)
 
-func _on_animation_finished(value : String) -> void:
-	if value == "Bark" or value == "Idle":
-		_interacting = false
+func _on_interact_timer_timeout() -> void:
+	_interacting = false
 
 func _on_speed_booster_timer_timeout() -> void:
 	_movement_speed = _walk_speed
