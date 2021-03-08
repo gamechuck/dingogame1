@@ -20,7 +20,6 @@ onready var _background := $UI/Background
 onready var _viewport := $ViewportContainer
 
 onready var _score_value := $UI/EndGamePanel/EndGameMessage/ScoreValue
-onready var _buttons := $UI/Buttons
 onready var _button_restart := $UI/Buttons/ButtonRestart
 onready var _button_main_menu := $UI/Buttons/ButtonMainMenu
 
@@ -34,6 +33,7 @@ onready var _name_input_label := $UI/EndGamePanel/HighscoreInput/NameInputLabel
 var _town : classTown
 var _last_highscore = 0
 var _game_finished = false
+var _can_enter_main_menu = false
 
 ################################################################################
 ## GODOT CALLBACKS
@@ -49,12 +49,14 @@ func _ready():
 	_button_restart.connect("pressed", self, "_on_restart_button_pressed")
 	_button_main_menu.connect("pressed", self, "_on_main_menu_button_pressed")
 	KeyboardBackend.connect("input_buffer_changed", self, "_on_keyboard_input_buffer_changed")
+	KeyboardBackend.connect("enter_key_pressed", self, "_on_keyboard_enter_pressed")
 	_highscore_labels.remove(0) # Just remove first child since that is title label
 	_game_finished = false
+	_can_enter_main_menu = false
 
 func _input(event):
 	if _game_finished:
-		if event is InputEventJoypadButton or event is InputEventKey:
+		if event is InputEventJoypadButton or event is InputEventKey and _can_enter_main_menu:
 			Flow.change_scene_to("menu")
 
 
@@ -68,6 +70,7 @@ func _spawn_town() -> void:
 func _finish_game() -> void:
 	emit_signal("game_finish")
 	_game_finished = true
+	_can_enter_main_menu = false
 	# Calculate score
 	var score = _town.get_thief_score() + _town.get_trafo_score()
 	# Display score
@@ -77,7 +80,6 @@ func _finish_game() -> void:
 		# Enable UI for name input
 		_highscore_input_UI.show()
 		_highscore_list.hide()
-		_buttons.hide()
 
 		KeyboardBackend.clear_input_buffer_on_hide = false
 		KeyboardBackend.set_visible(true)
@@ -87,7 +89,7 @@ func _finish_game() -> void:
 		_update_highscore_list()
 		_highscore_input_UI.hide()
 		_highscore_list.show()
-		_buttons.show()
+		_can_enter_main_menu = true
 
 	_background.show()
 	_end_game_panel.show()
@@ -119,13 +121,13 @@ func _on_restart_button_pressed() -> void:
 func _on_main_menu_button_pressed() -> void:
 	Flow.change_scene_to("menu")
 
-func _on_highscore_input_submit_button_pressed() -> void:
+func _on_keyboard_input_buffer_changed(value : String) -> void:
+	_name_input_label.text = value
+
+func _on_keyboard_enter_pressed() -> void:
 	State.set_highscore(_last_highscore, KeyboardBackend.input_buffer)
 	KeyboardBackend.input_buffer = ""
 	_update_highscore_list()
 	_highscore_list.show()
 	_highscore_input_UI.hide()
-	_buttons.show()
-
-func _on_keyboard_input_buffer_changed(value : String) -> void:
-	_name_input_label.text = value
+	_can_enter_main_menu = true

@@ -4,7 +4,7 @@ extends CanvasLayer
 ################################################################################
 ## SIGNALS
 signal input_buffer_changed
-
+signal enter_key_pressed
 
 ################################################################################
 ## CONSTANTS
@@ -110,3 +110,4 @@ func _on_key_pressed(key : KeyboardKey) -> void:
 			self.input_buffer += " "
 		KeyboardKey.TYPE.ENTER:
 			set_visible(false)
+			emit_signal("enter_key_pressed")
