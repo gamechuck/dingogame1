@@ -57,7 +57,6 @@ func _ready() -> void:
 	_interactablesArea2D.connect("body_exited", self, "_on_interactable_body_exited")
 	_buildingArea2D.connect("body_entered", self, "_on_building_ledge_entered")
 	_buildingArea2D.connect("body_exited", self, "_on_building_ledge_exited")
-	_animator.connect("animation_finished", self, "_on_animation_finished")
 	_speed_boost_timer.connect("timeout", self, "_on_speed_booster_timer_timeout")
 	$InteractTimer.connect("timeout", self, "_on_interact_timer_timeout")
 	controllable = true
@@ -114,23 +113,29 @@ func _move() -> void:
 
 func _interact():
 	if not _jumped and not _falling_down:# and not _falling_down:
-		if not _interacting and Input.is_action_just_pressed("interact"):
-			for body in _overlapping_bodies:
-				if body is classPowerUp or body.owner is classPowerUp:
-					continue
-				if body.owner.interactable:
-					if body is classTrafo or body.owner is classTrafo:
-						_animator.play("Idle")
-					else:
-						_animator.play("Bark")
-					body.owner.interact(self)
-					if body.global_position.x < global_position.x and _body_root.scale.x > 0:
-						_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
-					elif body.global_position.x > global_position.x and _body_root.scale.x < 0:
-						_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
-					_interacting = true
-					_jump_start = global_position
-					$InteractTimer.start()
+		if not _interacting:
+			if Input.is_action_just_pressed("fix") or  Input.is_action_just_pressed("bark"):
+				for body in _overlapping_bodies:
+					if body is classPowerUp or body.owner is classPowerUp:
+						continue
+					if body.owner.interactable:
+						if body is classTrafo or body.owner is classTrafo and  Input.is_action_just_pressed("fix"):
+							_animator.play("Idle")
+							_finish_interaction(body)
+						elif body is classThief or body.owner is classThief and  Input.is_action_just_pressed("bark"):
+							_animator.play("Bark")
+							_finish_interaction(body)
+
+
+func _finish_interaction(body : Node2D) -> void:
+	body.owner.interact(self)
+	if body.global_position.x < global_position.x and _body_root.scale.x > 0:
+		_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
+	elif body.global_position.x > global_position.x and _body_root.scale.x < 0:
+		_body_root.scale = Vector2(_body_root.scale.x * -1, _body_root.scale.y)
+	_interacting = true
+	_jump_start = global_position
+	$InteractTimer.start()
 
 func _update_jump_and_drop() -> void:
 	if _interacting:

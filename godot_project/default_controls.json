@@ -116,6 +116,31 @@
                     "is_joypad" : true
                 }
             ]
+        },
+        
+        {
+            "action": "bark",
+            "events": [
+                {
+                    "scancode": "E"
+                },
+                {                    
+                    "button_index": 1,
+                    "is_joypad" : true
+                }
+            ]
+        },        
+        {
+            "action": "fix",
+            "events": [
+                {
+                    "scancode": "F"
+                },
+                {                    
+                    "button_index": 2,
+                    "is_joypad" : true
+                }
+            ]
         }
     ]
 }
