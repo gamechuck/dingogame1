@@ -59,7 +59,8 @@
 					 "is_on_ground": false
 				},
 				"building_textures": [
-					"back_building_1"
+					"back_back_building_1",
+					"back_back_building_2"
 				]		
 			},
 			{
@@ -81,6 +82,7 @@
 					"is_on_ground": false
 			   },
 				"building_textures": [	
+					"back_building_1",
 					"back_building_2"
 				]
 			},
