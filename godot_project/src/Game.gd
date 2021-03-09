@@ -30,7 +30,8 @@ onready var _highscore_input_UI := $UI/EndGamePanel/HighscoreInput
 onready var _name_input_label := $UI/EndGamePanel/HighscoreInput/NameInputLabel
 onready var _eu_logo := $UI/EndGamePanel/EuLogoImage
 
-onready var _game_timer_label := $UI/GameTimerLabel
+onready var _game_timer_panel := $UI/GameTimerPanel
+onready var _game_timer_label := $UI/GameTimerPanel/TimerLabel
 #onready var _button_submit := $UI/EndGamePanel/HighscoreInput/ButtonSubmit
 
 var _town : classTown
@@ -55,7 +56,7 @@ func _ready():
 	KeyboardBackend.connect("enter_key_pressed", self, "_on_keyboard_enter_pressed")
 	_highscore_labels.remove(0) # Just remove first child since that is title label
 	_game_timer_label.text = str(_game_timer.wait_time)
-	_game_timer_label.show()
+	_game_timer_panel.show()
 	_game_finished = false
 	_can_enter_main_menu = false
 
@@ -105,7 +106,7 @@ func _finish_game() -> void:
 	_background.show()
 	_end_game_panel.show()
 	_viewport.hide()
-	_game_timer_label.hide()
+	_game_timer_panel.hide()
 
 func _update_highscore_list() -> void:
 	for highscore_label in _highscore_labels:
