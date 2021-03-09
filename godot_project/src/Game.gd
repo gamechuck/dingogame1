@@ -56,7 +56,7 @@ func _ready():
 
 func _input(event):
 	if _game_finished:
-		if event is InputEventJoypadButton or event is InputEventKey and _can_enter_main_menu:
+		if (event is InputEventJoypadButton or event is InputEventKey) and _can_enter_main_menu:
 			Flow.change_scene_to("menu")
 
 

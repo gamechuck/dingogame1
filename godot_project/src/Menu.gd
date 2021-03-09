@@ -10,7 +10,7 @@ func _ready():
 func _input(event):
 	if event is InputEventKey or event is InputEventJoypadButton:
 		if _pressed_once:
-			if event.scancode == 16777217: # ESC key
+			if event is InputEventKey and event.scancode == 16777217: # ESC key
 				_quitting = true
 				Flow.deferred_quit()
 				return
