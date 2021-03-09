@@ -54,8 +54,8 @@
 				"interactable_delta_random": [],
 				"thieves_delta_random": [],				
 				"props_data": {
-					 "prop_scenes": ["windmill", "billboard"],
-					 "prop_delta_random": [1, 2, 3],
+					 "prop_scenes": ["windmill","windmill","windmill","windmill","windmill", "billboard"],
+					 "prop_delta_random": [2, 3],
 					 "is_on_ground": false
 				},
 				"building_textures": [
@@ -76,8 +76,8 @@
 				"thieves_delta_random": [2, 3],
 				"power_ups_delta_random": [12],
 				"props_data": {
-					"prop_scenes": ["solar_panel", "billboard"],				
-					"prop_delta_random": [1, 2, 3],
+					"prop_scenes": ["solar_panel", "solar_panel", "solar_panel", "solar_panel"],				
+					"prop_delta_random": [2, 3],
 					"is_on_ground": false
 			   },
 				"building_textures": [	
