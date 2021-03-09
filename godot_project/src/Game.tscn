@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://fonts/dynamic/df_keyboard_key.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/Graphics/MainMenu/high_score.png" type="Texture" id=2]
@@ -7,7 +7,6 @@
 [ext_resource path="res://assets/Graphics/MainMenu/high_score_background.png" type="Texture" id=5]
 [ext_resource path="res://assets/Graphics/MainMenu/text_background.png" type="Texture" id=6]
 [ext_resource path="res://assets/Graphics/MainMenu/eu_logos.png" type="Texture" id=7]
-[ext_resource path="res://assets/Graphics/MainMenu/timer.png" type="Texture" id=8]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 6 )
@@ -39,13 +38,8 @@ font_data = ExtResource( 3 )
 texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 445, 86 )
 
-[sub_resource type="StyleBoxTexture" id=9]
-texture = ExtResource( 8 )
-region_rect = Rect2( 0, 0, 436, 266 )
-margin_top = 10.0
-
-[sub_resource type="DynamicFont" id=10]
-size = 46
+[sub_resource type="DynamicFont" id=9]
+size = 32
 font_data = ExtResource( 3 )
 
 [node name="Game" type="Node2D"]
@@ -57,9 +51,9 @@ layer = 0
 follow_viewport_scale = 0.0
 
 [node name="Background" type="TextureRect" parent="UI"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = 111.0
 texture = ExtResource( 2 )
 stretch_mode = 1
 __meta__ = {
@@ -67,7 +61,6 @@ __meta__ = {
 }
 
 [node name="EndGamePanel" type="VBoxContainer" parent="UI"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -261,15 +254,16 @@ __meta__ = {
 }
 
 [node name="DingoSavingMessageLabel" type="Label" parent="UI/EndGamePanel"]
-margin_left = 376.0
+margin_left = 246.0
 margin_top = 671.0
-margin_right = 1546.0
-margin_bottom = 758.0
+margin_right = 1676.0
+margin_bottom = 788.0
 size_flags_horizontal = 4
 custom_styles/normal = SubResource( 8 )
 custom_fonts/font = SubResource( 6 )
 text = "
-Our DINGO system saves an average of 1000 GWh in 60 seconds!         
+DINGO detects and predicts losses in the distribution grid using machine learning. 
+It helps the operator to optimize costs.         
 "
 align = 1
 valign = 1
@@ -278,17 +272,14 @@ __meta__ = {
 }
 
 [node name="Spacer4" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_top = 762.0
+margin_top = 792.0
 margin_right = 1923.0
-margin_bottom = 1065.0
+margin_bottom = 1044.0
 
 [node name="Label" type="Label" parent="UI/EndGamePanel/Spacer4"]
 margin_right = 1923.0
-margin_bottom = 303.0
+margin_bottom = 252.0
 text = "
-
-
-
 
 
 
@@ -306,9 +297,9 @@ text = "
 align = 1
 
 [node name="EuLogoImage" type="TextureRect" parent="UI/EndGamePanel"]
-margin_top = 1069.0
+margin_top = 1048.0
 margin_right = 1923.0
-margin_bottom = 1179.0
+margin_bottom = 1158.0
 size_flags_vertical = 2
 texture = ExtResource( 7 )
 stretch_mode = 1
@@ -347,14 +338,13 @@ custom_fonts/font = ExtResource( 1 )
 text = "MAIN MENU"
 
 [node name="GameTimerLabel" type="Label" parent="UI"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -70.25
-margin_top = -15.75
-margin_right = 70.75
-margin_bottom = 89.25
-custom_styles/normal = SubResource( 9 )
-custom_fonts/font = SubResource( 10 )
+margin_left = -31.5
+margin_right = 31.5
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 9 )
 text = "0"
 align = 1
 valign = 1
