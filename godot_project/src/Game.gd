@@ -28,6 +28,7 @@ onready var _highscore_labels := _highscore_list.get_children()
 
 onready var _highscore_input_UI := $UI/EndGamePanel/HighscoreInput
 onready var _name_input_label := $UI/EndGamePanel/HighscoreInput/NameInputLabel
+onready var _eu_logo := $UI/EndGamePanel/EuLogoImage
 #onready var _button_submit := $UI/EndGamePanel/HighscoreInput/ButtonSubmit
 
 var _town : classTown
@@ -80,6 +81,7 @@ func _finish_game() -> void:
 		# Enable UI for name input
 		_highscore_input_UI.show()
 		_highscore_list.hide()
+		_eu_logo.hide()
 
 		KeyboardBackend.clear_input_buffer_on_hide = false
 		KeyboardBackend.set_visible(true)
@@ -89,6 +91,7 @@ func _finish_game() -> void:
 		_update_highscore_list()
 		_highscore_input_UI.hide()
 		_highscore_list.show()
+		_eu_logo.show()
 		_can_enter_main_menu = true
 
 	_background.show()
@@ -98,7 +101,6 @@ func _finish_game() -> void:
 func _update_highscore_list() -> void:
 	for highscore_label in _highscore_labels:
 		highscore_label.text = ""
-		highscore_label.hide()
 
 	var highscores : Array = State.get_highscores()
 	for i in _highscore_labels.size():
@@ -130,4 +132,5 @@ func _on_keyboard_enter_pressed() -> void:
 	_update_highscore_list()
 	_highscore_list.show()
 	_highscore_input_UI.hide()
+	_eu_logo.show()
 	_can_enter_main_menu = true
