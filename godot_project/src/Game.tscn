@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://fonts/dynamic/df_keyboard_key.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/Graphics/MainMenu/high_score.png" type="Texture" id=2]
@@ -39,8 +39,12 @@ font_data = ExtResource( 3 )
 texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 445, 86 )
 
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 436, 215 )
+
 [sub_resource type="DynamicFont" id=10]
-size = 32
+size = 70
 font_data = ExtResource( 3 )
 
 [node name="Game" type="Node2D"]
@@ -344,7 +348,6 @@ custom_fonts/font = ExtResource( 1 )
 text = "MAIN MENU"
 
 [node name="GameTimerPanel" type="TextureRect" parent="UI"]
-visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -31.0
@@ -352,16 +355,18 @@ margin_right = 405.0
 margin_bottom = 266.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
-texture = ExtResource( 8 )
 stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="TimerLabel" type="Label" parent="UI/GameTimerPanel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = 53.0
+anchor_right = 0.344
+margin_top = 10.3181
+margin_right = 68.016
+margin_bottom = 122.318
+rect_pivot_offset = Vector2( 109, 0 )
+custom_styles/normal = SubResource( 9 )
 custom_fonts/font = SubResource( 10 )
 text = "0"
 align = 1
