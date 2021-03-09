@@ -21,7 +21,7 @@ func _ready():
 
 func _physics_process(delta):
 	if _fall_down:
-		global_position.y += (delta * 100.0)
+		global_position.y += (delta * 200.0)
 		if global_position.y > _fall_start_y + 200.0:
 			hide()
 
