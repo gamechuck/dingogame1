@@ -67,7 +67,6 @@ __meta__ = {
 }
 
 [node name="EndGamePanel" type="VBoxContainer" parent="UI"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -261,15 +260,16 @@ __meta__ = {
 }
 
 [node name="DingoSavingMessageLabel" type="Label" parent="UI/EndGamePanel"]
-margin_left = 246.0
+margin_left = 568.0
 margin_top = 671.0
-margin_right = 1676.0
-margin_bottom = 788.0
+margin_right = 1354.0
+margin_bottom = 818.0
 size_flags_horizontal = 4
 custom_styles/normal = SubResource( 8 )
 custom_fonts/font = SubResource( 6 )
 text = "
-DINGO detects and predicts losses in the distribution grid using machine learning. 
+DINGO detects and predicts losses in the
+ distribution grid using machine learning. 
 It helps the operator to optimize costs.         
 "
 align = 1
@@ -279,15 +279,14 @@ __meta__ = {
 }
 
 [node name="Spacer4" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_top = 792.0
+margin_top = 822.0
 margin_right = 1923.0
-margin_bottom = 1044.0
+margin_bottom = 1057.0
 
 [node name="Label" type="Label" parent="UI/EndGamePanel/Spacer4"]
 margin_right = 1923.0
-margin_bottom = 252.0
+margin_bottom = 235.0
 text = "
-
 
 
 
@@ -304,9 +303,11 @@ text = "
 align = 1
 
 [node name="EuLogoImage" type="TextureRect" parent="UI/EndGamePanel"]
-margin_top = 1048.0
-margin_right = 1923.0
-margin_bottom = 1158.0
+margin_left = 435.0
+margin_top = 1061.0
+margin_right = 1488.0
+margin_bottom = 1171.0
+size_flags_horizontal = 4
 size_flags_vertical = 2
 texture = ExtResource( 7 )
 stretch_mode = 1
