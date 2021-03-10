@@ -9,7 +9,7 @@ var _pressed_twice := false
 func _ready():
 	_quitting = false
 	_pressed_once = false
-	#AudioEngine.play_music("background_music")
+	AudioEngine.play_music("background_music")
 
 func _input(event):
 	if event is InputEventKey or event is InputEventJoypadButton:

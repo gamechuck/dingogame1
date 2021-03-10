@@ -19,26 +19,26 @@ font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
 size = 32
 font_data = SubResource( 2 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=4]
 size = 22
 font_data = ExtResource( 3 )
 
-[sub_resource type="StyleBoxTexture" id=8]
+[sub_resource type="StyleBoxTexture" id=5]
 texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 445, 86 )
 
-[sub_resource type="DynamicFontData" id=5]
+[sub_resource type="DynamicFontData" id=6]
 font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=7]
 size = 22
-font_data = SubResource( 5 )
+font_data = SubResource( 6 )
 
-[sub_resource type="StyleBoxTexture" id=9]
+[sub_resource type="StyleBoxTexture" id=8]
 texture = ExtResource( 8 )
 region_rect = Rect2( 0, 0, 436, 215 )
 
-[sub_resource type="DynamicFont" id=10]
+[sub_resource type="DynamicFont" id=9]
 size = 70
 font_data = ExtResource( 3 )
 
@@ -122,6 +122,7 @@ text = "
 "
 
 [node name="HighscorePanel" type="PanelContainer" parent="UI/EndGamePanel"]
+visible = false
 margin_left = 804.0
 margin_top = 293.0
 margin_right = 1118.0
@@ -144,7 +145,7 @@ margin_right = 300.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "  PLAYER NAME 01  "
 
 [node name="PlayerName2" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
@@ -153,7 +154,7 @@ margin_right = 300.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "  PLAYER "
 
 [node name="PlayerName3" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
@@ -162,7 +163,7 @@ margin_right = 300.0
 margin_bottom = 89.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "  PLAYER "
 
 [node name="PlayerName4" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
@@ -171,7 +172,7 @@ margin_right = 300.0
 margin_bottom = 120.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "  PLAYER "
 
 [node name="PlayerName5" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
@@ -180,7 +181,7 @@ margin_right = 300.0
 margin_bottom = 151.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "  PLAYER "
 
 [node name="PlayerName6" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
@@ -189,7 +190,7 @@ margin_right = 300.0
 margin_bottom = 182.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "  PLAYER "
 
 [node name="PlayerName7" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
@@ -198,7 +199,7 @@ margin_right = 300.0
 margin_bottom = 213.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "  PLAYER "
 
 [node name="PlayerName8" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
@@ -207,7 +208,7 @@ margin_right = 300.0
 margin_bottom = 244.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "  PLAYER "
 
 [node name="PlayerName9" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
@@ -216,7 +217,7 @@ margin_right = 300.0
 margin_bottom = 275.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "  PLAYER "
 
 [node name="PlayerName10" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
@@ -225,13 +226,13 @@ margin_right = 300.0
 margin_bottom = 306.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 text = "  PLAYER "
 
 [node name="Spacer3" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_top = 617.0
+margin_top = 293.0
 margin_right = 1923.0
-margin_bottom = 648.0
+margin_bottom = 324.0
 
 [node name="Label" type="Label" parent="UI/EndGamePanel/Spacer3"]
 margin_right = 1923.0
@@ -241,17 +242,17 @@ text = "
 
 [node name="HighscoreInput" type="VBoxContainer" parent="UI/EndGamePanel"]
 margin_left = 541.0
-margin_top = 652.0
+margin_top = 328.0
 margin_right = 1381.0
-margin_bottom = 739.0
+margin_bottom = 415.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="NameInputLabel" type="Label" parent="UI/EndGamePanel/HighscoreInput"]
 margin_right = 840.0
 margin_bottom = 87.0
-custom_styles/normal = SubResource( 8 )
-custom_fonts/font = SubResource( 6 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 7 )
 text = "
  NEW HIGHSCORE REACHED!!! ENTER YOUR NAME            
 "
@@ -263,12 +264,12 @@ __meta__ = {
 
 [node name="DingoSavingMessageLabel" type="Label" parent="UI/EndGamePanel"]
 margin_left = 568.0
-margin_top = 743.0
+margin_top = 419.0
 margin_right = 1354.0
-margin_bottom = 890.0
+margin_bottom = 566.0
 size_flags_horizontal = 4
-custom_styles/normal = SubResource( 8 )
-custom_fonts/font = SubResource( 6 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = SubResource( 7 )
 text = "
 DINGO detects and predicts losses in the
  distribution grid using machine learning. 
@@ -281,9 +282,9 @@ __meta__ = {
 }
 
 [node name="Spacer4" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_top = 894.0
+margin_top = 570.0
 margin_right = 1923.0
-margin_bottom = 1061.0
+margin_bottom = 737.0
 
 [node name="Label" type="Label" parent="UI/EndGamePanel/Spacer4"]
 margin_right = 1923.0
@@ -302,9 +303,9 @@ align = 1
 
 [node name="EuLogoImage" type="TextureRect" parent="UI/EndGamePanel"]
 margin_left = 435.0
-margin_top = 1065.0
+margin_top = 741.0
 margin_right = 1488.0
-margin_bottom = 1175.0
+margin_bottom = 851.0
 size_flags_horizontal = 4
 size_flags_vertical = 2
 texture = ExtResource( 7 )
@@ -363,8 +364,8 @@ margin_top = 10.3181
 margin_right = 68.016
 margin_bottom = 122.318
 rect_pivot_offset = Vector2( 109, 0 )
-custom_styles/normal = SubResource( 9 )
-custom_fonts/font = SubResource( 10 )
+custom_styles/normal = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "0"
 align = 1
 valign = 1

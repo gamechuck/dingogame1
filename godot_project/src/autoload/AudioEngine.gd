@@ -7,9 +7,9 @@ const MUSIC_TRACKS = {
 	"background_music": preload("res://assets/audio/BackgroundMusic.wav")
 }
 const SFX_TRACKS = {
-	"bark": preload("res://assets/audio/BackgroundMusic.wav"),
-	"jump": preload("res://assets/audio/BackgroundMusic.wav"),
-	"thief_falling": preload("res://assets/audio/BackgroundMusic.wav"),
+	"bark": preload("res://assets/audio/Bark.wav"),
+	"jump": preload("res://assets/audio/Jump.wav"),
+	"thief_falling": preload("res://assets/audio/RobberFalling.wav"),
 	"sparks": preload("res://assets/audio/SparksLooped.wav")
 }
 const MAX_SIMULTANEOUS_EFFECTS = 5

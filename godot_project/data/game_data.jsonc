@@ -1,7 +1,7 @@
 {
 	"game":
 	{
-		"duration": 60,
+		"duration": 65,
 		"camera_zoom": [0.2, 0.2],
 		"camera_offset_y": -90,
 		"building_batch_amount": 111,
@@ -73,7 +73,7 @@
 				"batch_amount": 222,
 				"starting_x":-90,
 				"offset_random_delta": [17, 25],		
-				"interactable_delta_random": [1, 2],
+				"interactable_delta_random": [2, 3],
 				"thieves_delta_random": [5, 6],
 				"power_ups_delta_random": [12],
 				"props_data": {
