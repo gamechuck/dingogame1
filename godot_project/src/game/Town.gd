@@ -76,6 +76,7 @@ func _ready():
 	_spawn_player()
 	_spawn_props()
 	_spawn_billboards()
+	Global.billboard_index = 0
 	_camera.global_position = Vector2(_player.global_position.x, _camera.global_position.y)
 
 func _process(delta):
