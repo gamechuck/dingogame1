@@ -124,8 +124,8 @@ func _interact():
 							_finish_interaction(body)
 						elif body is classThief or body.owner is classThief and  Input.is_action_just_pressed("bark"):
 							_animator.play("Bark")
+							AudioEngine.play_effect("bark")
 							_finish_interaction(body)
-
 
 func _finish_interaction(body : Node2D) -> void:
 	body.owner.interact(self)
@@ -209,6 +209,7 @@ func _jump() -> void:
 	gravity_scale = _upforce
 	apply_central_impulse(Vector2.UP * _vertical_speed) # * delta)
 	_set_active_building_collision(true)
+	AudioEngine.play_effect("jump")
 	_jumped = true
 
 func _reset_jump() -> void:

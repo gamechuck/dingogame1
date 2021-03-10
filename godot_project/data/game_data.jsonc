@@ -73,7 +73,7 @@
 				"starting_x":-90,
 				"offset_random_delta": [17, 25],		
 				"interactable_delta_random": [2, 3],
-				"thieves_delta_random": [2, 3],
+				"thieves_delta_random": [5, 6],
 				"power_ups_delta_random": [12],
 				"props_data": {
 					"prop_scenes": ["solar_panel", "billboard"],				
@@ -94,8 +94,8 @@
 				"batch_amount": 222,
 				"starting_x":-20,
 				"offset_random_delta": [17, 25],
-				"interactable_delta_random": [2, 3, 4],
-				"thieves_delta_random": [3, 4],
+				"interactable_delta_random": [2, 3],
+				"thieves_delta_random": [5, 6],
 				"power_ups_delta_random": [18],
 				"props_data": {
 					 "prop_scenes": ["light_pole"],

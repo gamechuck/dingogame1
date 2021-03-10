@@ -1,37 +1,41 @@
 # AudioEngine autoload to easily start/stop sound effects and background music.
 extends Node
 
+###############################################################################
+# CONSTANTS
 const MUSIC_TRACKS = {
-	"town_idle": preload("res://assets/audio/music/town_idle_loop.ogg"),
-	"town_vigilant": preload("res://assets/audio/music/town_vigilant_loop.ogg"),
-	"main_menu": preload("res://assets/audio/music/main_menu_loop.ogg")
+	"background_music": preload("res://assets/audio/BackgroundMusic.wav")
 }
-
-const AMBIENT_TRACKS = {
-	"night_ambient": preload("res://assets/audio/ambient/night_ambient_loop.ogg")
-}
-
 const SFX_TRACKS = {
-	"door_open": preload("res://assets/audio/sfx/game/door_open.wav")
+	"bark": preload("res://assets/audio/BackgroundMusic.wav"),
+	"jump": preload("res://assets/audio/BackgroundMusic.wav"),
+	"thief_falling": preload("res://assets/audio/BackgroundMusic.wav"),
+	"sparks": preload("res://assets/audio/SparksLooped.wav")
 }
+const MAX_SIMULTANEOUS_EFFECTS = 5
 
+###############################################################################
+# ONREADY VARS
 onready var _music_player := $MusicPlayer
-onready var _ambient_player := $AmbientPlayer
-onready var _effects := $Effects
 
-export var MAX_SIMULTANEOUS_EFFECTS = 5
 
+###############################################################################
+# PRIVATE VARS
+var _effect_players := []
+
+
+###############################################################################
+# GODOT CALLBACKS
 func _ready():
 	for _i in range(MAX_SIMULTANEOUS_EFFECTS):
-		_effects.add_effect()
+		_add_effect()
 
-func play_effect(key : String):
-	_effects.play_effect(SFX_TRACKS[key])
 
+###############################################################################
+# PUBLIC FUNCTIONS
 func reset():
-	_effects.reset()
+	stop_effect()
 	stop_music()
-	stop_ambient()
 
 func play_music(key : String) -> void:
 	var value : AudioStream = MUSIC_TRACKS[key]
@@ -44,13 +48,25 @@ func stop_music() -> void:
 		_music_player.stop()
 		_music_player.stream = null
 
-func play_ambient(key : String) -> void:
-	var value : AudioStream = AMBIENT_TRACKS[key]
-	if _ambient_player.stream != value:
-		_ambient_player.stream = value
-		_ambient_player.play()
+func play_effect(key : String):
+	for player in _effect_players:
+		if not player.playing:
+			player.stream = SFX_TRACKS[key]
+			player.play()
+			return
 
-func stop_ambient() -> void:
-	if _ambient_player.playing:
-		_ambient_player.stop()
-		_ambient_player.stream = null
+func stop_effect() -> void:
+	for player in _effect_players:
+		if player.playing:
+			player.stop()
+			player.stream = null
+
+
+###############################################################################
+# PRIVATE FUNCTIONS
+func _add_effect():
+	var effect_player := AudioStreamPlayer.new()
+	$Effects.add_child(effect_player)
+
+	effect_player.bus = "SFX"
+	_effect_players.append(effect_player)
