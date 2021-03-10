@@ -75,6 +75,7 @@ func _ready():
 	_spawn_interactables()
 	_spawn_player()
 	_spawn_props()
+	_spawn_billboards()
 	_camera.global_position = Vector2(_player.global_position.x, _camera.global_position.y)
 
 func _process(delta):
@@ -274,6 +275,21 @@ func _spawn_props() -> void:
 					prop.global_position = building.global_position + Vector2(building.get_building_width () / 2.0 + prop.get_width() / 2.0, 0)
 				else:
 					prop.global_position = building.global_position + Vector2(0, -building.get_building_height())
+
+func _spawn_billboards() -> void:
+	for i in _building_layers[1].get_children().size():
+		if i < 3:
+			continue
+		if Global.billboard_index >= 4:
+			break
+		var building = _building_layers[1].get_child(i)
+		if _buildings_with_trafos.has(building):
+			continue
+		if i % 2 == 0:
+			var prop = _props_dict["billboard"].instance()
+			_prop_layers[1].add_child(prop)
+			prop.global_position = building.global_position + Vector2(0, -building.get_building_height())
+
 
 #PARALLAX STUFF
 func _move_building_layers(delta : float) -> void:

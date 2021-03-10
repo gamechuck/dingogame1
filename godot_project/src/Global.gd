@@ -7,3 +7,4 @@ enum CONTROL_SCHEME {  HYBRID = 0, MOUSE = 1, KEYBOARD = 2 }
 enum DIRECTION { E, SE, S, SW, W, NW, N, NE }
 enum WALK_MODE { WALKING, RUNNING }
 
+var billboard_index = 0
