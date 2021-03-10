@@ -54,7 +54,6 @@ func _ready():
 	_button_main_menu.connect("pressed", self, "_on_main_menu_button_pressed")
 	KeyboardBackend.connect("input_buffer_changed", self, "_on_keyboard_input_buffer_changed")
 	KeyboardBackend.connect("enter_key_pressed", self, "_on_keyboard_enter_pressed")
-	_highscore_labels.remove(0) # Just remove first child since that is title label
 	_game_timer_label.text = str(_game_timer.wait_time)
 	_game_timer_panel.show()
 	_game_finished = false

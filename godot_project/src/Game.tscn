@@ -1,10 +1,9 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://fonts/dynamic/df_keyboard_key.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/Graphics/MainMenu/high_score.png" type="Texture" id=2]
 [ext_resource path="res://assets/Graphics/MainMenu/ethnocentric rg.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/Game.gd" type="Script" id=4]
-[ext_resource path="res://assets/Graphics/MainMenu/high_score_background.png" type="Texture" id=5]
 [ext_resource path="res://assets/Graphics/MainMenu/text_background.png" type="Texture" id=6]
 [ext_resource path="res://assets/Graphics/MainMenu/eu_logos.png" type="Texture" id=7]
 [ext_resource path="res://assets/Graphics/MainMenu/timer.png" type="Texture" id=8]
@@ -20,17 +19,6 @@ font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
 size = 32
 font_data = SubResource( 2 )
 
-[sub_resource type="StyleBoxTexture" id=4]
-texture = ExtResource( 5 )
-region_rect = Rect2( 0, 0, 730, 978 )
-
-[sub_resource type="DynamicFontData" id=5]
-font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
-
-[sub_resource type="DynamicFont" id=6]
-size = 22
-font_data = SubResource( 5 )
-
 [sub_resource type="DynamicFont" id=7]
 size = 22
 font_data = ExtResource( 3 )
@@ -38,6 +26,13 @@ font_data = ExtResource( 3 )
 [sub_resource type="StyleBoxTexture" id=8]
 texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 445, 86 )
+
+[sub_resource type="DynamicFontData" id=5]
+font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
+
+[sub_resource type="DynamicFont" id=6]
+size = 22
+font_data = SubResource( 5 )
 
 [sub_resource type="StyleBoxTexture" id=9]
 texture = ExtResource( 8 )
@@ -56,7 +51,6 @@ layer = 0
 follow_viewport_scale = 0.0
 
 [node name="Background" type="TextureRect" parent="UI"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -0.471939
@@ -68,7 +62,6 @@ __meta__ = {
 }
 
 [node name="EndGamePanel" type="VBoxContainer" parent="UI"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -81,27 +74,25 @@ __meta__ = {
 }
 
 [node name="EndGameMessage" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_left = 608.0
-margin_right = 1314.0
-margin_bottom = 170.0
+margin_left = 620.0
+margin_right = 1302.0
+margin_bottom = 84.0
 size_flags_horizontal = 4
 
 [node name="ScoreTitle" type="Label" parent="UI/EndGamePanel/EndGameMessage"]
-margin_right = 706.0
-margin_bottom = 126.0
+margin_right = 682.0
+margin_bottom = 40.0
 size_flags_vertical = 0
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = SubResource( 3 )
-text = "
-GAME ENDED! DINGO SAVED:      
-"
+text = "GAME ENDED! DINGO SAVED:    "
 align = 1
 valign = 1
 
 [node name="ScoreValue" type="Label" parent="UI/EndGamePanel/EndGameMessage"]
-margin_top = 130.0
-margin_right = 706.0
-margin_bottom = 170.0
+margin_top = 44.0
+margin_right = 682.0
+margin_bottom = 84.0
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = SubResource( 3 )
 text = "0 GwH of electricity!"
@@ -110,140 +101,149 @@ valign = 1
 autowrap = true
 
 [node name="Spacer2" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_top = 174.0
+margin_top = 88.0
 margin_right = 1923.0
-margin_bottom = 205.0
+margin_bottom = 289.0
 
 [node name="Label" type="Label" parent="UI/EndGamePanel/Spacer2"]
 margin_right = 1923.0
-margin_bottom = 31.0
+margin_bottom = 201.0
 text = "
+
+
+
+
+
+
+
+
+
+
 "
 
 [node name="HighscorePanel" type="PanelContainer" parent="UI/EndGamePanel"]
-margin_left = 811.0
-margin_top = 209.0
-margin_right = 1111.0
-margin_bottom = 576.0
+margin_left = 804.0
+margin_top = 293.0
+margin_right = 1118.0
+margin_bottom = 613.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
-custom_styles/panel = SubResource( 4 )
 
 [node name="HighscoreList" type="VBoxContainer" parent="UI/EndGamePanel/HighscorePanel"]
-margin_right = 300.0
-margin_bottom = 367.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 307.0
+margin_bottom = 313.0
 size_flags_vertical = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HighscorePanelTitleLabel" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
-margin_right = 300.0
-margin_bottom = 57.0
-custom_fonts/font = SubResource( 6 )
-text = "
-"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="PlayerName1" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
-margin_top = 61.0
 margin_right = 300.0
-margin_bottom = 88.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 7 )
 text = "  PLAYER NAME 01  "
 
 [node name="PlayerName2" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
-margin_top = 92.0
+margin_top = 31.0
 margin_right = 300.0
-margin_bottom = 119.0
+margin_bottom = 58.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 7 )
 text = "  PLAYER "
 
 [node name="PlayerName3" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
-margin_top = 123.0
+margin_top = 62.0
 margin_right = 300.0
-margin_bottom = 150.0
+margin_bottom = 89.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 7 )
 text = "  PLAYER "
 
 [node name="PlayerName4" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
-margin_top = 154.0
+margin_top = 93.0
 margin_right = 300.0
-margin_bottom = 181.0
+margin_bottom = 120.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 7 )
 text = "  PLAYER "
 
 [node name="PlayerName5" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
-margin_top = 185.0
+margin_top = 124.0
 margin_right = 300.0
-margin_bottom = 212.0
+margin_bottom = 151.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 7 )
 text = "  PLAYER "
 
 [node name="PlayerName6" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
-margin_top = 216.0
+margin_top = 155.0
 margin_right = 300.0
-margin_bottom = 243.0
+margin_bottom = 182.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 7 )
 text = "  PLAYER "
 
 [node name="PlayerName7" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
-margin_top = 247.0
+margin_top = 186.0
 margin_right = 300.0
-margin_bottom = 274.0
+margin_bottom = 213.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 7 )
 text = "  PLAYER "
 
 [node name="PlayerName8" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
-margin_top = 278.0
+margin_top = 217.0
 margin_right = 300.0
-margin_bottom = 305.0
+margin_bottom = 244.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 7 )
 text = "  PLAYER "
 
 [node name="PlayerName9" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
-margin_top = 309.0
+margin_top = 248.0
 margin_right = 300.0
-margin_bottom = 336.0
+margin_bottom = 275.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 7 )
 text = "  PLAYER "
 
 [node name="PlayerName10" type="Label" parent="UI/EndGamePanel/HighscorePanel/HighscoreList"]
-margin_top = 340.0
+margin_top = 279.0
 margin_right = 300.0
-margin_bottom = 367.0
+margin_bottom = 306.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 7 )
 text = "  PLAYER "
 
+[node name="Spacer3" type="VBoxContainer" parent="UI/EndGamePanel"]
+margin_top = 617.0
+margin_right = 1923.0
+margin_bottom = 648.0
+
+[node name="Label" type="Label" parent="UI/EndGamePanel/Spacer3"]
+margin_right = 1923.0
+margin_bottom = 31.0
+text = "
+"
+
 [node name="HighscoreInput" type="VBoxContainer" parent="UI/EndGamePanel"]
 margin_left = 541.0
-margin_top = 580.0
+margin_top = 652.0
 margin_right = 1381.0
-margin_bottom = 667.0
+margin_bottom = 739.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
@@ -263,9 +263,9 @@ __meta__ = {
 
 [node name="DingoSavingMessageLabel" type="Label" parent="UI/EndGamePanel"]
 margin_left = 568.0
-margin_top = 671.0
+margin_top = 743.0
 margin_right = 1354.0
-margin_bottom = 818.0
+margin_bottom = 890.0
 size_flags_horizontal = 4
 custom_styles/normal = SubResource( 8 )
 custom_fonts/font = SubResource( 6 )
@@ -281,18 +281,14 @@ __meta__ = {
 }
 
 [node name="Spacer4" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_top = 822.0
+margin_top = 894.0
 margin_right = 1923.0
-margin_bottom = 1057.0
+margin_bottom = 1061.0
 
 [node name="Label" type="Label" parent="UI/EndGamePanel/Spacer4"]
 margin_right = 1923.0
-margin_bottom = 235.0
+margin_bottom = 167.0
 text = "
-
-
-
-
 
 
 
@@ -306,9 +302,9 @@ align = 1
 
 [node name="EuLogoImage" type="TextureRect" parent="UI/EndGamePanel"]
 margin_left = 435.0
-margin_top = 1061.0
+margin_top = 1065.0
 margin_right = 1488.0
-margin_bottom = 1171.0
+margin_bottom = 1175.0
 size_flags_horizontal = 4
 size_flags_vertical = 2
 texture = ExtResource( 7 )
@@ -348,6 +344,7 @@ custom_fonts/font = ExtResource( 1 )
 text = "MAIN MENU"
 
 [node name="GameTimerPanel" type="TextureRect" parent="UI"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -31.0
