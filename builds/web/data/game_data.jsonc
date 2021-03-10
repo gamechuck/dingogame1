@@ -1,0 +1,117 @@
+{
+	"game":
+	{
+		"duration": 65,
+		"camera_zoom": [0.2, 0.2],
+		"camera_offset_y": -90,
+		"building_batch_amount": 111,
+		"building_starting_x": 0,
+		"building_offset_random_delta": [22, 55],
+		"scores": {
+			"trafo": 10.0,
+			"thief": 20.0
+		}
+	},
+	"player": 
+	 {
+		"walk_speed": 66.0, // No need to explain
+		"run_speed": 133.0,  // As well
+		"speed_boost_duration": 5.0,
+		"jump_speed": 155.0, // Jump speed which player has when first time starting to wind up jump speed
+		"jump_downforce": 7.0, // Force which is added to player in down direction when jumps, drops or falls from platform
+		"jump_min_distance": 11.0,
+		"jump_max_distance": 66.0 // Distance player can jump before applying above mentioned force
+	},
+	"layers": 
+	{
+		"negative": [
+			{
+				"name": "background_skycrapers_4",
+				"should_spawn": true,
+				"collidable": false,
+				"z_index": -4,
+				"y_offset": -0,						
+				"parallax_speed": 12.0,
+				"batch_amount": 44,
+				"starting_x": -222,
+				"offset_random_delta": [0, 0],
+				"interactable_delta_random": [],
+				"thieves_delta_random": [],
+				"building_textures": [
+					"far_buildings"
+				]
+			},			
+			{
+				"name": "background_buildings_3",
+				"should_spawn": true,
+				"collidable": false,
+				"z_index": -3,
+				"y_offset": -0,
+				"parallax_speed": 24.0,
+				"batch_amount": 222,
+				"starting_x":-120,
+				"offset_random_delta": [5, 11],
+				"interactable_delta_random": [],
+				"thieves_delta_random": [],				
+				"props_data": {
+					 "prop_scenes": ["windmill"],
+					 "prop_delta_random": [2, 3],
+					 "is_on_ground": false
+				},
+				"building_textures": [
+					"back_back_building_1",
+					"back_back_building_2"
+				]		
+			},
+			{
+				"name": "middle_buildings_2",
+				"should_spawn": true,
+				"collidable": true,
+				"z_index": -2,
+				"y_offset": 0,
+				"parallax_speed": 38.0,	
+				"batch_amount": 222,
+				"starting_x":-90,
+				"offset_random_delta": [17, 25],		
+				"interactable_delta_random": [2, 3],
+				"thieves_delta_random": [4, 5],
+				"power_ups_delta_random": [12],
+				"props_data": {
+					"prop_scenes": ["solar_panel"],				
+					"prop_delta_random": [1, 2],
+					"is_on_ground": false
+			   },
+				"building_textures": [	
+					"back_building_1",
+					"back_building_2"
+				]
+			},
+			{
+				"name": "forward_buildings_1",
+				"should_spawn": true,
+				"collidable": true,
+				"z_index": -1,
+				"y_offset": 0,
+				"parallax_speed": 45.0,
+				"batch_amount": 222,
+				"starting_x":-20,
+				"offset_random_delta": [17, 25],
+				"interactable_delta_random": [2, 3],
+				"thieves_delta_random": [4, 5],
+				"power_ups_delta_random": [18],
+				"props_data": {
+					 "prop_scenes": ["light_pole"],
+					 "prop_delta_random": [2],
+					 "is_on_ground": true
+				},
+				"building_textures": [
+					"building_1",
+					"building_2",
+					"building_3",
+					"building_4",
+					"platform_wide"
+				]		
+			}
+		]
+	}
+}

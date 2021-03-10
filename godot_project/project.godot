@@ -116,6 +116,11 @@ window/stretch/aspect="keep"
 
 enabled=PoolStringArray(  )
 
+[global]
+
+etc=false
+import=false
+
 [importer_defaults]
 
 texture={
@@ -185,5 +190,6 @@ keyboard_toggle={
 
 [rendering]
 
+vram_compression/import_etc=true
 environment/default_clear_color=Color( 0.180392, 0.180392, 0.180392, 1 )
 environment/default_environment="res://default_env.tres"
