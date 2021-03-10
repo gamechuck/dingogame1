@@ -1,7 +1,10 @@
 extends Control
 
+onready var _background := $Background
+
 var _quitting := false
 var _pressed_once := false
+var _pressed_twice := false
 
 func _ready():
 	_quitting = false
@@ -16,6 +19,11 @@ func _input(event):
 				Flow.deferred_quit()
 				return
 			if not _quitting:
-				Flow.change_scene_to("game")
+				if not _pressed_twice:
+					_background.hide()
+					_pressed_twice = true
+				else:
+					Flow.change_scene_to("game")
+
 		_pressed_once = true
 
