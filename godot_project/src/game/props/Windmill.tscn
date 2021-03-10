@@ -28,18 +28,18 @@ tracks/0/keys = {
 script = ExtResource( 3 )
 
 [node name="Pole" type="Sprite" parent="."]
-position = Vector2( 0, -30.3248 )
+position = Vector2( -0.125, -29.5748 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 1 )
 
 [node name="Fan" type="Sprite" parent="."]
-position = Vector2( 0.36493, -60.9097 )
-rotation = 3.92699
+position = Vector2( 0.239929, -60.1597 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
 offset = Vector2( 40, -24 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 2.94315, -43.3062 )
 shape = SubResource( 1 )
 

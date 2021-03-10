@@ -7,7 +7,7 @@ const TEXTURE_SHIFT := preload("res://assets/textures/keyboard/GCA_UI_key_shift.
 const TEXTURE_SPACE := preload("res://assets/textures/keyboard/GCA_UI_key_spacebar.png")
 const TEXTURE_BACKSPACE = TEXTURE_ENTER
 
-const TEXT_COLOR_NORMAL := Color.black
+const TEXT_COLOR_NORMAL := Color.white
 const TEXT_COLOR_PRESSED := Color(0.25098, 0.25098, 0.25098)
 const TEXT_COLOR_FOCUSED := Color(0.25098, 0.25098, 0.25098)
 

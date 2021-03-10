@@ -1,14 +1,17 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://fonts/dynamic/df_keyboard_key.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/Graphics/MainMenu/high_score.png" type="Texture" id=2]
 [ext_resource path="res://assets/Graphics/MainMenu/ethnocentric rg.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/Game.gd" type="Script" id=4]
 [ext_resource path="res://assets/Graphics/MainMenu/high_score_background.png" type="Texture" id=5]
+[ext_resource path="res://assets/Graphics/MainMenu/text_background.png" type="Texture" id=6]
+[ext_resource path="res://assets/Graphics/MainMenu/eu_logos.png" type="Texture" id=7]
+[ext_resource path="res://assets/Graphics/MainMenu/timer.png" type="Texture" id=8]
 
 [sub_resource type="StyleBoxTexture" id=1]
-texture = ExtResource( 5 )
-region_rect = Rect2( 0, 0, 730, 978 )
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 445, 86 )
 
 [sub_resource type="DynamicFontData" id=2]
 font_path = "res://assets/Graphics/MainMenu/ethnocentric rg.ttf"
@@ -33,8 +36,16 @@ size = 22
 font_data = ExtResource( 3 )
 
 [sub_resource type="StyleBoxTexture" id=8]
-texture = ExtResource( 5 )
-region_rect = Rect2( 0, 0, 730, 978 )
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 445, 86 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 436, 215 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 70
+font_data = ExtResource( 3 )
 
 [node name="Game" type="Node2D"]
 pause_mode = 2
@@ -45,8 +56,11 @@ layer = 0
 follow_viewport_scale = 0.0
 
 [node name="Background" type="TextureRect" parent="UI"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -0.471939
+margin_bottom = 110.528
 texture = ExtResource( 2 )
 stretch_mode = 1
 __meta__ = {
@@ -54,47 +68,40 @@ __meta__ = {
 }
 
 [node name="EndGamePanel" type="VBoxContainer" parent="UI"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
-margin_top = 1.0
+margin_top = -0.781738
 margin_right = 4.0
-margin_bottom = -439.0
+margin_bottom = -295.782
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer5" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_right = 1923.0
-margin_bottom = 31.0
-
-[node name="Label" type="Label" parent="UI/EndGamePanel/Spacer5"]
-margin_right = 1923.0
-margin_bottom = 31.0
-text = "
-"
-
 [node name="EndGameMessage" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_left = 644.0
-margin_top = 35.0
-margin_right = 1278.0
-margin_bottom = 119.0
+margin_left = 608.0
+margin_right = 1314.0
+margin_bottom = 170.0
 size_flags_horizontal = 4
 
 [node name="ScoreTitle" type="Label" parent="UI/EndGamePanel/EndGameMessage"]
-margin_right = 634.0
-margin_bottom = 40.0
+margin_right = 706.0
+margin_bottom = 126.0
 size_flags_vertical = 0
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = SubResource( 3 )
-text = "GAME ENDED! DINGO SAVED:"
+text = "
+GAME ENDED! DINGO SAVED:      
+"
 align = 1
 valign = 1
 
 [node name="ScoreValue" type="Label" parent="UI/EndGamePanel/EndGameMessage"]
-margin_top = 44.0
-margin_right = 634.0
-margin_bottom = 84.0
+margin_top = 130.0
+margin_right = 706.0
+margin_bottom = 170.0
 custom_styles/normal = SubResource( 1 )
 custom_fonts/font = SubResource( 3 )
 text = "0 GwH of electricity!"
@@ -103,9 +110,9 @@ valign = 1
 autowrap = true
 
 [node name="Spacer2" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_top = 123.0
+margin_top = 174.0
 margin_right = 1923.0
-margin_bottom = 154.0
+margin_bottom = 205.0
 
 [node name="Label" type="Label" parent="UI/EndGamePanel/Spacer2"]
 margin_right = 1923.0
@@ -115,9 +122,9 @@ text = "
 
 [node name="HighscorePanel" type="PanelContainer" parent="UI/EndGamePanel"]
 margin_left = 811.0
-margin_top = 158.0
+margin_top = 209.0
 margin_right = 1111.0
-margin_bottom = 525.0
+margin_bottom = 576.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 4 )
@@ -232,33 +239,41 @@ size_flags_vertical = 1
 custom_fonts/font = SubResource( 7 )
 text = "  PLAYER "
 
-[node name="Spacer3" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_top = 529.0
-margin_right = 1923.0
-margin_bottom = 594.0
-
-[node name="Label" type="Label" parent="UI/EndGamePanel/Spacer3"]
-margin_right = 1923.0
-margin_bottom = 65.0
-text = "
-
-
-"
-
 [node name="HighscoreInput" type="VBoxContainer" parent="UI/EndGamePanel"]
 margin_left = 541.0
-margin_top = 598.0
+margin_top = 580.0
 margin_right = 1381.0
-margin_bottom = 625.0
+margin_bottom = 667.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="NameInputLabel" type="Label" parent="UI/EndGamePanel/HighscoreInput"]
 margin_right = 840.0
-margin_bottom = 27.0
+margin_bottom = 87.0
 custom_styles/normal = SubResource( 8 )
 custom_fonts/font = SubResource( 6 )
-text = " NEW HIGHSCORE REACHED!!! ENTER YOUR NAME            "
+text = "
+ NEW HIGHSCORE REACHED!!! ENTER YOUR NAME            
+"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DingoSavingMessageLabel" type="Label" parent="UI/EndGamePanel"]
+margin_left = 568.0
+margin_top = 671.0
+margin_right = 1354.0
+margin_bottom = 818.0
+size_flags_horizontal = 4
+custom_styles/normal = SubResource( 8 )
+custom_fonts/font = SubResource( 6 )
+text = "
+DINGO detects and predicts losses in the
+ distribution grid using machine learning. 
+It helps the operator to optimize costs.         
+"
 align = 1
 valign = 1
 __meta__ = {
@@ -266,32 +281,38 @@ __meta__ = {
 }
 
 [node name="Spacer4" type="VBoxContainer" parent="UI/EndGamePanel"]
-margin_top = 629.0
+margin_top = 822.0
 margin_right = 1923.0
-margin_bottom = 694.0
+margin_bottom = 1057.0
 
 [node name="Label" type="Label" parent="UI/EndGamePanel/Spacer4"]
 margin_right = 1923.0
-margin_bottom = 65.0
+margin_bottom = 235.0
 text = "
 
 
-"
 
-[node name="NameInputLabel" type="Label" parent="UI/EndGamePanel"]
-margin_left = 412.0
-margin_top = 698.0
-margin_right = 1510.0
-margin_bottom = 725.0
-size_flags_horizontal = 4
-custom_styles/normal = SubResource( 8 )
-custom_fonts/font = SubResource( 6 )
-text = "Our DINGO system saves an average of 1000 GWh in 60 seconds!"
+
+
+
+
+
+
+
+
+
+"
 align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="EuLogoImage" type="TextureRect" parent="UI/EndGamePanel"]
+margin_left = 435.0
+margin_top = 1061.0
+margin_right = 1488.0
+margin_bottom = 1171.0
+size_flags_horizontal = 4
+size_flags_vertical = 2
+texture = ExtResource( 7 )
+stretch_mode = 1
 
 [node name="Buttons" type="HBoxContainer" parent="UI"]
 visible = false
@@ -325,6 +346,34 @@ margin_bottom = 82.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 1 )
 text = "MAIN MENU"
+
+[node name="GameTimerPanel" type="TextureRect" parent="UI"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -31.0
+margin_right = 405.0
+margin_bottom = 266.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimerLabel" type="Label" parent="UI/GameTimerPanel"]
+anchor_right = 0.344
+margin_top = 10.3181
+margin_right = 68.016
+margin_bottom = 122.318
+rect_pivot_offset = Vector2( 109, 0 )
+custom_styles/normal = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 pause_mode = 1

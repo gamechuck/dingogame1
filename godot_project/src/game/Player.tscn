@@ -503,10 +503,10 @@ tracks/40/loop_wrap = true
 tracks/40/imported = false
 tracks/40/enabled = true
 tracks/40/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.15, 0.35 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ true, false, true, false, true ]
+"values": [ true, false, true ]
 }
 tracks/41/type = "value"
 tracks/41/path = NodePath("BodyPolygons/Head barking:visible")
@@ -515,10 +515,10 @@ tracks/41/loop_wrap = true
 tracks/41/imported = false
 tracks/41/enabled = true
 tracks/41/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.15, 0.35 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ false, true, false, true, false ]
+"values": [ false, true, false ]
 }
 tracks/42/type = "value"
 tracks/42/path = NodePath(".:modulate")
@@ -3823,6 +3823,7 @@ bones = [ NodePath("Hip"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.
 internal_vertex_count = 2
 
 [node name="Head" type="Polygon2D" parent="BodyRoot/BodyPolygons"]
+visible = false
 position = Vector2( 331, -4 )
 texture = ExtResource( 4 )
 skeleton = NodePath("../../Skeleton2D")
@@ -3831,7 +3832,6 @@ uv = PoolVector2Array( 106.767, 105.736, 164.955, 9.22067, 172.969, 7.82695, 177
 bones = [ NodePath("Hip"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Chest"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Chest/Arm front"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Chest/Arm front/Elbow front"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Chest/Arm front/Elbow front/Hand frnt"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Chest/Arm back"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Chest/Arm back/Elbow back"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Chest/Arm back/Elbow back/Hand back"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Chest/Bandana"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Chest/Neck"), PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ), NodePath("Hip/Thigh front"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Thigh front/Shin front"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Thigh front/Shin front/Foot front"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Thigh back"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Thigh back/Shin back"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Thigh back/Shin back/Foot back"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Tail root"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Tail root/Tail middle"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ), NodePath("Hip/Tail root/Tail middle/Tail top"), PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ) ]
 
 [node name="Head barking" type="Polygon2D" parent="BodyRoot/BodyPolygons"]
-visible = false
 position = Vector2( -288.5, -77.7817 )
 texture = ExtResource( 4 )
 skeleton = NodePath("../../Skeleton2D")
@@ -3874,20 +3874,20 @@ position = Vector2( -523.252, -1001.88 )
 scale = Vector2( 1e-05, 1e-05 )
 
 [node name="Hip" type="Bone2D" parent="BodyRoot/Skeleton2D"]
-position = Vector2( 481.277, 650.366 )
+position = Vector2( 503.013, 615.785 )
 rest = Transform2D( 1, 0, 0, 1, 482.612, 614.325 )
 __meta__ = {
 "_edit_ik_": true
 }
 
 [node name="Chest" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip"]
-position = Vector2( 31.2631, -41.7235 )
+position = Vector2( 71.5921, -98.8038 )
 rotation = 0.0450262
 rest = Transform2D( 1, 0, 0, 1, 42.9229, -73.3818 )
 
 [node name="Arm front" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest"]
-position = Vector2( -52.7545, -141.814 )
-rotation = 1.23082
+position = Vector2( -73.4422, -112.59 )
+rotation = 0.578176
 rest = Transform2D( 1, 0, 0, 1, -60.1182, -116.661 )
 __meta__ = {
 "_edit_ik_": true
@@ -3895,7 +3895,7 @@ __meta__ = {
 
 [node name="Elbow front" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest/Arm front"]
 position = Vector2( -37.1337, 136.31 )
-rotation = -0.832728
+rotation = 0.00735172
 rest = Transform2D( 1, 0, 0, 1, -37.1337, 136.31 )
 
 [node name="Hand frnt" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest/Arm front/Elbow front"]
@@ -3905,7 +3905,7 @@ scale = Vector2( 0.999999, 0.999999 )
 rest = Transform2D( 0.356675, 0.934228, -0.934228, 0.356675, 21.061, 148.177 )
 
 [node name="Arm back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest"]
-position = Vector2( 38.5635, -102.308 )
+position = Vector2( 26.8454, -58.1668 )
 rotation = 0.562375
 rest = Transform2D( 1, 0, 0, 1, 38.5635, -102.308 )
 __meta__ = {
@@ -3914,7 +3914,7 @@ __meta__ = {
 
 [node name="Elbow back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest/Arm back"]
 position = Vector2( 30.868, 146.781 )
-rotation = -0.747313
+rotation = -0.279741
 rest = Transform2D( 1, 0, 0, 1, 30.868, 146.781 )
 
 [node name="Hand back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest/Arm back/Elbow back"]
@@ -3923,51 +3923,51 @@ rotation = 0.802848
 rest = Transform2D( 0.694661, 0.719337, -0.719337, 0.694661, 59.8463, 69.2957 )
 
 [node name="Bandana" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest"]
-position = Vector2( -54.0647, -147.819 )
-rotation = 0.190255
+position = Vector2( -59.4311, -156.299 )
+rotation = 0.303966
 rest = Transform2D( 0.981956, 0.189109, -0.189109, 0.981956, -34.0872, -170.195 )
 
 [node name="Neck" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Chest"]
-position = Vector2( 51.5283, -137.901 )
+position = Vector2( 19.9091, -148.136 )
 rotation = -0.324994
 rest = Transform2D( 1, 0, 0, 1, 29.5752, -177.27 )
 
 [node name="Thigh front" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip"]
-position = Vector2( -63.7544, 63.4168 )
-rotation = -0.154645
+position = Vector2( -66.7302, 95.2513 )
+rotation = 0.208303
 rest = Transform2D( 1, 0, 0, 1, -63.7544, 54.0729 )
 __meta__ = {
 "_edit_ik_": true
 }
 
 [node name="Shin front" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Thigh front"]
-position = Vector2( -4.64224, 117.052 )
-rotation = 0.368434
+position = Vector2( 2.38477, 117.051 )
+rotation = -0.118603
 rest = Transform2D( 1, 0, 0, 1, 17.7618, 142.129 )
 
 [node name="Foot front" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Thigh front/Shin front"]
-position = Vector2( -47.912, 146.547 )
-rotation = -0.0311096
+position = Vector2( -43.298, 144.553 )
+rotation = 0.111164
 rest = Transform2D( 0.984457, 0.175626, -0.175626, 0.984457, -48.8218, 147.961 )
 
 [node name="Thigh back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip"]
-position = Vector2( 50.5104, 63.3388 )
-rotation = -0.351183
+position = Vector2( 53.4711, 89.2452 )
+rotation = -0.202896
 rest = Transform2D( 1, 0, 0, 1, 50.74, 53.5339 )
 
 [node name="Shin back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Thigh back"]
-position = Vector2( 7.43106, 109.673 )
-rotation = 0.951594
+position = Vector2( -5.57053, 115.797 )
+rotation = 0.812369
 rest = Transform2D( 0.784514, 0.620111, -0.620111, 0.784514, 34.1247, 126.439 )
 
 [node name="Foot back" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Thigh back/Shin back"]
-position = Vector2( 61.657, 133.996 )
-rotation = -0.355743
+position = Vector2( 58.4998, 130.786 )
+rotation = -0.344952
 rest = Transform2D( 0.922206, -0.3867, 0.3867, 0.922206, 78.804, 145.875 )
 
 [node name="Tail root" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip"]
 position = Vector2( -75.2711, 4.26479 )
-rotation = 0.410093
+rotation = 0.104036
 rest = Transform2D( 1, 0, 0, 1, -60.5878, -15.7578 )
 __meta__ = {
 "_edit_ik_": true
@@ -3975,11 +3975,12 @@ __meta__ = {
 
 [node name="Tail middle" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Tail root"]
 position = Vector2( -139.677, 106.687 )
+rotation = -0.480668
 rest = Transform2D( 1, 0, 0, 1, -139.677, 106.687 )
 
 [node name="Tail top" type="Bone2D" parent="BodyRoot/Skeleton2D/Hip/Tail root/Tail middle"]
 position = Vector2( -136.841, -31.9336 )
-rotation = 3.18078
+rotation = 3.77875
 rest = Transform2D( -0.742322, 0.670044, -0.670044, -0.742322, -136.841, -31.9336 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BodyRoot"]

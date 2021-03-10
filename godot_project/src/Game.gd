@@ -28,6 +28,10 @@ onready var _highscore_labels := _highscore_list.get_children()
 
 onready var _highscore_input_UI := $UI/EndGamePanel/HighscoreInput
 onready var _name_input_label := $UI/EndGamePanel/HighscoreInput/NameInputLabel
+onready var _eu_logo := $UI/EndGamePanel/EuLogoImage
+
+onready var _game_timer_panel := $UI/GameTimerPanel
+onready var _game_timer_label := $UI/GameTimerPanel/TimerLabel
 #onready var _button_submit := $UI/EndGamePanel/HighscoreInput/ButtonSubmit
 
 var _town : classTown
@@ -51,13 +55,19 @@ func _ready():
 	KeyboardBackend.connect("input_buffer_changed", self, "_on_keyboard_input_buffer_changed")
 	KeyboardBackend.connect("enter_key_pressed", self, "_on_keyboard_enter_pressed")
 	_highscore_labels.remove(0) # Just remove first child since that is title label
+	_game_timer_label.text = str(_game_timer.wait_time)
+	_game_timer_panel.show()
 	_game_finished = false
 	_can_enter_main_menu = false
 
 func _input(event):
 	if _game_finished:
-		if event is InputEventJoypadButton or event is InputEventKey and _can_enter_main_menu:
+		if (event is InputEventJoypadButton or event is InputEventKey) and _can_enter_main_menu:
 			Flow.change_scene_to("menu")
+
+func _physics_process(_delta):
+	if not _game_finished:
+		_game_timer_label.text = str(int(_game_timer.time_left))
 
 
 ################################################################################
@@ -80,6 +90,7 @@ func _finish_game() -> void:
 		# Enable UI for name input
 		_highscore_input_UI.show()
 		_highscore_list.hide()
+		_eu_logo.hide()
 
 		KeyboardBackend.clear_input_buffer_on_hide = false
 		KeyboardBackend.set_visible(true)
@@ -89,16 +100,17 @@ func _finish_game() -> void:
 		_update_highscore_list()
 		_highscore_input_UI.hide()
 		_highscore_list.show()
+		_eu_logo.show()
 		_can_enter_main_menu = true
 
 	_background.show()
 	_end_game_panel.show()
 	_viewport.hide()
+	_game_timer_panel.hide()
 
 func _update_highscore_list() -> void:
 	for highscore_label in _highscore_labels:
 		highscore_label.text = ""
-		highscore_label.hide()
 
 	var highscores : Array = State.get_highscores()
 	for i in _highscore_labels.size():
@@ -130,4 +142,5 @@ func _on_keyboard_enter_pressed() -> void:
 	_update_highscore_list()
 	_highscore_list.show()
 	_highscore_input_UI.hide()
+	_eu_logo.show()
 	_can_enter_main_menu = true
