@@ -302,6 +302,7 @@ text = "
 align = 1
 
 [node name="EuLogoImage" type="TextureRect" parent="UI/EndGamePanel"]
+visible = false
 margin_left = 435.0
 margin_top = 741.0
 margin_right = 1488.0

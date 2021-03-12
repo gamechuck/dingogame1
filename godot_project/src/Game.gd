@@ -101,7 +101,7 @@ func _finish_game() -> void:
 		_update_highscore_list()
 		_highscore_input_UI.hide()
 		_highscore_panel.show()
-		_eu_logo.show()
+#		_eu_logo.show()
 		_can_enter_main_menu = true
 
 	_background.show()
@@ -143,5 +143,5 @@ func _on_keyboard_enter_pressed() -> void:
 	_update_highscore_list()
 	_highscore_panel.show()
 	_highscore_input_UI.hide()
-	_eu_logo.show()
+#	_eu_logo.show()
 	_can_enter_main_menu = true
