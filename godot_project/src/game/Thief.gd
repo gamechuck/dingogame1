@@ -32,7 +32,7 @@ func interact(_interactor : Node2D) -> void:
 	emit_signal("thief_handled")
 	interactable = false
 	_animator.play("Death")
-	AudioEngine.play_effect("thief_falling")
+	#AudioEngine.play_effect("thief_falling")
 	_fall_down = true
 	_fall_start_y = global_position.y
 	z_as_relative = false
