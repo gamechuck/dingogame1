@@ -101,7 +101,7 @@ func _move() -> void:
 	var speed = _movement_speed
 	if _falling_down or _jumped:
 			speed *= 0.8
-	if Input.is_action_pressed("move_left"):
+	if global_position.x > 100.0 and Input.is_action_pressed("move_left"):
 		linear_velocity.x = 0
 
 		apply_central_impulse(Vector2.LEFT * speed)
